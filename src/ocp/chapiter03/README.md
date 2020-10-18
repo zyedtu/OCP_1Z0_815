@@ -6,6 +6,16 @@
 L'opérateur est un symbole spécial qui peut être appliqué à un ensemble de variables, de valeurs ou 
 de littéraux - appelés opérandes - et qui renvoie un résultat. 
 
+##### Expressions: (Expressions)  
+
+Une expression est une construction composée de variables, d'opérateurs et d'appels de méthode, qui sont construits selon la syntaxe du langage, qui s'évalue à une valeur unique. Vous avez déjà vu des exemples d'expressions, voila une liste d'**expressions**  
+
+	int cadence = 0; // Expression
+	anArray[0] = 100; // Expression
+	int result = 1 + 2; // result is now 3 Expression
+	if (value1 == value2) // value1 == value2 est un Expression
+	1 * 2 * 3 // Expression
+
 ##### Type d'opérateurs: (Type d'opérateurs)
 
 En général, trois types d'opérateurs sont disponibles en java:  
