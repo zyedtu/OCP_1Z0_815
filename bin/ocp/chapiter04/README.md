@@ -229,3 +229,168 @@ Enfin, l'instruction Switch prend en charge la promotion numérique qui ne nécess
   
 - small et l'expresion 1+2 Le compilateur peut facilement cast un small ou 1+2  à int au moment de la compilation car la valeur 15  et la valuer 3 est suffisamment petite pour tenir dans un short.  
 - big est trop grand pour contenir un short.  
+
+# Écriture de boucles While: (Writing While Loops) 
+
+Une pratique courante lors de l'écriture de logiciels est la nécessité de faire la même tâche un certain 
+nombre de fois. Vous pouvez utiliser les structures de décision que nous avons présentées jusqu'à présent 
+pour y parvenir, mais cela va être une assez longue chaîne de déclarations if ou else...  
+Entrez des boucles! Une boucle est une structure de contrôle répétitive qui peut exécuter une instruction 
+de code plusieurs fois de suite  
+Dans l'exemple suivant, la boucle incrémente une variable de compteur qui fait augmenter la valeur de price
+de 10 à chaque exécution de la boucle  
+
+	int counter = 0;
+	while (counter < 10) {
+		double price = counter * 10;
+		System.out.println(price);
+		counter++;
+	}
+
+##### La déclaration While :(The While Statement)  
+
+La structure de contrôle respective la plus simple en Java est l'instruction while, il a une condition de 
+terminaison, implémentée comme une expression booléenne, qui continuera tant que l'expression sera évaluée 
+à vrai
+
+	while(booleanExpression){
+		// Body
+	}
+Les parentheses sont obligatoire et les curly braces obliqatoire si le block contient plusieus instructions.  
+
+##### La déclaration do / While: (The do/While Statement)
+
+La seconde forme qu'une boucle while peut prendre est appelée boucle do / while. Contrairement à une boucle while, through, une boucle do / while garantit que l'instruction ou le bloc sera exécuté au moins une fois  
+
+	do{
+		// BODY
+	}while(booleanExpression); // semicolon(virgule) obligatoire
+	
+##### Comparaison des boucles while et do / while: (Comparing while and do/while loops)  
+
+		int llama = 10;
+		
+		while(llama > 10) {
+			System.out.println("Llama while!");
+		}
+		
+		do {
+			System.out.println("Llama do/while!");
+		}while(llama > 10);
+La boucle While n'affiche rien, contrairement la boucle do/while affiche *Llama do/while!* donc grandit l'execution du bloc une fois.  
+
+# Construction boucles for: (Construction for Loops)  
+
+Avec cela, nous présentons la structure de contrôle de répétition la plus pratique des boucles for, Il existe deux types de la boule for, bien que les deux utilisent le même mot-clé for. La première est appelée boucle for de base et la seconde est souvent appelée boucle for améliorée. Pour plus de clarté, nous les appellerons respectivement la boucle for et la boucle for-each, tout au long du livre.  
+
+##### La boucle for: (The for loop)  
+
+Une boucle for de base a la même expression et instruction booléenne conditionnelle, ou bloc d'instructions, que les boucles while, ainsi que deux nouvelles sections: un bloc d'ini tialisation et une instruction de mise à jour.  
+
+	for(initialization; booleanExpression; updateStatement){
+		//Body
+	}
+Dans la boucle for il y a 5 étapes: 
+1. L'instruction d'initialisation s'exécute
+2. si booleanExpression est vrai continuer, sinon quitter la boucle
+3. Exécution du corps
+4. Exécuter updateStatement
+5. Retourner à l'étape 2  
+
+Jetons un coup d'œil à un exemple qui imprime les cinq premiers nombres commençant par zéro:  
+
+		for(int i = 0; i < 5; i++) {
+			System.out.print(i + " "); // 0 1 2 3 4
+		}
+
+##### Afficher d'éléments à l'envers: (Printing Elements in Reverse)  
+
+Disons que vous vouliez imprimer les mêmes cinq premiers nombres pour zéro que nous l'avons fait dans la section précédente, mais cette fois dans l'ordre inverse, le but est d'afficher 4 3 2 1 0.  
+Comment feriez-vous cela? À partir de Java 10, vous pouvez maintenant voir var utilisé dans une boucle for, alors utilisons-le pour cet exemple. Une mise en œuvre initiale peut ressembler à ce qui suit:
+
+		for(var counter = 5; counter > 0; counter--) {
+			System.out.print(counter + " "); //5 4 3 2 1
+		}
+C'est pas ça le resultat entendu, en doit initialiser en 4 et afficher le 0:  
+
+		for(var counter = 4; counter >= 0; counter--) {
+			System.out.print(counter + " "); //4 3 2 1 0 
+		}
+Finalement! Nous avons du code qui affiche 4 3 2 1 0.  
+
+##### Travailler avec les boucles for:(Working with for loops)  
+
+Bien que la plupart des boucles for que vous êtes susceptible de rencontrer dans votre expérience de développement professionnel seront bien définies et similaires aux exemples précédents, il existe un certain nombre de variations et de cas extrêmes que vous pourriez voir à l'examen. Vous devez vous familiariser avec les 5 exemples suivants:  
+
+###### Créer une boucle infinie: (Creating an infinite loop)
+
+	for( ; ; )
+		System.out.print("Hello world");
+Visisblement cet exemple ne compile pas, ça va en fait compile et s'eécute sans problème. Cet exemple crée une boucel infinie.  
+
+###### Ajout de plusieurs termes à l'instruction for:(Adding Multiple Terms to the for statement) 
+
+		int x = 0;
+		for(long y = 0, z = 4 ; x < 5 && y < 10 ; x++, y++)
+			System.out.print(y + " ");
+		System.out.println(x + " "); // 0 1 2 3 4 5 
+Ce code montre 3 variables dans une boucle for  
+
+###### Déclaration d'une variable dans le bloc d'initialisation: (Declaring a Variable in the Initialization Block)  
+
+		int x = 0;
+		
+		for(int x = 4; x < 5; x++) { // DOES NOT COMPILE
+			System.out.println(x + "");
+		}
+Ce code ne compile pas, à cause du bloc d'initialisation, x est répété dans le bloc d'initialisation après avoir déjà été déclaré avant la boucle.  Pour corriger ça:
+
+	   int x = 0;
+		
+		for(x = 4; x < 5; x++) { // COMPILE
+			System.out.println(x + "");
+		}
+
+###### Utilisation de types de données incompatibles dans le bloc d'initialisation: (Using Incompatible Data types in the Initialization block)  
+
+		int x = 0;
+		
+		for(long y = 0, int z = 4; x < 5; x++) { // DOES NOT COMPILE
+			System.out.print(y + " ");
+		}
+Ce code ne compile pas, parce que les variables dans le bloc d'initialisation doivent etre de meme type.  
+
+		int x = 0;
+		
+		for(long y = 0,z = 4; x < 5; x++) { // COMPILE
+			System.out.print(y + " "); // 0 0 0 0 0 
+		}
+
+###### Utilisation de variables de boucle en dehors de la boucle:(Using Loop Variables Outside the Loop)  
+
+		for(long y = 0, x = 4; x < 5 && y < 10; y++) {
+			System.out.print(y + " ");
+		}
+		System.out.println(x); // DOES NOT COMPILE
+Ce code ne compile pas, la variable x est initialisée dans la boucle dans la portée de la variable x est dans la boucle for.
+
+##### Modification des variables de boucle: (Modifying Loop Variables)
+
+Que se passe-t-il si vous modifiez une variable dans une boucle for, ou toute autre boucle d'ailleurs:  
+
+		for(int i=0; i<10; i++)
+			i=0;
+			
+		for(int j=0; j<10; j++)
+			j--;
+		
+		for(int k=0; k<10;)
+			k++;
+Ces deux codes complient bien, comme Java vous permet de modifier les variables de boucle, qu'elles soient dans les boucles for, while ou do / while  
+* Le premier et le deuxieme exemple créent une boucle infinie.
+* Le dernier exécute la boucle 10 fois.
+
+##### La boucle for-each: (The for-each Loop)
+
+
+
