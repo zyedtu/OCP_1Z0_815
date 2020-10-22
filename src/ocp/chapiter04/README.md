@@ -120,7 +120,7 @@ Dans Java 7, les instructions switch ont été davantage mises à jour pour perm
 Dans Java 10, si le type auquel une variable est résolue est l'un des types pris en charge par une instruction switch, alors var peut également être utilisé dans une instruction switch.  
 
 Voici une liste de tous les types de données pris en charge par l'instruction switch:
-* { **int et Integer, byte et Byte, short et Short, char et Character, Strin, enum, var (Si le type se résout en l'un des types précédents) } **  [pip]*
+* { **int et Integer, byte et Byte, short et Short, char et Character, Strin, enum, var (Si le type se résout en l'un des types précédents)** }
 
 ###### Flux de contrôle de Switch: (Switch Control Flow)  
 
