@@ -25,7 +25,7 @@ Une déclaration ou un bloc fonctionnent souvent comme la cible d'une déclarati
 	}
 Ces deux  codes sont equivalants.  
 
-##### L'instruction if: (The if statement)
+### L'instruction if: (The if statement)
 
 Souvent, nous voulons exécuter un bloc de code uniquement dans certaines circonstances, l'instruction if accomplit cela en permettant à votre application d'exécuter un bloc particulier  
 
@@ -69,7 +69,7 @@ Maintenant, notre code bifurque véritablement entre l'une des deux options poss
 		System.out.println("Good Evening");
 	}
 
-##### L'instruction switch: (The switch statement)
+### L'instruction switch: (The switch statement)
 
 Que faire si nous avons beaucoup de branches possibles pour une valeur unique, par exemple, nous pourrions vouloir imprimer un message différent en fonction du jour de la semaine. Nous pourrions certainement accomplir cela avec une combinaison de sept si ou autre, mais cela tend à créer du code long et difficile à lire.  
 Heureusement, Java, avec de nombreux autres langages, offre une approche plus propre. Une instruction switch  
@@ -247,7 +247,7 @@ de 10 à chaque exécution de la boucle
 		counter++;
 	}
 
-##### La déclaration While :(The While Statement)  
+### La déclaration While :(The While Statement)  
 
 La structure de contrôle respective la plus simple en Java est l'instruction while, il a une condition de 
 terminaison, implémentée comme une expression booléenne, qui continuera tant que l'expression sera évaluée 
@@ -258,7 +258,7 @@ terminaison, implémentée comme une expression booléenne, qui continuera tant 
 	}
 Les parentheses sont obligatoire et les curly braces obliqatoire si le block contient plusieus instructions.  
 
-##### La déclaration do / While: (The do/While Statement)
+### La déclaration do / While: (The do/While Statement)
 
 La seconde forme qu'une boucle while peut prendre est appelée boucle do / while. Contrairement à une boucle while, through, une boucle do / while garantit que l'instruction ou le bloc sera exécuté au moins une fois  
 
@@ -266,7 +266,7 @@ La seconde forme qu'une boucle while peut prendre est appelée boucle do / while
 		// BODY
 	}while(booleanExpression); // semicolon(virgule) obligatoire
 	
-##### Comparaison des boucles while et do / while: (Comparing while and do/while loops)  
+### Comparaison des boucles while et do / while: (Comparing while and do/while loops)  
 
 		int llama = 10;
 		
@@ -283,7 +283,7 @@ La boucle While n'affiche rien, contrairement la boucle do/while affiche *Llama 
 
 Avec cela, nous présentons la structure de contrôle de répétition la plus pratique des boucles for, Il existe deux types de la boule for, bien que les deux utilisent le même mot-clé for. La première est appelée boucle for de base et la seconde est souvent appelée boucle for améliorée. Pour plus de clarté, nous les appellerons respectivement la boucle for et la boucle for-each, tout au long du livre.  
 
-##### La boucle for: (The for loop)  
+### La boucle for: (The for loop)  
 
 Une boucle for de base a la même expression et instruction booléenne conditionnelle, ou bloc d'instructions, que les boucles while, ainsi que deux nouvelles sections: un bloc d'ini tialisation et une instruction de mise à jour.  
 
@@ -303,7 +303,7 @@ Jetons un coup d'il à un exemple qui imprime les cinq premiers nombres commen
 			System.out.print(i + " "); // 0 1 2 3 4
 		}
 
-##### Afficher d'éléments à l'envers: (Printing Elements in Reverse)  
+### Afficher d'éléments à l'envers: (Printing Elements in Reverse)  
 
 Disons que vous vouliez imprimer les mêmes cinq premiers nombres pour zéro que nous l'avons fait dans la section précédente, mais cette fois dans l'ordre inverse, le but est d'afficher 4 3 2 1 0.  
 Comment feriez-vous cela? À partir de Java 10, vous pouvez maintenant voir var utilisé dans une boucle for, alors utilisons-le pour cet exemple. Une mise en uvre initiale peut ressembler à ce qui suit:
@@ -318,7 +318,7 @@ C'est pas ça le resultat entendu, en doit initialiser en 4 et afficher le 0:
 		}
 Finalement! Nous avons du code qui affiche 4 3 2 1 0.  
 
-##### Travailler avec les boucles for:(Working with for loops)  
+### Travailler avec les boucles for:(Working with for loops)  
 
 Bien que la plupart des boucles for que vous êtes susceptible de rencontrer dans votre expérience de développement professionnel seront bien définies et similaires aux exemples précédents, il existe un certain nombre de variations et de cas extrêmes que vous pourriez voir à l'examen. Vous devez vous familiariser avec les 5 exemples suivants:  
 
@@ -374,7 +374,7 @@ Ce code ne compile pas, parce que les variables dans le bloc d'initialisation do
 		System.out.println(x); // DOES NOT COMPILE
 Ce code ne compile pas, la variable x est initialisée dans la boucle dans la portée de la variable x est dans la boucle for.
 
-##### Modification des variables de boucle: (Modifying Loop Variables)
+### Modification des variables de boucle: (Modifying Loop Variables)
 
 Que se passe-t-il si vous modifiez une variable dans une boucle for, ou toute autre boucle d'ailleurs:  
 
@@ -390,7 +390,7 @@ Ces deux codes complient bien, comme Java vous permet de modifier les variables 
 * Le premier et le deuxieme exemple créent une boucle infinie.
 * Le dernier exécute la boucle 10 fois.
 
-##### La boucle for-each: (The for-each Loop)
+### La boucle for-each: (The for-each Loop)
 
 
 
