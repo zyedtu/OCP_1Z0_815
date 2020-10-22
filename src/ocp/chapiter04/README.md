@@ -25,7 +25,7 @@ Une déclaration ou un bloc fonctionnent souvent comme la cible d'une déclarati
 	}
 Ces deux  codes sont equivalants.  
 
-##### L'instruction if: (The if statement)
+### L'instruction if: (The if statement)
 
 Souvent, nous voulons exécuter un bloc de code uniquement dans certaines circonstances, l'instruction if accomplit cela en permettant à votre application d'exécuter un bloc particulier  
 
