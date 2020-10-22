@@ -7,7 +7,7 @@ Les opérateurs Java vous permettent de créer de nombreuses expressions complex
 ### Instructions et blocs:(Statements and Blocks)
 
 Comme vous vous en souvenez du chapitre 2, une instruction Java est une unité d'exécution complète en Java, terminée par un point-virgule(semicolon) **;**  
-Ces instructions peuvent être appliquées à des expressions uniques ainsi qu'à un bloc de code Java. Comme décrit au chapitre 2, un bloc de code en Java est un groupe de zéro instruction ou plus entre accolades équilibrées ** {} **  
+Ces instructions peuvent être appliquées à des expressions uniques ainsi qu'à un bloc de code Java. Comme décrit au chapitre 2, un bloc de code en Java est un groupe de zéro instruction ou plus entre accolades équilibrées **{}**  
 
 	patrons++; // Single statement
 	
