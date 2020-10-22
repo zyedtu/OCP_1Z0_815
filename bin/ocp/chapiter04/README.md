@@ -1,13 +1,13 @@
 									MAKING DECISIONS
 									
-# CrÃ©ation d'Ã©noncÃ©s dÃ©cisionnels: (Creating Decision-Making Statements)
+# Création d'énoncés décisionnels: (Creating Decision-Making Statements)
 
-Les opÃ©rateurs Java vous permettent de crÃ©er de nombreuses expressions complexes, mais ils sont limitÃ©s dans la maniÃ¨re dont ils peuvent contrÃ´ler le flux du programme. 
+Les opérateurs Java vous permettent de créer de nombreuses expressions complexes, mais ils sont limités dans la manière dont ils peuvent contrôler le flux du programme. 
 
 ### Instructions et blocs:(Statements and Blocks)
 
-Comme vous vous en souvenez du chapitre 2, une instruction Java est une unitÃ© d'exÃ©cution complÃ¨te en Java, terminÃ©e par un point-virgule(semicolon) **;**  
-Ces instructions peuvent Ãªtre appliquÃ©es Ã  des expressions uniques ainsi qu'Ã  un bloc de code Java. Comme dÃ©crit au chapitre 2, un bloc de code en Java est un groupe de zÃ©ro instruction ou plus entre accolades Ã©quilibrÃ©es ** {} **  
+Comme vous vous en souvenez du chapitre 2, une instruction Java est une unité d'exécution complète en Java, terminée par un point-virgule(semicolon) **;**  
+Ces instructions peuvent être appliquées à des expressions uniques ainsi qu'à un bloc de code Java. Comme décrit au chapitre 2, un bloc de code en Java est un groupe de zéro instruction ou plus entre accolades équilibrées ** {} **  
 
 	patrons++; // Single statement
 	
@@ -15,7 +15,7 @@ Ces instructions peuvent Ãªtre appliquÃ©es Ã  des expressions uniques ains
 		partron++; // Statement inside a block
 	} 
 
-Une dÃ©claration ou un bloc fonctionnent souvent comme la cible d'une dÃ©claration de prise de dÃ©cision. Par exemple, nous pouvons ajouter la dÃ©claration de L'instruction if Ã  ces deux exemples
+Une déclaration ou un bloc fonctionnent souvent comme la cible d'une déclaration de prise de décision. Par exemple, nous pouvons ajouter la déclaration de L'instruction if à ces deux exemples
 
 	if(ticketsTaken > 1)
 		patron++; // Single statement
@@ -27,16 +27,16 @@ Ces deux  codes sont equivalants.
 
 ##### L'instruction if: (The if statement)
 
-Souvent, nous voulons exÃ©cuter un bloc de code uniquement dans certaines circonstances, l'instruction if accomplit cela en permettant Ã  votre application d'exÃ©cuter un bloc particulier  
+Souvent, nous voulons exécuter un bloc de code uniquement dans certaines circonstances, l'instruction if accomplit cela en permettant à votre application d'exécuter un bloc particulier  
 
 	if(booleanExpression) {
 		//Branch if true
 	}		
-Par exemple, imaginons que nous ayons une fonction qui utilisait l'heure du jour, une valeur entiÃ¨re de 0 Ã  23, pour afficher un message Ã  l'utilisateur:
+Par exemple, imaginons que nous ayons une fonction qui utilisait l'heure du jour, une valeur entière de 0 à 23, pour afficher un message à l'utilisateur:
 
 	if(hourOfDay > 13)
 		System.out.println("Good Morning");
-si l'heure de la journÃ©e est infÃ©rieure Ã  11, le message sera affichÃ©
+si l'heure de la journée est inférieure à 11, le message sera affiché
 
 	if(hourOfDay < 11){
 		System.out.println("Good Morning");
@@ -45,7 +45,7 @@ si l'heure de la journÃ©e est infÃ©rieure Ã  11, le message sera affichÃ�
 	
 ##### L'instruction else: (The else statement)
 
-DÃ©veloppons un peu notre exemple, que faire si nous voulons afficher un message diffÃ©rent s'il est 11 h ou plus tard. Pourrions-nous le faire en utilisant uniquement les outils dont nous disposons? bien sÃ»r on peut, on utilisant l'instruction **else**  
+Développons un peu notre exemple, que faire si nous voulons afficher un message différent s'il est 11 h ou plus tard. Pourrions-nous le faire en utilisant uniquement les outils dont nous disposons? bien sûr on peut, on utilisant l'instruction **else**  
 
 	if(booleanExpression){
 		// Branch iftrue
@@ -59,7 +59,7 @@ Alors notre exemple devient:
 	} else{
 		System.out.println("Good Afternoon");
 	}
-Maintenant, notre code bifurque vÃ©ritablement entre l'une des deux options possibles, l'Ã©valuation boolÃ©enne ne se produisant qu'une seule fois. L'opÃ©rateur else prend une instruction ou un bloc d'instructions, de la mÃªme maniÃ¨re que l'instruction if. De mÃªme, nous pouvons ajouter une instruction if supplÃ©mentaire Ã  un bloc else pour arriver Ã  un exemple plus raffinÃ©  
+Maintenant, notre code bifurque véritablement entre l'une des deux options possibles, l'évaluation booléenne ne se produisant qu'une seule fois. L'opérateur else prend une instruction ou un bloc d'instructions, de la même manière que l'instruction if. De même, nous pouvons ajouter une instruction if supplémentaire à un bloc else pour arriver à un exemple plus raffiné  
 	
 	if(hourOfDay < 11){
 		System.out.println("Good Morning");
@@ -71,7 +71,7 @@ Maintenant, notre code bifurque vÃ©ritablement entre l'une des deux options po
 
 ##### L'instruction switch: (The switch statement)
 
-Que faire si nous avons beaucoup de branches possibles pour une valeur unique, par exemple, nous pourrions vouloir imprimer un message diffÃ©rent en fonction du jour de la semaine. Nous pourrions certainement accomplir cela avec une combinaison de sept si ou autre, mais cela tend Ã  crÃ©er du code long et difficile Ã  lire.  
+Que faire si nous avons beaucoup de branches possibles pour une valeur unique, par exemple, nous pourrions vouloir imprimer un message différent en fonction du jour de la semaine. Nous pourrions certainement accomplir cela avec une combinaison de sept si ou autre, mais cela tend à créer du code long et difficile à lire.  
 Heureusement, Java, avec de nombreux autres langages, offre une approche plus propre. Une instruction switch  
 
 	switch(variableToTest){ //required
@@ -85,15 +85,15 @@ Heureusement, Java, avec de nombreux autres langages, offre une approche plus pr
 		default:
 			// Branch for default
 	}//required
-###### Syntaxe appropriÃ©e du Switch:(Proper Switch syntax) 
+###### Syntaxe appropriée du Switch:(Proper Switch syntax) 
 
-Ã‰tant donnÃ© que les instructions de Switch peuvent Ãªtre plus longues que la plupart des dÃ©clarations de prise de dÃ©cision, l'examen peut prÃ©senter une syntaxe de switch non valide pour voir si vous faites attention.
+Étant donné que les instructions de Switch peuvent être plus longues que la plupart des déclarations de prise de décision, l'examen peut présenter une syntaxe de switch non valide pour voir si vous faites attention.
 
 	int month = 5;
 	switch month { // DOES NOT COMPILE
 			case 1: System.out.println("January");
 	}
-L'instruction switch ne se compile pas car il  manquante les parenthÃ¨ses entre la variable switch **(month)**  
+L'instruction switch ne se compile pas car il  manquante les parenthèses entre la variable switch **(month)**  
 
 	switch (month) // DOES NOT COMPILE
 			case 1: System.out.println("January");
@@ -102,27 +102,27 @@ L'instruction switch ne se compile pas car il  manquante les accolade **{}**
 	switch (month) { 
 			case 1: 2: System.out.println("January");// DOES NOT COMPILE
 	}
-L'instruction switch ne se compile pas car le mot clÃ© case est manquant avant le 2:
+L'instruction switch ne se compile pas car le mot clé case est manquant avant le 2:
 
 	switch (month) { 
 			case 1 || 2: System.out.println("January");// DOES NOT COMPILE
 	}
-Enfin, la derniÃ¨re instruction switch ne se compile pas car **1 || 2** utilise les opÃ©rateurs boolÃ©ens de court-circuit, qui ne peuvent pas Ãªtre appliquÃ©s aux valeurs numÃ©riques. Un seul opÃ©rateur au niveau du bit(bitwise) **|** aurait tout le code Ã  compiler (pas l'opÃ©ratuer ou logique aussi(|), donc l'interpretation de 1 | 2 donne la valuer 3 et pas 1 ou 2:
+Enfin, la dernière instruction switch ne se compile pas car **1 || 2** utilise les opérateurs booléens de court-circuit, qui ne peuvent pas être appliqués aux valeurs numériques. Un seul opérateur au niveau du bit(bitwise) **|** aurait tout le code à compiler (pas l'opératuer ou logique aussi(|), donc l'interpretation de 1 | 2 donne la valuer 3 et pas 1 ou 2:
 
 	 switch (month) { 
 				case 1 | 2: System.out.println("January");// COMPILE Operator BITWISE, not OR Logique
 		}
-###### Changer de type de donnÃ©es:(Switch Data Types)
+###### Changer de type de données:(Switch Data Types)
 
-Avant Java 5.0, la variable de l'instruction switch ne pouvait Ãªtre que int ou les valeurs pouvant Ãªtre promues en int, (byte, short, char). la variable de l'instruction switch accepte les wrapper classes (Integer, Byte,..).  
-Lorsque l'Ã©numÃ©ration, notÃ©e enum, Ã©tait ajoutÃ©e dans Java 5.0, le support Ã©tait ajoutÃ© Ã  switch.  
-Dans Java 7, les instructions switch ont Ã©tÃ© davantage mises Ã  jour pour permettre la correspondance sur les valeurs String.  
-Dans Java 10, si le type auquel une variable est rÃ©solue est l'un des types pris en charge par une instruction switch, alors var peut Ã©galement Ãªtre utilisÃ© dans une instruction switch.  
+Avant Java 5.0, la variable de l'instruction switch ne pouvait être que int ou les valeurs pouvant être promues en int, (byte, short, char). la variable de l'instruction switch accepte les wrapper classes (Integer, Byte,..).  
+Lorsque l'énumération, notée enum, était ajoutée dans Java 5.0, le support était ajouté à switch.  
+Dans Java 7, les instructions switch ont été davantage mises à jour pour permettre la correspondance sur les valeurs String.  
+Dans Java 10, si le type auquel une variable est résolue est l'un des types pris en charge par une instruction switch, alors var peut également être utilisé dans une instruction switch.  
 
-Voici une liste de tous les types de donnÃ©es pris en charge par l'instruction switch:
-* { **int et Integer, byte et Byte, short et Short, char et Character, Strin, enum, var (Si le type se rÃ©sout en l'un des types prÃ©cÃ©dents) } **  [pip]*
+Voici une liste de tous les types de données pris en charge par l'instruction switch:
+* { **int et Integer, byte et Byte, short et Short, char et Character, Strin, enum, var (Si le type se résout en l'un des types précédents) } **  [pip]*
 
-###### Flux de contrÃ´le de Switch: (Switch Control Flow)  
+###### Flux de contrôle de Switch: (Switch Control Flow)  
 
 	   int dayOfWeek = 5;
 		switch(dayOfWeek) {
@@ -154,7 +154,7 @@ Le remarque ici que l'instruction break ne figure pas dans le bloc default donc 
 
 ###### Valeurs de case acceptables: (Acceptable case Values) 
 
-Dans ce paragraphe on va parler sur les valeurs accÃ©ptÃ©es par l'instruction case.
+Dans ce paragraphe on va parler sur les valeurs accéptées par l'instruction case.
 
 		final int getCookies() {return 4;}
 	
@@ -170,10 +170,10 @@ Dans ce paragraphe on va parler sur les valeurs accÃ©ptÃ©es par l'instructio
 			case 3*5:
 		}
 
- - bananas est marquÃ© final, sa valeur est connue au moment de la compilation.  
- - ap	ples non marquÃ© final, mÃªme si sa valeur est connue, elle n'est donc pas autorisÃ©e.  
- - getCookies() et cookies, ne compilent pas par ce que leurs valeurs ne sont pas Ã©valuÃ©s Ã  la complition, elles sont Ã©valuÃ©es pendent l'exÃ©cution (runtime).  
- - 3*5 est une expression, et comme expression sont autorisÃ©s comme valeur de case.  
+ - bananas est marqué final, sa valeur est connue au moment de la compilation.  
+ - ap	ples non marqué final, même si sa valeur est connue, elle n'est donc pas autorisée.  
+ - getCookies() et cookies, ne compilent pas par ce que leurs valeurs ne sont pas évalués à la complition, elles sont évaluées pendent l'exécution (runtime).  
+ - 3*5 est une expression, et comme expression sont autorisés comme valeur de case.  
 
 ###### Un exemple plus complexe: (A More Complex Example) 
 
@@ -206,17 +206,17 @@ Dans ce paragraphe on va parler sur les valeurs accÃ©ptÃ©es par l'instructio
 		}
 		return id;
 	}  
-- Le premier instruction case "Test" compile parce que c'est litÃ©ral.  
-- middleName ne compile pas parc que n'est pas marquÃ© final.  
+- Le premier instruction case "Test" compile parce que c'est litéral.  
+- middleName ne compile pas parc que n'est pas marqué final.  
 - suffix complie  est une constante final.   
-- lastName, bien qu'il soit final, ce n'est pas une variable constante car il est passÃ© Ã  la fonction  
+- lastName, bien qu'il soit final, ce n'est pas une variable constante car il est passé à la fonction  
 - 5 ne complie parceq que c'est int et non pas String  
 - 'J' c'est un char ne matche pas avec un String    
 - java.time.DayOfWeek.SUNDAY enum ne match pas avec String  
 
-###### Promotion numÃ©rique et casting: (Numeric Promotion and Casting)  
+###### Promotion numérique et casting: (Numeric Promotion and Casting)  
 
-Enfin, l'instruction Switch prend en charge la promotion numÃ©rique qui ne nÃ©cessite pas de conversion explicite. Par exemple:
+Enfin, l'instruction Switch prend en charge la promotion numérique qui ne nécessite pas de conversion explicite. Par exemple:
 
 		short size = 4;
 		final int small = 15;
@@ -227,18 +227,18 @@ Enfin, l'instruction Switch prend en charge la promotion numÃ©rique qui ne nÃ
 			case big: // DOES NOT COMPILE
 		}
   
-- small et l'expresion 1+2 Le compilateur peut facilement cast un small ou 1+2  Ã  int au moment de la compilation car la valeur 15  et la valuer 3 est suffisamment petite pour tenir dans un short.  
+- small et l'expresion 1+2 Le compilateur peut facilement cast un small ou 1+2  à int au moment de la compilation car la valeur 15  et la valuer 3 est suffisamment petite pour tenir dans un short.  
 - big est trop grand pour contenir un short.  
 
-# Ã‰criture de boucles While: (Writing While Loops) 
+# Écriture de boucles While: (Writing While Loops) 
 
-Une pratique courante lors de l'Ã©criture de logiciels est la nÃ©cessitÃ© de faire la mÃªme tÃ¢che un certain 
-nombre de fois. Vous pouvez utiliser les structures de dÃ©cision que nous avons prÃ©sentÃ©es jusqu'Ã  prÃ©sent 
-pour y parvenir, mais cela va Ãªtre une assez longue chaÃ®ne de dÃ©clarations if ou else...  
-Entrez des boucles! Une boucle est une structure de contrÃ´le rÃ©pÃ©titive qui peut exÃ©cuter une instruction 
+Une pratique courante lors de l'écriture de logiciels est la nécessité de faire la même tâche un certain 
+nombre de fois. Vous pouvez utiliser les structures de décision que nous avons présentées jusqu'à présent 
+pour y parvenir, mais cela va être une assez longue chaîne de déclarations if ou else...  
+Entrez des boucles! Une boucle est une structure de contrôle répétitive qui peut exécuter une instruction 
 de code plusieurs fois de suite  
-Dans l'exemple suivant, la boucle incrÃ©mente une variable de compteur qui fait augmenter la valeur de price
-de 10 Ã  chaque exÃ©cution de la boucle  
+Dans l'exemple suivant, la boucle incrémente une variable de compteur qui fait augmenter la valeur de price
+de 10 à chaque exécution de la boucle  
 
 	int counter = 0;
 	while (counter < 10) {
@@ -247,20 +247,20 @@ de 10 Ã  chaque exÃ©cution de la boucle
 		counter++;
 	}
 
-##### La dÃ©claration While :(The While Statement)  
+##### La déclaration While :(The While Statement)  
 
-La structure de contrÃ´le respective la plus simple en Java est l'instruction while, il a une condition de 
-terminaison, implÃ©mentÃ©e comme une expression boolÃ©enne, qui continuera tant que l'expression sera Ã©valuÃ©e 
-Ã  vrai
+La structure de contrôle respective la plus simple en Java est l'instruction while, il a une condition de 
+terminaison, implémentée comme une expression booléenne, qui continuera tant que l'expression sera évaluée 
+à vrai
 
 	while(booleanExpression){
 		// Body
 	}
 Les parentheses sont obligatoire et les curly braces obliqatoire si le block contient plusieus instructions.  
 
-##### La dÃ©claration do / While: (The do/While Statement)
+##### La déclaration do / While: (The do/While Statement)
 
-La seconde forme qu'une boucle while peut prendre est appelÃ©e boucle do / while. Contrairement Ã  une boucle while, through, une boucle do / while garantit que l'instruction ou le bloc sera exÃ©cutÃ© au moins une fois  
+La seconde forme qu'une boucle while peut prendre est appelée boucle do / while. Contrairement à une boucle while, through, une boucle do / while garantit que l'instruction ou le bloc sera exécuté au moins une fois  
 
 	do{
 		// BODY
@@ -281,37 +281,37 @@ La boucle While n'affiche rien, contrairement la boucle do/while affiche *Llama 
 
 # Construction boucles for: (Construction for Loops)  
 
-Avec cela, nous prÃ©sentons la structure de contrÃ´le de rÃ©pÃ©tition la plus pratique des boucles for, Il existe deux types de la boule for, bien que les deux utilisent le mÃªme mot-clÃ© for. La premiÃ¨re est appelÃ©e boucle for de base et la seconde est souvent appelÃ©e boucle for amÃ©liorÃ©e. Pour plus de clartÃ©, nous les appellerons respectivement la boucle for et la boucle for-each, tout au long du livre.  
+Avec cela, nous présentons la structure de contrôle de répétition la plus pratique des boucles for, Il existe deux types de la boule for, bien que les deux utilisent le même mot-clé for. La première est appelée boucle for de base et la seconde est souvent appelée boucle for améliorée. Pour plus de clarté, nous les appellerons respectivement la boucle for et la boucle for-each, tout au long du livre.  
 
 ##### La boucle for: (The for loop)  
 
-Une boucle for de base a la mÃªme expression et instruction boolÃ©enne conditionnelle, ou bloc d'instructions, que les boucles while, ainsi que deux nouvelles sections: un bloc d'ini tialisation et une instruction de mise Ã  jour.  
+Une boucle for de base a la même expression et instruction booléenne conditionnelle, ou bloc d'instructions, que les boucles while, ainsi que deux nouvelles sections: un bloc d'ini tialisation et une instruction de mise à jour.  
 
 	for(initialization; booleanExpression; updateStatement){
 		//Body
 	}
-Dans la boucle for il y a 5 Ã©tapes: 
-1. L'instruction d'initialisation s'exÃ©cute
+Dans la boucle for il y a 5 étapes: 
+1. L'instruction d'initialisation s'exécute
 2. si booleanExpression est vrai continuer, sinon quitter la boucle
-3. ExÃ©cution du corps
-4. ExÃ©cuter updateStatement
-5. Retourner Ã  l'Ã©tape 2  
+3. Exécution du corps
+4. Exécuter updateStatement
+5. Retourner à l'étape 2  
 
-Jetons un coup d'Âœil Ã  un exemple qui imprime les cinq premiers nombres commenÃ§ant par zÃ©ro:  
+Jetons un coup d'il à un exemple qui imprime les cinq premiers nombres commençant par zéro:  
 
 		for(int i = 0; i < 5; i++) {
 			System.out.print(i + " "); // 0 1 2 3 4
 		}
 
-##### Afficher d'Ã©lÃ©ments Ã  l'envers: (Printing Elements in Reverse)  
+##### Afficher d'éléments à l'envers: (Printing Elements in Reverse)  
 
-Disons que vous vouliez imprimer les mÃªmes cinq premiers nombres pour zÃ©ro que nous l'avons fait dans la section prÃ©cÃ©dente, mais cette fois dans l'ordre inverse, le but est d'afficher 4 3 2 1 0.  
-Comment feriez-vous cela? Ã€ partir de Java 10, vous pouvez maintenant voir var utilisÃ© dans une boucle for, alors utilisons-le pour cet exemple. Une mise en Âœuvre initiale peut ressembler Ã  ce qui suit:
+Disons que vous vouliez imprimer les mêmes cinq premiers nombres pour zéro que nous l'avons fait dans la section précédente, mais cette fois dans l'ordre inverse, le but est d'afficher 4 3 2 1 0.  
+Comment feriez-vous cela? À partir de Java 10, vous pouvez maintenant voir var utilisé dans une boucle for, alors utilisons-le pour cet exemple. Une mise en uvre initiale peut ressembler à ce qui suit:
 
 		for(var counter = 5; counter > 0; counter--) {
 			System.out.print(counter + " "); //5 4 3 2 1
 		}
-C'est pas Ã§a le resultat entendu, en doit initialiser en 4 et afficher le 0:  
+C'est pas ça le resultat entendu, en doit initialiser en 4 et afficher le 0:  
 
 		for(var counter = 4; counter >= 0; counter--) {
 			System.out.print(counter + " "); //4 3 2 1 0 
@@ -320,15 +320,15 @@ Finalement! Nous avons du code qui affiche 4 3 2 1 0.
 
 ##### Travailler avec les boucles for:(Working with for loops)  
 
-Bien que la plupart des boucles for que vous Ãªtes susceptible de rencontrer dans votre expÃ©rience de dÃ©veloppement professionnel seront bien dÃ©finies et similaires aux exemples prÃ©cÃ©dents, il existe un certain nombre de variations et de cas extrÃªmes que vous pourriez voir Ã  l'examen. Vous devez vous familiariser avec les 5 exemples suivants:  
+Bien que la plupart des boucles for que vous êtes susceptible de rencontrer dans votre expérience de développement professionnel seront bien définies et similaires aux exemples précédents, il existe un certain nombre de variations et de cas extrêmes que vous pourriez voir à l'examen. Vous devez vous familiariser avec les 5 exemples suivants:  
 
-###### CrÃ©er une boucle infinie: (Creating an infinite loop)
+###### Créer une boucle infinie: (Creating an infinite loop)
 
 	for( ; ; )
 		System.out.print("Hello world");
-Visisblement cet exemple ne compile pas, Ã§a va en fait compile et s'eÃ©cute sans problÃ¨me. Cet exemple crÃ©e une boucel infinie.  
+Visisblement cet exemple ne compile pas, ça va en fait compile et s'eécute sans problème. Cet exemple crée une boucel infinie.  
 
-###### Ajout de plusieurs termes Ã  l'instruction for:(Adding Multiple Terms to the for statement) 
+###### Ajout de plusieurs termes à l'instruction for:(Adding Multiple Terms to the for statement) 
 
 		int x = 0;
 		for(long y = 0, z = 4 ; x < 5 && y < 10 ; x++, y++)
@@ -336,14 +336,14 @@ Visisblement cet exemple ne compile pas, Ã§a va en fait compile et s'eÃ©cute
 		System.out.println(x + " "); // 0 1 2 3 4 5 
 Ce code montre 3 variables dans une boucle for  
 
-###### DÃ©claration d'une variable dans le bloc d'initialisation: (Declaring a Variable in the Initialization Block)  
+###### Déclaration d'une variable dans le bloc d'initialisation: (Declaring a Variable in the Initialization Block)  
 
 		int x = 0;
 		
 		for(int x = 4; x < 5; x++) { // DOES NOT COMPILE
 			System.out.println(x + "");
 		}
-Ce code ne compile pas, Ã  cause du bloc d'initialisation, x est rÃ©pÃ©tÃ© dans le bloc d'initialisation aprÃ¨s avoir dÃ©jÃ  Ã©tÃ© dÃ©clarÃ© avant la boucle.  Pour corriger Ã§a:
+Ce code ne compile pas, à cause du bloc d'initialisation, x est répété dans le bloc d'initialisation après avoir déjà été déclaré avant la boucle.  Pour corriger ça:
 
 	   int x = 0;
 		
@@ -351,7 +351,7 @@ Ce code ne compile pas, Ã  cause du bloc d'initialisation, x est rÃ©pÃ©tÃ
 			System.out.println(x + "");
 		}
 
-###### Utilisation de types de donnÃ©es incompatibles dans le bloc d'initialisation: (Using Incompatible Data types in the Initialization block)  
+###### Utilisation de types de données incompatibles dans le bloc d'initialisation: (Using Incompatible Data types in the Initialization block)  
 
 		int x = 0;
 		
@@ -372,7 +372,7 @@ Ce code ne compile pas, parce que les variables dans le bloc d'initialisation do
 			System.out.print(y + " ");
 		}
 		System.out.println(x); // DOES NOT COMPILE
-Ce code ne compile pas, la variable x est initialisÃ©e dans la boucle dans la portÃ©e de la variable x est dans la boucle for.
+Ce code ne compile pas, la variable x est initialisée dans la boucle dans la portée de la variable x est dans la boucle for.
 
 ##### Modification des variables de boucle: (Modifying Loop Variables)
 
