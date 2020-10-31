@@ -386,11 +386,178 @@ Que se passe-t-il si vous modifiez une variable dans une boucle for, ou toute au
 		
 		for(int k=0; k<10;)
 			k++;
-Ces deux codes complient bien, comme Java vous permet de modifier les variables de boucle, qu'elles soient dans les boucles for, while ou do / while  
+Ces deux codes compilient bien, comme Java vous permet de modifier les variables de boucle, qu'elles soient dans les boucles for, while ou do / while  
 * Le premier et le deuxieme exemple créent une boucle infinie.
 * Le dernier exécute la boucle 10 fois.
 
 ### La boucle for-each: (The for-each Loop)
 
+Disons que vous voulez parcourir un ensemble de valeurs, comme une liste de noms, et affiche chacune de nom. En utilisant une boucle for, cela peut être accompli avec une variable de compteur:
+
+	public void printNames(String[] names){
+		for(int counter = 0; counter < names.length; counter++)
+			System.out.println(names[counter]);
+	}
+cela fonctionne, bien que ce soit un peu verbeux, donc les auteurs de Java ont ajouté les améliorations pour la boucle For, la boucle for-each est une structure spécialisée conçue pour itérer sur des tableaux et diverses classes du Framework de collections: 
+
+	for(datatype instance : collection){ // patenthenses and Colon":" are required
+		// BADY
+	}
+Revenons à notre exemple précédent et voyons comment nous pouvons lui appliquer une boucle for-each:
+
+	public void printNames(String[] names){
+		for(String name: names)
+			System.out.println(name);
+	}
+* Exemples avec for-each:
+
+	final String[] names = new String[3];
+		names[0] = "Lisa";
+		names[1] = "Kevin";
+		names[2] = "Roger";
+		for(String name : names)
+			System.out.print(name + ", ");
+	}
+ce code compile sans problème est effiche: **Lisa, Kevin, Roger,**
+
+	String str = "Lisa";
+		for(String name: str) // DOES NOT COMPILE
+			System.out.print(name + ", ");
+ce code ne compile pas, String n'est pas un tableau.
+
+# Contrôle du flux avec branchement: (Controlling Flow with Branching)
+
+Le dernier type de structure de contrôle que nous aborderons dans le chapitre sont les instructions de branchement.
+
+### Boucles imbriquées: (Nested loops)
+
+Avant de passer aux instructions de branchement, nous devons introduire le concept de boucles imbriquées. Une boucle imbriquée est une boucle qui contient une autre boucle comprenant des boucles while, do/while, for et for-each, supposons maintenant que ce qui suit est de savoir comment déclarer un tableau à deux dimensions:
+
+	   int [][] myComplexArray = {{5,2,1,3}, {3,9,8,9}, {5,7,12,7}};
+		for(int[] mySimpleArray: myComplexArray) {
+			for(int i=0; i<mySimpleArray.length; i++)
+				System.out.print(mySimpleArray[i]+"\t");
+			System.out.println();
+		}
+Notez que nous mélangeons intentionnellement une boucle for et foreach dans cet exemple. La boucle externe s'exécutera trois fois au total. Chaque fois que la boucle externe s'exécute, la boucle interne est exécutée plusieurs fois. Lorsque nous exécutons ce code, nous voyons la sortie suivante:
+
+		5	2	1	3	
+		3	9	8	9	
+		5	7	12	7
+		
+### Ajout d'étiquettes facultatives:(Adding Optional Labels)
+
+Une chose que nous avons volontairement ignorée, nous avons présenté l'instruction if, les instructions switch et les boucles, c'est qu'elles ont toutes des étiquettes optionnelles.
+Une étiquette **label** est un pointeur facultatif vers l'en-tête d'une instruction qui permet au flux d'application d'y accéder ou d'en rompre. L'étiquette est un identifiant unique précédé de deux points (:)
+
+		int [][] myComplexArray = {{5,2,1,3}, {3,9,8,9}, {5,7,12,7}};
+		OUTER_LOOP: for(int[] mySimpleArray: myComplexArray) {
+			INNER_LOOP: for(int i=0; i<mySimpleArray.length; i++)
+				System.out.print(mySimpleArray[i]+"\t");
+			System.out.println();
+		}
+Les étiquettes suivent les mêmes règles de mise en forme que les identificateurs, elles sont généralement exprimées en majuscules, avec des traits de soulignement entre les mots, pour les distinguer des variables régulières.
+
+### La déclaration de rupture: (The break Statement) OcpTest9
+
+Comme vous l'avez vu lors de l'exécution de l'instruction switch, une instruction break transfère le flux de contrôle vers l'instruction englobante, il en va de même pour une instruction break qui apparaît à l'intérieur d'un while, do/while ou for loop:
+
+	optionalLabel: while(booleanExpression){
+		// BODY
+		// Somewher in loop
+		break optionalLabel;
+	}
+Que l'instruction break peut prendre une étiquette facultative. Sans un paramètre d'étiquette, l'instruction break terminera la boucle interne la plus proche qu'elle est actuellement en cours d'exécution. Le paramètre d'étiquette facultatif nous permet de sortir d'une boucle externe de niveau supérieur. Dans l'exemple suivant, nous recherchons la première position d'index de tableau (x, y) d'un nombre dans un tableau à deux dimensions non trié:
+
+		int [][] list = {{1,13}, {5,2}, {2,2}};
+		int searchValue = 2;
+		int positionX = -1;
+		int positionY = -1;
+		PARENT_LOOP: for(int i=0; i<list.length; i++) {
+			for(int j=0; j<list[i].length; j++) {
+				if(list[i][j] == searchValue) {
+					positionX = i;
+					positionY = j;
+					break PARENT_LOOP;
+				}
+			}
+		}
+		System.out.println("Value found at: ("+ positionX + "," + positionY+")" );
+Quand on execute ce programmme on aura ça comme resultat: **Value found at: (1,1)** 
+En particulier, jetez un œil à l'instruction break PARANT_LOOP, l'instruction sortira de l'ensemble de la structure de la boucle dès que la première valeur correspondante sera trouvée.  
+Maintenant, imaginez ce qui se passerait si nous remplaçions le corps de la boucle interne par ce qui suit:
+
+				if(list[i][j] == searchValue) {
+					positionX = i;
+					positionY = j;
+					break;
+				}
+Comment cela changerait notre flux, et la sortie changerait-elle? Au lieu de quitter lorsque la première valeur correspondante est trouvée, le programme ne quittera désormais la boucle interne que lorsque la condition est remplie:  
+Quand on execute le programmme **sans** le Label **PARENT_LOOP** on aura ça comme resultat: **Value found at: (1,1)** 
+ 
+
+### L'instruction continue: (The continue Statement) OcpTest10
+
+	optionalLabel: while(booleanExpression){
+		// BODY
+		// Somewher in loop
+		continue optionalLabel;
+	}
+Vous remarquerez peut-être que la syntaxe de l'instruction continue reflète celle de l'instruction break. En fait, les déclarations sont identiques dans la façon dont elles sont utilisées, mais avec des résultats différents. Alors que l'instruction break transfère le contrôle à l'instruction englobante, l'instruction continue transfère le contrôle à l'expression booléenne qui détermine si la boucle doit continuer  
+Jetons un coup d'œil à un exemple:
+
+	 CLEANING: for(char stables = 'a'; stables <= 'd'; stables++) {
+			for(int leopard = 1; leopard<4; leopard++) {
+				if(stables=='b' || leopard==2) {
+					continue CLEANING;
+				}
+				System.out.println("Cleaning: "+stables+","+leopard);
+			}
+		}
+Ce programme affiche:
+	
+		Cleaning: a,1
+		Cleaning: c,1
+		Cleaning: d,1
+Maintenant, imaginez que nous ayons supprimé l'étiquette CLEANING dans l'instruction continue afin que le contrôle soit retourné à la boucle interne au lieu de la boucle externe  
+
+				if(stables=='b' || leopard==2) {
+					continue;
+				}
+Cela correspond au gardien de zoo sautant tous les léopards sauf ceux étiquetés 2 ou en écurie, ce serait alors le suivant:  
+
+		Cleaning : a,1
+		Cleaning : a,3
+		Cleaning : c,1
+		Cleaning : c,3
+		Cleaning : d,1
+		Cleaning : d,3
 
 
+### La déclaration de retour: (The return Statement) OcpTest11
+
+Étant donné que ce livre ne devrait pas être votre premier dans la programmation, nous espérons que vous avez rencontré des méthodes contenant des instructions return.  
+Pour l'instant, cependant, vous devez être familier avec l'idée que la création de méthodes et l'utilisation d'instructions return peuvent être utilisées comme une alternative à l'utilisation d'étiquettes et d'instructions break. Par exemple, jetez un œil à cette réécriture de notre précédente classe FindInMatix  
+Quand on execude le programme de la classe **OcpTest11**on aura ce resultat:  
+
+	Value 2 found at: (1,1)
+	
+### Code inaccessible:(Unreachable code)  
+
+Une facette de break, continue et return dont vous devez être conscient est que tout code placé immédiatement après dans le même bloc est considéré comme inaccessible  
+
+		int checkDate = 0;
+		while(checkDate < 10) {
+			if(checkDate>100) {
+				break;
+				checkDate++; // DOES NOT COMPILE
+			}
+		}
+Cet exmple et vrai pour continue et return
+
+		int minute = 1;
+		WATCH: while(minute > 2) {
+			if(minute++ >2) {
+				continue WATCH;
+				System.out.println(minute); // DOES NOT COMPILE
+			}
