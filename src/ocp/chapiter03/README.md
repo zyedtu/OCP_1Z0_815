@@ -1,14 +1,14 @@
 						          OPERATORS
 
 						
-# Comprendre les opérateurs Java: (understand Java Operators)  
+# Comprendre les opÃ©rateurs Java: (understand Java Operators)  
 
-L'opérateur est un symbole spécial qui peut être appliqué à un ensemble de variables, de valeurs ou 
-de littéraux - appelés opérandes - et qui renvoie un résultat. 
+L'opÃ©rateur est un symbole spÃ©cial qui peut Ãªtre appliquÃ© Ã  un ensemble de variables, de valeurs ou 
+de littÃ©raux - appelÃ©s opÃ©randes - et qui renvoie un rÃ©sultat. 
 
 ##### Expressions: (Expressions)  
 
-Une expression est une construction composée de variables, d'opérateurs et d'appels de méthode, qui sont construits selon la syntaxe du langage, qui s'évalue à une valeur unique. Vous avez déjà vu des exemples d'expressions, voila une liste d'**expressions**  
+Une expression est une construction composÃ©e de variables, d'opÃ©rateurs et d'appels de mÃ©thode, qui sont construits selon la syntaxe du langage, qui s'Ã©value Ã  une valeur unique. Vous avez dÃ©jÃ  vu des exemples d'expressions, voila une liste d'**expressions**  
 
 	int cadence = 0; // Expression
 	anArray[0] = 100; // Expression
@@ -16,52 +16,52 @@ Une expression est une construction composée de variables, d'opérateurs et d'app
 	if (value1 == value2) // value1 == value2 est un Expression
 	1 * 2 * 3 // Expression
 
-##### Type d'opérateurs: (Type d'opérateurs)
+##### Type d'opÃ©rateurs: (Type d'opÃ©rateurs)
 
-En général, trois types d'opérateurs sont disponibles en java:  
-* Unary: besoin d'un seul opérande (-8)
-* Binary: besoin 2 opérandes (7 + 9)
-* Ternary: besoind 3 opérandes (total > MAX ? total + 1 : total * 2)
-Ces types d'opérateurs peuvent être appliqués à un, deux ou trois opérandes, respectivement*
+En gÃ©nÃ©ral, trois types d'opÃ©rateurs sont disponibles en java:  
+* Unary: besoin d'un seul opÃ©rande (-8)
+* Binary: besoin 2 opÃ©randes (7 + 9)
+* Ternary: besoind 3 opÃ©randes (total > MAX ? total + 1 : total * 2)
+Ces types d'opÃ©rateurs peuvent Ãªtre appliquÃ©s Ã  un, deux ou trois opÃ©randes, respectivement*
 
-##### Priorité de l'opérateur: (Operator Precedence)  
+##### PrioritÃ© de l'opÃ©rateur: (Operator Precedence)  
 
-Lors de la lecture d'un livre ou d'un journal, certaines langues écrites sont évaluées de gauche à 
-droite, tandis que d'autres sont évaluées de droite à gauche. En mathématiques, certains opérateurs 
-peuvent remplacer d'autres opérateurs et être évalués en premier. déterminer quels opérateurs sont 
-évalués dans quel ordre est appelé priorité des opérateurs. De cette manière, Java suit de plus 
-près les règles des mathématiques. Evaluons cette expression: 
+Lors de la lecture d'un livre ou d'un journal, certaines langues Ã©crites sont Ã©valuÃ©es de gauche Ã  
+droite, tandis que d'autres sont Ã©valuÃ©es de droite Ã  gauche. En mathÃ©matiques, certains opÃ©rateurs 
+peuvent remplacer d'autres opÃ©rateurs et Ãªtre Ã©valuÃ©s en premier. dÃ©terminer quels opÃ©rateurs sont 
+Ã©valuÃ©s dans quel ordre est appelÃ© prioritÃ© des opÃ©rateurs. De cette maniÃ¨re, Java suit de plus 
+prÃ¨s les rÃ¨gles des mathÃ©matiques. Evaluons cette expression: 
 
 		int height = 7;
 		int length = 3;
 		var perimeter = 2 * height + 2 * length;
 		System.out.println(perimeter);
-L'operateur de multiplication (*) a une priorité plus élevée que l'opérateur d'addition (+), donc 
-on va multiplier height et length par 2 avant de faire l'addition, l'affectation (=) a une priorité 
-la moin élevée. donc ce code affiche **20**  
+L'operateur de multiplication (*) a une prioritÃ© plus Ã©levÃ©e que l'opÃ©rateur d'addition (+), donc 
+on va multiplier height et length par 2 avant de faire l'addition, l'affectation (=) a une prioritÃ© 
+la moin Ã©levÃ©e. donc ce code affiche **20**  
 
-# Application d'opérateurs unaires: (Applying Unary Operators)  
+# Application d'opÃ©rateurs unaires: (Applying Unary Operators)  
 
-Par définition, un opérateur unaire est celui qui nécessite exactement un opérande.  
+Par dÃ©finition, un opÃ©rateur unaire est celui qui nÃ©cessite exactement un opÃ©rande.  
 
-##### Opérateurs de complément logique et de négation: (Logical Complement and Negation Operators)  
+##### OpÃ©rateurs de complÃ©ment logique et de nÃ©gation: (Logical Complement and Negation Operators)  
 
-Puisque nous allons travailler avec beaucoup d'opérateurs numériques dans le chapitre, éliminons d'abord le booléen. L'opérateur de complément logique (!) Inverse la valeur d'une expression booléenne.  
+Puisque nous allons travailler avec beaucoup d'opÃ©rateurs numÃ©riques dans le chapitre, Ã©liminons d'abord le boolÃ©en. L'opÃ©rateur de complÃ©ment logique (!) Inverse la valeur d'une expression boolÃ©enne.  
 
 		boolean isAnimalAsleep = false;
 		System.out.println(isAnimalAsleep); //false
 		System.out.println(!isAnimalAsleep); //true
-De même, l'opérateur de négation (-) inverse le signe d'une expression numérique  
+De mÃªme, l'opÃ©rateur de nÃ©gation (-) inverse le signe d'une expression numÃ©rique  
 
 		double zooTemperature = 1.21;
 		System.out.println(zooTemperature); //-1.21
 		System.out.println(-zooTemperature); //-1.21
-##### Opérateurs d'incrémentation et de décrémentation: (Increment and Decrement Operators)  
-Les opérateurs d'incrémentation et de décrémentation, ++ et --, respectivement, peuvent être appliqués à une variable numérique et ont un ordre de priorité élevé, par rapport aux opérateurs binaires.  
+##### OpÃ©rateurs d'incrÃ©mentation et de dÃ©crÃ©mentation: (Increment and Decrement Operators)  
+Les opÃ©rateurs d'incrÃ©mentation et de dÃ©crÃ©mentation, ++ et --, respectivement, peuvent Ãªtre appliquÃ©s Ã  une variable numÃ©rique et ont un ordre de prioritÃ© Ã©levÃ©, par rapport aux opÃ©rateurs binaires.  
 
-Les opérateurs d'incrémentation et de décrémentation nécessitent une attention particulière car l'ordre dans lequel ils sont attachés à leur variable associée peut faire une différence dans la façon dont une expression est traitée  
+Les opÃ©rateurs d'incrÃ©mentation et de dÃ©crÃ©mentation nÃ©cessitent une attention particuliÃ¨re car l'ordre dans lequel ils sont attachÃ©s Ã  leur variable associÃ©e peut faire une diffÃ©rence dans la faÃ§on dont une expression est traitÃ©e  
 
-si l'opérateur est placé avant l'opérande, appelé opérateur de pré-incrémentation et opérateur de pré-décrémentation, l'opérateur est appliqué en premier et la valeur retrunée est la nouvelle valeur de l'expression. Sinon, si l'oprateur est placé après l'opérande, appelé ème opérateur de post-incrémentation et post-décrémentation, alors la valeur d'origine de l'expression est retournée, avec operatof appliqué après le retour de la valeur
+si l'opÃ©rateur est placÃ© avant l'opÃ©rande, appelÃ© opÃ©rateur de prÃ©-incrÃ©mentation et opÃ©rateur de prÃ©-dÃ©crÃ©mentation, l'opÃ©rateur est appliquÃ© en premier et la valeur retrunÃ©e est la nouvelle valeur de l'expression. Sinon, si l'oprateur est placÃ© aprÃ¨s l'opÃ©rande, appelÃ© Ã¨me opÃ©rateur de post-incrÃ©mentation et post-dÃ©crÃ©mentation, alors la valeur d'origine de l'expression est retournÃ©e, avec operatof appliquÃ© aprÃ¨s le retour de la valeur
 
 		int parkAttendance = 0;
 		System.out.println(parkAttendance); //0
@@ -69,61 +69,61 @@ si l'opérateur est placé avant l'opérande, appelé opérateur de pré-incrémentatio
 		System.out.println(parkAttendance); //1
 		System.out.println(parkAttendance--); //1
 		System.out.println(parkAttendance); //0
-Une pratique courante dans un examen de certification, bien que moins courante dans le monde réel, consiste à appliquer plusieurs opérateurs d'incrémentation ou de décrémentation à une seule variable sur la même ligne.  
+Une pratique courante dans un examen de certification, bien que moins courante dans le monde rÃ©el, consiste Ã  appliquer plusieurs opÃ©rateurs d'incrÃ©mentation ou de dÃ©crÃ©mentation Ã  une seule variable sur la mÃªme ligne.  
 
 		int lion = 3;
 		int tiger = ++lion * 5 / lion--;
 		System.out.println("Lion is " + lion); // 3
 		System.out.println("Tiger is " + tiger); // 5
 premierement on incremente lion et returne l'expression int tiger = 4 * 5 / lion--;
-ensuite on decremente lion mais l'expression garde la valeur 4 int tiger  4 * 5 / 4; finellement on multiple 4 * 5 alors int tiger = 20 / 4; parce que on de gauche à droite.
+ensuite on decremente lion mais l'expression garde la valeur 4 int tiger  4 * 5 / 4; finellement on multiple 4 * 5 alors int tiger = 20 / 4; parce que on de gauche Ã  droite.
 
-# Travailler avec l'arithmétique binaire: (Working with Binary Arithmetic)  
+# Travailler avec l'arithmÃ©tique binaire: (Working with Binary Arithmetic)  
 
- Ensuite, nous passons aux opérateurs qui prennent deux arguments, appelés opérateurs binaires.  
+ Ensuite, nous passons aux opÃ©rateurs qui prennent deux arguments, appelÃ©s opÃ©rateurs binaires.  
  
- Les opérateurs arithmétqiues binaires sont: ** +, -, *, /, %**  
+ Les opÃ©rateurs arithmÃ©tqiues binaires sont: ** +, -, *, /, %**  
  
-##### Opérateurs arithmétiques: (Arithmetic Operators)
+##### OpÃ©rateurs arithmÃ©tiques: (Arithmetic Operators)
 
 	int price = 2 * 5 + 3 * 4 - 8;
-Tout d'abord, vous évaluez 2 * 5 et 3 * 4, ce qui réduit l'expression à ceci:  
-int price = 10 + 12 - 8; le résultat est donc 14.  
+Tout d'abord, vous Ã©valuez 2 * 5 et 3 * 4, ce qui rÃ©duit l'expression Ã  ceci:  
+int price = 10 + 12 - 8; le rÃ©sultat est donc 14.  
 
-##### Opérateurs de division et de module: (Division and Modulus Operators)
+##### OpÃ©rateurs de division et de module: (Division and Modulus Operators)
 
 		System.out.println( 9 / 3); // 3 la division
 		System.out.println( 9 % 3); // 0 modulus le reste.
 
-##### Promotion numérique: (Numeric Promotion)
+##### Promotion numÃ©rique: (Numeric Promotion)
 
-Règles de promotion numériques:
+RÃ¨gles de promotion numÃ©riques:
 
-* Si deux valeurs ont des types de données différents, Java promouvra automatiquement l'une des valeurs vers le type de donnée le plus grand.    
-* Si deux valeurs ont des types de données différents, Java promouvra automatiquement l'une des valeurs vers la lager des deux types de données.  
-* Les types de données plus petits, à savoir les bytes, les shorts et les char, sont tous promus en int à chaque fois qu'ils sont utilisés avec des opérateurs arithmétiques binaires Java.  
-* Une fois que toutes les promotions ont eu lieu et que les opérandes ont le même type de données, la valeur résultante aura le même type de date que celle qui a promu les opérandes.
+* Si deux valeurs ont des types de donnÃ©es diffÃ©rents, Java promouvra automatiquement l'une des valeurs vers le type de donnÃ©e le plus grand.    
+* Si deux valeurs ont des types de donnÃ©es diffÃ©rents, Java promouvra automatiquement l'une des valeurs vers la lager des deux types de donnÃ©es.  
+* Les types de donnÃ©es plus petits, Ã  savoir les bytes, les shorts et les char, sont tous promus en int Ã  chaque fois qu'ils sont utilisÃ©s avec des opÃ©rateurs arithmÃ©tiques binaires Java.  
+* Une fois que toutes les promotions ont eu lieu et que les opÃ©randes ont le mÃªme type de donnÃ©es, la valeur rÃ©sultante aura le mÃªme type de date que celle qui a promu les opÃ©randes.
 
 # Attribution de valeurs: (Assigning Values)
 
-Les opérateurs d'attribution des formulaires d'erreur de compilation sont souvent négligés lors de l'examen, en partie à cause de la subtilité de ces erreurs.  
+Les opÃ©rateurs d'attribution des formulaires d'erreur de compilation sont souvent nÃ©gligÃ©s lors de l'examen, en partie Ã  cause de la subtilitÃ© de ces erreurs.  
 
 	int herd = 1; //  = est l'operateur d'attribution
 	
 ##### Casting Values:
 
-La Cast est une opération unaire dans laquelle un type de données est explicitement interprété comme un autre type de données.  
-La conversion (Casting) est effectuée en plaçant le type de données, entre parenthèses, à gauche de la valeur que vous souhaitez convertir, Voici quelques exemples de casting :
+La Cast est une opÃ©ration unaire dans laquelle un type de donnÃ©es est explicitement interprÃ©tÃ© comme un autre type de donnÃ©es.  
+La conversion (Casting) est effectuÃ©e en plaÃ§ant le type de donnÃ©es, entre parenthÃ¨ses, Ã  gauche de la valeur que vous souhaitez convertir, Voici quelques exemples de casting :
 
 		int fur = (int) 5;
 		int hair = (short) 2;
 		String type = (String) "Bird";
 
-Casting est un opérateur unitaire dons on dois mettre des parenthèse si on veut l'appliquer à une expression:
+Casting est un opÃ©rateur unitaire dons on dois mettre des parenthÃ¨se si on veut l'appliquer Ã  une expression:
 
 		short tail = (short) (4 + 5);
 
-On met les parenthèse à gauche :
+On met les parenthÃ¨se Ã  gauche :
 
 		long feathers = 10(long); // DOES NOT COMPILE
 		
@@ -135,24 +135,24 @@ Les exemples suivant ne compilent pas parce que on essaye d'attribuer un type de
 
 ##### Application de Casting: (Applying Casting)  
 
-Nous pouvons corriger l'ensemble précédent d'exemples en convertissant les résultats en un type de données plus petit.
+Nous pouvons corriger l'ensemble prÃ©cÃ©dent d'exemples en convertissant les rÃ©sultats en un type de donnÃ©es plus petit.
 
 	int fish  = (int)1.0;
 	short bird = (short)19212222;
 	int mam = (int)9f; 
 
-Revenons à un exemple similaire de la section "Promotion numérique" plus haut dans le chapitre
+Revenons Ã  un exemple similaire de la section "Promotion numÃ©rique" plus haut dans le chapitre
 
 		short mouse = 10;
 		short hamster = 3;
 		short capybara = mouse * hamster; // DOES NOT COMPILE
-Pour que cette exemple compile on doit faire ça:  
+Pour que cette exemple compile on doit faire Ã§a:  
 
 	short capybara =(short) mouse * hamster;
 	
-##### Opérateurs d'affectation de composés: (Compound Assignment Operators) 
+##### OpÃ©rateurs d'affectation de composÃ©s: (Compound Assignment Operators) 
  
-Les opérateurs d'affection composés sont: ** +=, -=, *-, /= **  
+Les opÃ©rateurs d'affection composÃ©s sont: ** +=, -=, *-, /= **  
 
 		int camel = 2 , giraffe = 3;
 		camel *= giraffe; // la meme chose que camel = camel * giraffe;
@@ -162,24 +162,24 @@ Autre exemple:
 		int sheep = 5;
 		sheep *= goat; // DOES NOT COMPILE
 		
-##### Valeur de retour de l'opérateur d'affectation:(Assignment Operator Return Value)  
+##### Valeur de retour de l'opÃ©rateur d'affectation:(Assignment Operator Return Value)  
 
-Une dernière chose à savoir sur les opérateurs d'affectation est que le résultat d'une affectation est une expression en soi, égale à la valeur de l'affectation, par exemple, l'extrait de code suivant est parfaitement valide:
+Une derniÃ¨re chose Ã  savoir sur les opÃ©rateurs d'affectation est que le rÃ©sultat d'une affectation est une expression en soi, Ã©gale Ã  la valeur de l'affectation, par exemple, l'extrait de code suivant est parfaitement valide:
 
 		long wolf = 5;
 		long coyote = (wolf=3);
 		System.out.println(wolf); // 3
 		System.out.println(coyote);// 3
-La clé ici est que (wolf = 3) fait deux choses. Premièrement, il définit la valeur de la variable wolf sur 3. Deuxièmement, il renvoie une valeur de l'affectation, qui est également 3.
+La clÃ© ici est que (wolf = 3) fait deux choses. PremiÃ¨rement, il dÃ©finit la valeur de la variable wolf sur 3. DeuxiÃ¨mement, il renvoie une valeur de l'affectation, qui est Ã©galement 3.
 
 # Comparaison des valeurs: (Comparing Values)
 
-Le dernier ensemble d'opérateurs binaires tourne autour de la comparaison des valeurs.
+Le dernier ensemble d'opÃ©rateurs binaires tourne autour de la comparaison des valeurs.
 
-##### Opérateurs d'égalité: (Equality Operators)
+##### OpÃ©rateurs d'Ã©galitÃ©: (Equality Operators)
 
-La détermination de l'égalité en Java peut être un effort non triviale car il existe une différence sémantique entre «deux objets qui wsont les mêmes» et «deux objets sont équivalents».  
-Les opérateurs d'égalités sont: ** == et != **  
+La dÃ©termination de l'Ã©galitÃ© en Java peut Ãªtre un effort non triviale car il existe une diffÃ©rence sÃ©mantique entre Â«deux objets qui wsont les mÃªmesÂ» et Â«deux objets sont Ã©quivalentsÂ».  
+Les opÃ©rateurs d'Ã©galitÃ©s sont: ** == et != **  
 
 * Comparer deux numeriques: 
 
@@ -192,7 +192,7 @@ Les opérateurs d'égalités sont: ** == et != **
 		boolean b = true;
 		boolean a = false;
 		System.out.println(a == b); //false
-Pour les types primitifs, la comparaison est appliquée sur l'equalité des valeurs.
+Pour les types primitifs, la comparaison est appliquÃ©e sur l'equalitÃ© des valeurs.
 
 * Comparaison entre objets, en incluant les String et null: 
 
@@ -201,14 +201,14 @@ Pour les types primitifs, la comparaison est appliquée sur l'equalité des valeur
 		File wednesday = tuesday;
 		System.out.println(monday == tuesday); // false
 		System.out.println(tuesday == wednesday); //true
-Pour les objet l'opérateur d'egalité est appliqué sur les references, donc on compare si les references pointent sur le meme objet.
+Pour les objet l'opÃ©rateur d'egalitÃ© est appliquÃ© sur les references, donc on compare si les references pointent sur le meme objet.
 
 		System.out.println(null == null); //true
 		
-##### Opérateurs relationnels: (Relational Operators)
+##### OpÃ©rateurs relationnels: (Relational Operators)
 
-Nous passons maintenant aux opérateurs relationnels, qui comparent deux expressions et renvoient une valeur booléenne.  
-La liste des opérateur est: ** <, <=, >, >=, a instanceof b **  
+Nous passons maintenant aux opÃ©rateurs relationnels, qui comparent deux expressions et renvoient une valeur boolÃ©enne.  
+La liste des opÃ©rateur est: ** <, <=, >, >=, a instanceof b **  
 
 		int gibbonNumFeet = 2 , wolfNumFeet = 4, ostrichNumFeet = 2;
 		System.out.println(gibbonNumFeet < wolfNumFeet); // true
@@ -216,16 +216,16 @@ La liste des opérateur est: ** <, <=, >, >=, a instanceof b **
 		System.out.println(gibbonNumFeet >= ostrichNumFeet); // true
 		System.out.println(gibbonNumFeet > ostrichNumFeet);// false
 
-##### instanceof Opérateur: (instanceof Operator)
+##### instanceof OpÃ©rateur: (instanceof Operator)
 
-L'opérateur relationnel final dont vous avez besoin pour l'examen est l'opérateur instanceof. Il est utile pour déterminer si un objet arbitraire est membre d'une classe ou d'une interface particulière au moment de l'exécution  
+L'opÃ©rateur relationnel final dont vous avez besoin pour l'examen est l'opÃ©rateur instanceof. Il est utile pour dÃ©terminer si un objet arbitraire est membre d'une classe ou d'une interface particuliÃ¨re au moment de l'exÃ©cution  
 
-L'opérateur instanceof fonctionne sur le principe de la relation **Is-A**. Le concept de relation is-a est basé sur l' héritage de classe ou l'implémentation d'interface  
+L'opÃ©rateur instanceof fonctionne sur le principe de la relation **Is-A**. Le concept de relation is-a est basÃ© sur l' hÃ©ritage de classe ou l'implÃ©mentation d'interface  
 
 		Integer zooTime = Integer.valueOf(9);
 		Number num = zooTime;
 		Object obj = zooTime;te
-Dans cet exemple, il n'y a qu'un seul objet créé en mémoire, mais trois références de différence à celui-ci car Integer hérite à la fois de Number et Object. Cela signifie que vous pouvez appeler instanceof sur n'importe laquelle de ces références avec trois types de données différents et qu'elle renvoie true pour chacune d'elles.  
+Dans cet exemple, il n'y a qu'un seul objet crÃ©Ã© en mÃ©moire, mais trois rÃ©fÃ©rences de diffÃ©rence Ã  celui-ci car Integer hÃ©rite Ã  la fois de Number et Object. Cela signifie que vous pouvez appeler instanceof sur n'importe laquelle de ces rÃ©fÃ©rences avec trois types de donnÃ©es diffÃ©rents et qu'elle renvoie true pour chacune d'elles.  
 
 	public void openZoo(Number time){
 		if(time instanceof Integer) {
@@ -236,7 +236,7 @@ Dans cet exemple, il n'y a qu'un seul objet créé en mémoire, mais trois référenc
 ce code affiche: 
 
 	9 O'clock
-Notez que nous convertissons la valeur Integer dans cet exemple. Il est courant d'utiliser le casting et l'instance ensemble lorsque vous travaillez avec des objets qui peuvent être de différents types, car cela peut vous donner accès aux champs disponibles uniquement dans les classes plus spécifiques. Il est considéré comme une bonne pratique de codage d'utiliser l'opérateur instanceof avant de convertir d'un objet un objet en un type plus étroit.
+Notez que nous convertissons la valeur Integer dans cet exemple. Il est courant d'utiliser le casting et l'instance ensemble lorsque vous travaillez avec des objets qui peuvent Ãªtre de diffÃ©rents types, car cela peut vous donner accÃ¨s aux champs disponibles uniquement dans les classes plus spÃ©cifiques. Il est considÃ©rÃ© comme une bonne pratique de codage d'utiliser l'opÃ©rateur instanceof avant de convertir d'un objet un objet en un type plus Ã©troit.
 
 ##### Invalid instance:
 
@@ -248,16 +248,16 @@ Un domaine dans lequel l'examen pourrait essayer de vous tromper est l'utilisati
 
 ##### null and instanceof operator:
 
-Que se passe-t-il si vous appelez instanceof sur une variable nulle? pour l'examen, vous devez savoir que l'appel de instanceof sur le littéral nul ou une référence nulle renvoie toujours false
+Que se passe-t-il si vous appelez instanceof sur une variable nulle? pour l'examen, vous devez savoir que l'appel de instanceof sur le littÃ©ral nul ou une rÃ©fÃ©rence nulle renvoie toujours false
 
 	System.out.println(null instanceof String); // false
 Cet exemple ne compile pas:
 
 	System.out.println(null instanceof null); // DOES NOT COMPILE
 
-# Opérateurs logiques:(Logical Operators)  
+# OpÃ©rateurs logiques:(Logical Operators)  
 
-Les opérateurs logiques sont: **&, |, ^**  
+Les opÃ©rateurs logiques sont: **&, |, ^**  
 
 * &: AND logique n'est vrai que si les deux valeurs sont true
 * |: Inclusive OR est true si au moins une des valeurs est true
@@ -269,42 +269,42 @@ Les opérateurs logiques sont: **&, |, ^**
 		System.out.println(eyesClosed | breathingSlowly); // true
 		System.out.println(eyesClosed ^ breathingSlowly); // false
 
-# Opérateurs de court-circuit: (Short-Circuit Operators)
+# OpÃ©rateurs de court-circuit: (Short-Circuit Operators)
 
-Ensuite, nous présentons les opérateurs conditionnels: ** &&, ||**  
+Ensuite, nous prÃ©sentons les opÃ©rateurs conditionnels: ** &&, ||**  
 
-Les opérateurs de court-circuit sont presque identiques aux opérateurs logiques, & et |, sauf que le côté droit de l'expression peut ne jamais être évalué si le résultat final peut être déterminé par le côté gauche de l'expression. Par exemple:
+Les opÃ©rateurs de court-circuit sont presque identiques aux opÃ©rateurs logiques, & et |, sauf que le cÃ´tÃ© droit de l'expression peut ne jamais Ãªtre Ã©valuÃ© si le rÃ©sultat final peut Ãªtre dÃ©terminÃ© par le cÃ´tÃ© gauche de l'expression. Par exemple:
 
 		int hour = 10;
 		boolean zooOpen = true || (hour < 4);
 		System.out.println(zooOpen);  // true
 
-##### éviter une exception NullPointerException: (avoiding a NullPointerException)
+##### Ã©viter une exception NullPointerException: (avoiding a NullPointerException)
 
-Un exemple plus courant d'utilisation d'opérateurs de court-circuit est la vérification des objets nuls avant d'effectuer une opération, Dans l'exemple suivant, si duck est nul, alors le programme lancera un NullPointerExceptio à l'exécution (runtime): 
+Un exemple plus courant d'utilisation d'opÃ©rateurs de court-circuit est la vÃ©rification des objets nuls avant d'effectuer une opÃ©ration, Dans l'exemple suivant, si duck est nul, alors le programme lancera un NullPointerExceptio Ã  l'exÃ©cution (runtime): 
 	
 	if(duck != null & duck.getAge()< 5){ // pourrait lever un NullPointerException
 		// Do someting
 	}
-Le problème est que l'opérateur logique AND (&) évalue les deux côtés de l'expression, Une solution facile à lire consiste à utiliser l'opérateur AND court-circuit (&&)
+Le problÃ¨me est que l'opÃ©rateur logique AND (&) Ã©value les deux cÃ´tÃ©s de l'expression, Une solution facile Ã  lire consiste Ã  utiliser l'opÃ©rateur AND court-circuit (&&)
 
 	if(duck != null && duck.getAge()< 5){
 		// Do someting
 	}
 
-##### Vérification les effet de bord; (Checking for Unperformed Side effects)  
+##### VÃ©rification les effet de bord; (Checking for Unperformed Side effects)  
 
-Méfiez-vous du comportement de court-circuit à l'examen, car les questions sont connues pour modifier une variable du côté droit de l'expression qui peut ne jamais être plus accessible.
+MÃ©fiez-vous du comportement de court-circuit Ã  l'examen, car les questions sont connues pour modifier une variable du cÃ´tÃ© droit de l'expression qui peut ne jamais Ãªtre plus accessible.
 
 		int rabbit = 6;
 		boolean bunny = (rabbit >= 6 ) || (++rabbit <= 7);
 		System.out.println(rabbit); // 6
-Comme rabbit >= 6 est true, l'opérateur d'incrementation n'a pas eu lieu donc le valuer de rabbit est 6
+Comme rabbit >= 6 est true, l'opÃ©rateur d'incrementation n'a pas eu lieu donc le valuer de rabbit est 6
 
-# Prise de décision avec l'opérateur ternaire: (Making Decision with the Ternary Operator)
+# Prise de dÃ©cision avec l'opÃ©rateur ternaire: (Making Decision with the Ternary Operator)
 
-L'opérateur final que vous devez connaître pour l'examen est l'opérateur conditionnel, ** ? : **, autrement connu sous le nom d'opérateur ternaire *ternary operator*  
-L'opérateur ternaire a la forme suivante: *booleanExpression ? expression1 : expression2*  
+L'opÃ©rateur final que vous devez connaÃ®tre pour l'examen est l'opÃ©rateur conditionnel, ** ? : **, autrement connu sous le nom d'opÃ©rateur ternaire *ternary operator*  
+L'opÃ©rateur ternaire a la forme suivante: *booleanExpression ? expression1 : expression2*  
 
 	int stripes = 3;
 	System.out.println((stripes > 5 ) ? 21 : "Zebra"); // Zebra
