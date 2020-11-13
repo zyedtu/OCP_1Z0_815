@@ -20,7 +20,14 @@ public class OcpTest2 {
 		
 		int amount = 0156;
 		System.out.println(amount);
+		char [] carray = {'\u004F', '\u0043', '\u0041'}; 
+		System.out.println("Unicode: " +carray[0]+""+carray[1]+""+carray[2]);
 
+		char c1 = 's';
+		char c2 = '\u0068';
+		char c3 = 0x0065;
+		char c4 = 0154;
+		System.out.println("Yasmine : "+c1+", "+c2+", "+c3+", "+c4);
 
 	}
 

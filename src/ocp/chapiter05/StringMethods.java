@@ -1,5 +1,7 @@
 package ocp.chapiter05;
 
+import java.time.LocalDate;
+
 public class StringMethods {
 
 	public static void main(String[] args) {
@@ -45,6 +47,23 @@ public class StringMethods {
 		System.out.println("---------------------------------------");
 		System.out.println("abc".contains("a"));
 		System.out.println("abc".contains("B"));
+
+		System.out.println("strip(): "+ "\t  a b c \n".strip());
+		System.out.println("trim(): "+ "\t  a b c \n".trim());
+		String text = " abc\t ";
+		System.out.println("trim(): "+ text.trim().length());
+		System.out.println("strip(): "+ text.strip().length());
+		System.out.println("stripLeading(): "+ text.stripLeading().length());
+		System.out.println("stripTrailing(): "+ text.stripTrailing().length());
+		System.out.println("------------------Chaining--------------------");
+		String start = "AniMaL ";
+		String trimmed = start.trim();
+		String lowercase = trimmed.toLowerCase();
+		String result = lowercase.replace('a', 'A');
+		System.out.println(result);
+		
+		String res = "AniMal ".trim().toLowerCase().replace('a', 'A');
+		System.out.println(res);
 	}
 
 }

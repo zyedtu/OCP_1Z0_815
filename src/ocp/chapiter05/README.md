@@ -137,7 +137,7 @@ Le code suivant montre comment utiliser replace():
 La classe String **implements** l'interface CharSequence.  
 
 ###### contains():  
-La méthode contains() recherche des correspondances dans la chaîne. Ce n'est pas aussi particulier que startsWith() et endsWith(). La correspondance peut être n'importe où dans la chaîne. La signatures de la méthode sont les suivantes:  
+La méthode contains() recherche des correspondances dans la chaîne. Ce n'est pas aussi particulier que startsWith() et endsWith(). La correspondance peut être n'importe où dans la chaîne. La signature de la méthode est la suivantee:  
 	*boolean contains(CharSequence charSeq)*  
 Le code suivant montre comment utiliser replace():  
 
@@ -145,10 +145,34 @@ Le code suivant montre comment utiliser replace():
 		System.out.println("abc".contains("B"));	// false
 ###### trim(),strip(), strip()Leading(), and stripTrailing():  
 Vous avez vu presque toutes les méthodes String que vous devez connaître. La prochaine étape consiste à supprimer l'espace vide du début et/ou de la fin d'une chaîne. Les méthodes strip() et trim() suppriment les espaces du début et de la fin d'un String.  
-La méthode strip() est nouvelle dans **Java 11**. Elle fait tout ce que trim () fait, mais elle prend en charge Unicode  
+Dans les termes de l'examen, les espaces se composent d'espaces avec \t (tab) et \n (newLine)  
+La méthode strip() est nouvelle dans **Java 11**. Elle fait tout ce que trim() fait, mais elle prend en charge Unicode.  
+De plus, les méthodes stripLeading() et stripTrailing() ont été ajoutées dans Java11. La méthode stripLeading() supprime les espaces au début de la chaîne et les laisse à la fin. La méthode stripTrailing() fait le contraire. Les signatures de la méthode sont les suivantes:  
+	*String strip()* 
+	*String stripLeading()* 
+	*String stripTrailing()* 
+	*String trim()* 
+
+		System.out.println("\t  a b c \n".strip());	// a b c
+		System.out.println("\t  a b c \n".trim());	//a b c
+		String text = " abc\t ";
+		System.out.println(text.trim().length());	// 3
+		System.out.println(text.strip().length());	// 3
+		System.out.println(text.stripLeading().length());	// 5
+		System.out.printlntext.stripTrailing().length());	// 4
+	
 ###### intern():  
 la méthode intern() renvoie la valeur du pool de String s'il y en a. Sinon, il ajoute la valeur au pool de String, on aura d'avantage d'explication dans le paragraphe concernant string pool.  
+##### Chaînage de méthodes: (Method Chaining)  
+Il est courant d'appeler plusieurs méthodes comme indiqué ici:  
 
-##### Chaînage de méthodes: (Method Chaining)
+		String start = "AniMaL ";
+		String trimmed = start.trim();	// "AniMaL"
+		String lowercase = trimmed.toLowerCase();	// "animal"
+		String result = lowercase.replace('a', 'A');	// "AnimAl"
+		System.out.println(result);	// AnimAl
+Ceci est juste une série de méthodes String. A chaque appel, la valeur renvoyée est placée dans une nouvelle variable. Il existe quatre valeurs String en cours de route et AnimAl est généré. Cependant, lors de l'examen, il y a une tendance à entasser autant de code que possible dans un petit espace. Vous verrez du code utilisant une technique de chaînage de méthode appelée. Voici un exemple  
 
+	String res = "AniMal ".trim().toLowerCase().replace('a', 'A');
+		System.out.println(res);	// AnimAl
 # Utilisation de la classe StringBuilder: (Using the StringBuilder Class)

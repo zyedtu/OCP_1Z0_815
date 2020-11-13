@@ -44,7 +44,7 @@ Dans les applications java, il y a deux types de variable, type primitive et typ
 * boolean: peut avoir deux valeurs true ou false.
 * type numéric sans floating-point (décimal): byte, short, int et long (123L) 
 * type numéric avec floating_point (décimal): float(123.45f), double 
-* char: 'a'
+* char: 'a', La primitive char est utilisée pour stocker un seul caractère **Unicode 16 bits** et nécessite 16 bits de mémoire.
 
 Tous les type numéric sont signés peuvent avoir une valuer négative, int x = -128   
 
@@ -58,7 +58,13 @@ il y a une choses que vous devez savoir sur les primitives numériques. Lorsqu'u
 
 	long max = 3123456789; // Don't compile
 	long max = 3123456789l; //compile c'est un literal 
+le segment de code suivant montre les utilisations de **char**. Les littéraux valides incluent des caractères individuels:  
 
+		char c1 = 's';	// s en charactère
+		char c2 = '\u0068';	// h en UNICODE
+		char c3 = 0x0065;	// e en Hexadecimal
+		char c4 = 0154;	// l en Octal
+		System.out.println(c1+", "+c2+", "+c3+", "+c4);	// s, h, e, l
 Une autre façon de spécifier des nombres est de **changer la base**, 
 * Octal (digits 0-7): le nombre à un préfix "0" *(int amount = 0156;)*
 * Hexadecimal (digits 0-9 et A-F): le nombre à un préfixe "0x" *(int amount = 0xE;)*  
@@ -97,7 +103,7 @@ Java a mit des régles précises sur le nom de l'identifiant, Un **identifiant**
 
 Java a instaurer une convention pour nommer les identifiants.
 * Style camelCase: thisIsMyClass   
-* Style sanke_case: this_is_my_class  
+* Style snake_case: this_is_my_class  
   
 # Initialisatin variable:(Initializing Variables)  
 
