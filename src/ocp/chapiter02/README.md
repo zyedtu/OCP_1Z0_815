@@ -46,9 +46,9 @@ Dans les applications java, il y a deux types de variable, type primitive et typ
 * type numéric avec floating_point (décimal): float(123.45f), double 
 * char: 'a'
 
-Tous les type numéric sont signés peuvent avoir une valuer n�gative, int x = -128   
+Tous les type numéric sont signés peuvent avoir une valuer négative, int x = -128   
 
-Pour l'**examen**, sachez que short et char sont étroitement liés, les deux type sont sur 16-bit, la difference entre les deux que short est sign� mais char non signé. 
+Pour l'**examen**, sachez que short et char sont étroitement liés, les deux type sont sur 16-bit, la difference entre les deux que short est signé mais char non signé. 
 
 ##### Ecrire les Literals:
 
@@ -102,14 +102,14 @@ Java a instaurer une convention pour nommer les identifiants.
 # Initialisatin variable:(Initializing Variables)  
 
 Avant de pouvoir utiliser une variable, elle a besoin d'une valeur. Certains types de variables 
-obtiennent automatiquement cette valeur, et d'autres n�cessitent que le programmeur la spécifie. 
-Dans les sections suivantes, nous examinerons les différences entre les valeurs par d�faut des 
+obtiennent automatiquement cette valeur, et d'autres nécessitent que le programmeur la spécifie. 
+Dans les sections suivantes, nous examinerons les différences entre les valeurs par défaut des 
 variables locales, les variable d'instance et variables de classe.
 
 ##### Créer des variables locales: (Creating local variables)  
 
-Une variable locale est variable d�finie dans un constructeur, méthode ou un bloc d'intialisation.  
-Une variable localen n'a pas une valuer par d�faut est **doit** etre initialisée.  
+Une variable locale est variable définie dans un constructeur, méthode ou un bloc d'intialisation.  
+Une variable localen n'a pas une valuer par défaut est **doit** etre initialisée.  
 
 	public int notValid() {
 		int y = 10;
@@ -137,7 +137,7 @@ L'appel de findAnswer ne compile pas par ce que la variable value n'etait pas in
 
 * Une variable d'instance, et appeler aussi un champ, est une valeur définie dans une instance 
 spécifique d'un objet.   
-* Une variable de classe: une variable de classe est une variable d�finie au niveau 
+* Une variable de classe: une variable de classe est une variable définie au niveau 
 de la classe et partagée entre toutes les instances de la classe. une variable de classe est
 caractiriser par le mot clé **static** avant la variable.    
 
@@ -145,8 +145,8 @@ caractiriser par le mot clé **static** avant la variable.
 		private String name; // instance variable 
 		private static float temp; // class variable
 	}
-les variables d'instance ou de classe, n'est pas obligatoire de l'insialis�es. Dés que vous déclarez 
-ces variables, une valeur par d�faut leur est attribuée.  
+les variables d'instance ou de classe, n'est pas obligatoire de l'insialisées. Dés que vous déclarez 
+ces variables, une valeur par défaut leur est attribuée.  
 
 	boolean  				    	false
 	byte, short, int, long  	    0
@@ -173,7 +173,7 @@ Ce code ne compile pas par ce que cette fonctionnalitée concerne que les varaib
 ##### Inférence de type de var: (Type inference of var)  
 
 Maintenant que vous comprenez la partie variable locale, il est temps de passer aux signification 
-d'inf�rence de type. la bonne nouvelle est que cela signifie également à quoi cela ressemble. 
+d'inférence de type. la bonne nouvelle est que cela signifie également à quoi cela ressemble. 
 Lorsque vous tapez var, vous demandez au compilateur de déterminer le type pour vous. 
 Le compilateur examine le code sur la ligne de la déclaration et l'utilise pour déduire le type. 
 Jetez un œil à cet exemple:   
@@ -188,7 +188,7 @@ ligne on affecte le variable par 4, mais dans le 3em ligne on affecte par un Str
 même type int donc ne compile pas.  
 Par souci de simplicité, lorsque nous aborderons var dans la section suivante, nous allons 
 supposer qu'une instruction de déclaration de variable est complétée en une seule ligne.
-Par exemple, vous pouvez ins�rer un saut de ligne entre le nom de la variable et son initialisation.  
+Par exemple, vous pouvez insérer un saut de ligne entre le nom de la variable et son initialisation.  
 
 	public void breakingDeclaration() {
 			var number 
@@ -248,7 +248,7 @@ Il y a deux variables locales {piecesOfCheese et bitesOfCheese}
 
 ##### Limiter la portée: (Limiting Scope)  
 
-Les variables locales ne peuvent jamais avoir une port�e plus grande que la méthode dans laquelle 
+Les variables locales ne peuvent jamais avoir une portée plus grande que la méthode dans laquelle 
 elles sont définies. Cependant, elles peuvent avoir une portée plus petite.  
 
 	public void eatifHungry(boolean hungry) {
@@ -328,7 +328,7 @@ mais pour l'examen, vous devrez savoir à tout moment quels objets sont éligibl
 collection.  
 
 Pensez à l'éligibilité au ramassage des ordures comme à l'expédition d'un colis. Vous pouvez 
-prendre un article, le sceller dans une bo�te étiquetée et le mettre dans votre boite aux lettres. 
+prendre un article, le sceller dans une boite étiquetée et le mettre dans votre boite aux lettres. 
 Cela revient à rendre un article éligible au garbage collection, mais lorsque le facteur vient 
 le chercher, ce n'est pas sous votre contrôle. 
 
@@ -348,7 +348,7 @@ System.gc() **suggère** simplement que la JVM de lancer le garbage collection, 
  
 ##### Tracage Eligibilité: (Tracing Eligibility)  
 
-Comment la JVM sait-elle quand un objet est �ligible pour le garbage collection? la JVM attend patiemment et surveille chaque objet jusqu'à ce qu'elle détermine que le code n'a plus besoin de cette mémoire. Un objet restera sur le tas (heap) jusqu'à ce qu'il n'est plus accéssible. Un objet n'est plus accessible lorsque l'une des deux situations se produit:
+Comment la JVM sait-elle quand un objet est éligible pour le garbage collection? la JVM attend patiemment et surveille chaque objet jusqu'à ce qu'elle détermine que le code n'a plus besoin de cette mémoire. Un objet restera sur le tas (heap) jusqu'à ce qu'il n'est plus accéssible. Un objet n'est plus accessible lorsque l'une des deux situations se produit:
 * L'objet n'a plus de références pointant vers lui  
 * Toutes les références à l'objet sont hors de portée  
 
