@@ -99,13 +99,54 @@ Le code suivant montre comment utiliser substring():
 		System.out.println(s.substring(8));	// //throws exception
 
 ###### toLowerCase() and to UpperCase():
-###### equals and equalsIgnoreCase():
-###### startsWith() ans endsWith():  
-###### replace(): 
-###### contains():
-###### trim(),strip(), strip()Leading(), and stripTrailing():  
-###### intern():  
+Ces méthodes font ce qu'elles disent. toUpperCase convertit tous les caractères minuscules en majuscules dans la chaîne renvoyée. toLowerCase convertit tous les caractères majuscules en minuscules. Les signatures de la méthode sont les suivantes:  
+	*String toLowerCase()*
+	*String toUpperCase()*
+Le code suivant montre comment utiliser toLowerCase et toUpperCase:  
 
+		String str = "robin";
+		System.out.println(str.toUpperCase());	// ROBIN
+		System.out.println("ABC123".toLowerCase());	// abc123
+###### equals() and equalsIgnoreCase():
+La méthode equals() vérifie si deux objets String contiennent exactement les mêmes caractères dans le même ordre, le méthode equalsIgnoreCase() resemble la méthode equlas() sauf qu'elle ignore la casse. Les signatures de la méthode sont les suivantes:  
+	*boolean equals(Object obj)*
+	*boolean equalsIgnoreCase(Object obj)*  
+Le code suivant montre comment utiliser equals() et equalsIgnoreCase():  
+
+		System.out.println("abc".equals("ABC"));	// false
+		System.out.println("abc".equals("abc"));	// true
+		System.out.println("abc".equalsIgnoreCase("ABC"));	//true
+###### startsWith() and endsWith():  
+Les méthodes startsWith () et endsWith () vérifient si la valeur fournie correspond à une partie de la chaîne. Les signatures de la méthode sont les suivantes:  
+	*boolean startsWith(String prefix)*  
+	*boolean endsWith(String suffix)*  
+Le code suivant montre comment utiliser startsWith() et endsWith():  
+
+		System.out.println("abc".startsWith("a"));	// true
+		System.out.println("abc".startsWith("A"));	// false
+		System.out.println("abc".endsWith("c"));	// true
+		System.out.println("abc".endsWith("a"));	// false
+###### replace(): 
+La méthode replace() effectue une simple recherche et remplacement sur la string. Il existe une version qui prend les paramètres char ainsi qu'une version prend les paramètres CharSequence. Les signatures de la méthode sont les suivantes:  
+	*String replace(char oldChar, char newCher)*
+	*String replace(CharSequence target, CharSequence replacement)*
+Le code suivant montre comment utiliser replace():  
+
+		System.out.println("abcab".replace('a', 'A'));	// AbcAb
+		System.out.println("abcab".replace("bc", "BC"));	// aBCab
+La classe String **implements** l'interface CharSequence.  
+
+###### contains():  
+La méthode contains() recherche des correspondances dans la chaîne. Ce n'est pas aussi particulier que startsWith() et endsWith(). La correspondance peut être n'importe où dans la chaîne. La signatures de la méthode sont les suivantes:  
+	*boolean contains(CharSequence charSeq)*  
+Le code suivant montre comment utiliser replace():  
+
+		System.out.println("abc".contains("a"));	// true
+		System.out.println("abc".contains("B"));	// false
+###### trim(),strip(), strip()Leading(), and stripTrailing():  
+Vous avez vu presque toutes les méthodes String que vous devez connaître. La prochaine étape consiste à supprimer l'espace vide du début et/ou de la fin d'une chaîne. Les méthodes strip() et trim() suppriment les espaces du début et de la fin d'un String.  
+La méthode strip() est nouvelle dans **Java 11**. Elle fait tout ce que trim () fait, mais elle prend en charge Unicode  
+###### intern():  
 la méthode intern() renvoie la valeur du pool de String s'il y en a. Sinon, il ajoute la valeur au pool de String, on aura d'avantage d'explication dans le paragraphe concernant string pool.  
 
 ##### Chaînage de méthodes: (Method Chaining)
