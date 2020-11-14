@@ -170,9 +170,113 @@ Il est courant d'appeler plusieurs méthodes comme indiqué ici:
 		String trimmed = start.trim();	// "AniMaL"
 		String lowercase = trimmed.toLowerCase();	// "animal"
 		String result = lowercase.replace('a', 'A');	// "AnimAl"
-		System.out.println(result);	// AnimAl
+	   System.out.println(result);	// AnimAl
 Ceci est juste une série de méthodes String. A chaque appel, la valeur renvoyée est placée dans une nouvelle variable. Il existe quatre valeurs String en cours de route et AnimAl est généré. Cependant, lors de l'examen, il y a une tendance à entasser autant de code que possible dans un petit espace. Vous verrez du code utilisant une technique de chaînage de méthode appelée. Voici un exemple  
 
-	String res = "AniMal ".trim().toLowerCase().replace('a', 'A');
+		String res = "AniMal ".trim().toLowerCase().replace('a', 'A');
 		System.out.println(res);	// AnimAl
-# Utilisation de la classe StringBuilder: (Using the StringBuilder Class)
+# Utilisation de la classe StringBuilder: (Using the StringBuilder Class)  
+
+La classe StringBuilder crée un String sans stocker toutes ces valeurs String provisoires. Contrairement à la classe String, StringBuilder n'est pas immuable
+
+### Mutabilité et chaînage: (Mutability ans Chaining)
+L'examen tentera probablement de vous tromper sur le fait que String et Stringbuilder sont mutables.  
+lorsque nous avons enchaîné les appels de la méthode String, le résultat était un nouveau String avec la réponse. Au lieu de cela, le StringBuilder change son propre état et renvoie une référence à lui-même.  
+Regardons un exemple pour rendre cela plus clair:  
+
+		StringBuilder sb = new StringBuilder("start");
+		sb.append("+middle");
+		StringBuilder same = sb.append("+end");
+		System.out.println(sb);	// start+middle+end
+		System.out.println(same);	// start+middle+end
+Les deux reference affiche le même resultat, contrairement avec la classe String.  
+
+### Créer un StringBuilder: (Creating a StringBuilder)  
+Il existe **trois** façons de construire un StringBuilder:  
+
+	StringBuilder sb1 = new StringBuilder();  
+	StringBuilder sb2 = new StringBuilder("animal");  
+	StringBuilder sb3 = new StringBuilder(10);
+La première ligne, crée un StringBuilder  contient une séquence vide.  
+La deuxième ligne, crée un StringBuilder contient la chaine "animal".  
+La dernière indique à Java que nous avons une idée de la taille de la valeur éventuelle.  
+
+### Méthodes StringBuilder importantes: (Important StringBuilder Methods)  
+
+Comme avec String, nous n'allons pas couvrir toutes les méthodes de la classe StringBuilder, Ce sont ceux que vous pourriez voir à l'examen:  
+
+###### charAt(), indexOf(), lengh() and substring():  
+
+Ces quatre méthodes fonctionnent exactement de la même manière que dans la classe String. Assurez-vous de pouvoir identifier la sortie de cet exemple:  
+
+		StringBuilder strB = new StringBuilder("animals"); 
+		String sub = strB.substring(strB.indexOf("a"), strB.indexOf("al"));
+		int len = strB.length();
+		char ch = strB.charAt(6);
+		System.out.println(sub + " " + len + " " + ch);	// anim 7 s
+In faut noter que **substring** renvoie String plutôt qu'in StringBuilder
+
+###### append(): 
+La méthode append() est de loin la méthode la plus fréquement utilisé dans StringBuilder. Elle ajoute le paramètre au StringBuilder et renvoie une référene au StringBuilder acutel. L'une des signature des méthde est la suivante:  
+	*append(String str)*
+Notez que nous avois dit l'une des signatures de la méthode. Il existe plus de **10** signatures:  
+
+	StringBuilder sb = new StringBuilder().append(1).append('c').append("-").append(true);
+		System.out.println(sb);	// 1c-true
+###### insert(): 
+Ajoute des caractères au StringBuilder à l'index demandé et renvoie une référence au StringBuilder actuel. Il existe plusieurs signatures des méthodes pour differents types, en voici un:  
+	*StringBuilder insert(int offset, String str)*  
+Le code suivant montre comment utiliser insert():  
+
+		StringBuilder sb = new StringBuilder("animals");
+		sb.insert(7, "-");		// sb = animals-
+		sb.insert(0, "-");	// sb = -animals-
+		sb.insert(4, "-");	// sb = ani-mals-
+		System.out.println(sb);	// -ani-mals-
+il faut faire attention:
+
+		StringBuilder sb = new StringBuilder("animals");
+		sb.insert(8, "-");		// throws an exception
+###### delete() and deleteCharAt():  
+La méthode delete() est l'inverse de la méthode inserte() permet de supprimer une séquence de caractères, et la méthode deleteCharAt() est pratique si on veut supprimer un seul caractère, les signagures de méthodes sont les suivantes:  
+	*StringBuilder delete(int start, int end)*  
+	*StringBuilder deleteCharAt(int index)*  
+Le code suivant montre comment utiliser delete() et deleteCharAt():  
+
+		StringBuilder sb = new StringBuilder("abcdef");
+		sb.delete(1, 3);	// sb = adef
+		sb.deleteCharAt(5);	// throws an exception
+Si vous spécifiez un deuxième paramètre qui dépasse la fin de StringBuilder, Java supposera simplement que vous vouliez dire la fin.  
+		
+			StringBuilder sb = new StringBuilder("abcdef");
+			sb.delete(1, 100);	// sb = a
+###### replace():  
+La méthode replace() fonctionne différemment pour StringBuilder et pour String. La signature de la méthode est la suivante:  
+	*StringBuilder replace(int startIndex, int endIndex, String newString)*  
+Le code suivant montre comment utiliser la méthode replace():  
+
+		StringBuilder builder = new StringBuilder("pigeon dirty");
+		builder.replace(3, 6, "sty");
+		System.out.println(builder);	// pigsty dirty
+###### reverse():  
+Après tout cela, il est temps de choisir une méthode simple et agréable. Le méthode reverse() inverse les caractère des séquences et renvoie une référence au StringBuilder atuel. La signature de la méthode est la suivante:  
+	*StringBuilder reverse()*  
+Le code suivant montre comment utiliser la méthode reverse():  
+
+		StringBuilder sb = new StringBuilder("ABC");
+		sb.reverse();
+		System.out.println(sb);	// CBA
+###### toString():    
+La dernière méthode convertit un StringBuilder en String, La signature de la méthode est la suivante: 
+	*String toString()*
+Le code suivant montre comment utiliser la méthode toString():  
+
+	StringBuilder sb = new StringBuilder("ABC");
+	String s = sb.toString();
+# Comprendre l'égalité: (Understanding Equality)  
+
+### Comparaison equlas() et "==" : (Comparing equals() and "==" )  
+### The String pool:  
+
+# Comprendre les tableaux Java: (Understanding Java Arrays)  
+
