@@ -201,7 +201,7 @@ La première ligne, crée un StringBuilder  contient une séquence vide.
 La deuxième ligne, crée un StringBuilder contient la chaine "animal".  
 La dernière indique à Java que nous avons une idée de la taille de la valeur éventuelle.  
 
-### Méthodes StringBuilder importantes: (Important StringBuilder Methods)  
+### Méthodes StringBuilder importantes: (Important StringBuilder Methods)  StringMethods.java
 
 Comme avec String, nous n'allons pas couvrir toutes les méthodes de la classe StringBuilder, Ce sont ceux que vous pourriez voir à l'examen:  
 
@@ -273,10 +273,85 @@ Le code suivant montre comment utiliser la méthode toString():
 
 	StringBuilder sb = new StringBuilder("ABC");
 	String s = sb.toString();
-# Comprendre l'égalité: (Understanding Equality)  
+	
+# Comprendre l'égalité: (Understanding Equality)  UnderstandEqual.java
+
+Dans le chapitre 3, vous avez appris à utiliser == pour comparer des nombres et que les références d'objet font référence au même objet. 
 
 ### Comparaison equlas() et "==" : (Comparing equals() and "==" )  
+Prenons cet exemple:  
+
+		StringBuilder one = new StringBuilder();
+		StringBuilder two = new StringBuilder();
+		StringBuilder three = one.append("a");
+		System.out.println(one == two); // false
+		System.out.println(one == three); // true
+Puisque cet exemple ne traite pas des primitives, nous savons chercher si les références font référence au même objet. one et two sont les deux des StringBuilders complètement séparés, ce qui nous donne deux objets. Par conséquent, la première instruction print nous donne false. three est plus intéressant. Rappelez-vous comment les méthodes StringBuilder aiment renvoyer la référence actuelle pour le chaînage? Cela signifie qu'un et trois pointent tous les deux vers le même objet et la deuxième instruction d'impression nous donne vrai.
+Vous avez vu précédemment que vous pouvez dire que vous voulez l'égalité logique plutôt que l'égalité d'objet pour les objets String:   
+
+		String x = "Hello World";	// literal string
+		String y = " Hello World".trim();
+		System.out.println(x.equals(y)); // true
+Cela fonctionne car les auteurs de la classe String ont implémenté une méthode standard appelée equals pour vérifier l'egalité des valeurs à l'intérieur de String plutôt que la référence String elle-même. Et si la classe n'implemente pas la méthode equlas(), alors la classe va vérifier si les references pointent sur le même objet, c'est la même chose ce qu'elle fait l'opérateur ==  
+
+Regardons cet exemple très important:
+
+		String s1 = new String();
+		String s2 = new String();
+		System.out.println(s1 == s2);	// false
+		System.out.println(s1.equals(s2));	// true
+Avec une classe qque qui s'appelle Tiger:  
+
+		Tiger t1 = new Tiger();
+		Tiger t2 = new Tiger();
+		Tiger t3 = t1;
+		System.out.println(t1 == t3);	// true
+		System.out.println(t1 == t2);	// false
+		System.out.println(t1.equals(t2));	// false
+Le resultat est different que la classe String, parce que la classe Tiger  n'implemente pas la méthode equals(). 
+
+Enfin, l'examen pourrait essayer de vous tromper avec une question comme celle-ci:  
+
+		String str = "a";
+		StringBuilder builder = new StringBuilder("a");
+		System.out.println(str == builder);	// DOES NOT COMPILE
+N'oubliez pas que == vérifie l'égalité des références d'objet de même type.
 ### The String pool:  
+Comme les Strings sont partout en Java, elles utilisent beaucoup de mémoire. Dans certaines applications de production, ils peuvent utiliser une grande quantité de mémoire dans l'ensemble du programme. Java se rend compte que de nombreuses chaînes se répètent dans le programme et résout ce problème en réutilisant les chaînes courantes. Le pool de Strings, également appelé pool interne, est un emplacement de la machine virtuelle Java (JVM) qui collecte toutes ces chaînes.  
+Le pool de chaînes contient des valeurs littérales et des constantes qui apparaissent dans votre programme. Par exemple, "name" est un littéral et va donc dans le pool de chaînes. myObject.toString () est une chaîne mais pas un littéral, donc il n'entre pas dans le pool de Strings.  
+Voyons maintenant le scénario plus complexe et déroutant, l'égalité des chaînes, en partie à cause de la façon dont la JVM réutilise les littéraux de chaîne.  
 
+		String x = "Hello World";
+		String y = "Hello World";
+		System.out.println(x == y); // true
+x et y deux litéraux avec la même valeure "Hello World" donc le JVM va crée un seul litéral dans la mémoire, exactement dans le Pool Strings, et x et y les deux pointent sur cet objet.  
+Cela devient encore plus délicat. Considérez ce code:  
+
+		String x = "Hello World";
+		String z = " Hello World".trim();
+		System.out.println(x == z); // false
+Dans cet exemple, nous n'avons pas deux même littéral String. Bien que x et z soient évalués sur la même chaîne, l'un est calculé au moment de l'exécution(runtime), ce n'est pas la même chose au moment de la compilation, donc un nouvel objet chaîne est créé. Regardons un deuxième exemple:  
+
+		String singleString = "hello world";
+		String oneLine = "hello " + "world";
+		String concat = "hello ".concat("world");
+		System.out.println(singleString == oneLine);	// true
+		System.out.println(singleString == concat);	//false
+On peut dire à Java d'utiliser le pool de String. La méthode intern() utilisera un objet dans le pool de chaînes s'il y en a un. Si le littéral n'est pas encore dans le pool de chaînes, Java l'ajoutera à ce moment:  
+
+		String name = "Hello world";
+		String name2 = new String("Hello world").intern();
+		System.out.println(name == name2);	// true
 # Comprendre les tableaux Java: (Understanding Java Arrays)  
-
+### Créer un tableau de primitives: (Creating an Array of Primitives)  
+### Création d'un tableau avec des variables de référence: (Creating an Array with Reference Variables)  
+### Utilisation d'un tableau: (Using an Array)  
+### Tri: (Sorting)  
+### Recherche: (Recherche)  
+### Comparant: (Comparing) 
+###### compare():  
+###### mismatch():  
+### Varargs:  
+# Tableaux multidimensionnels: (Multidimensional Arrays)   
+### Création d'un tableau multidimensionnel: (Creating a Multidimensional Array) 
+### Utilisation d'un tableau multidimensionnel: (Using a Multidimensional Array)
