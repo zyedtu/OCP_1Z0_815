@@ -308,7 +308,7 @@ Avec une classe qque qui s'appelle Tiger:
 		System.out.println(t1 == t3);	// true
 		System.out.println(t1 == t2);	// false
 		System.out.println(t1.equals(t2));	// false
-Le resultat est different que la classe String, parce que la classe Tiger  n'implemente pas la méthode equals(). 
+Le resultat est different que la classe String, parce que la classe Tiger  n'implemente pas la méthode equals(). Si la classen'implemente pas equals() alros == et equals() donnent le même résultat.
 
 Enfin, l'examen pourrait essayer de vous tromper avec une question comme celle-ci:  
 
@@ -343,15 +343,195 @@ On peut dire à Java d'utiliser le pool de String. La méthode intern() utiliser
 		String name2 = new String("Hello world").intern();
 		System.out.println(name == name2);	// true
 # Comprendre les tableaux Java: (Understanding Java Arrays)  
-### Créer un tableau de primitives: (Creating an Array of Primitives)  
-### Création d'un tableau avec des variables de référence: (Creating an Array with Reference Variables)  
+
+Un tableau est une zone de mémoire sur le tas (Heap) avec de l'espace pour un nombre désigné d'éléments. Une grande différence est qu'un tableau peut être de n'importe quel type Java. Si nous ne voulions pas utiliser un String pour une raison quelconque, nous pourrions utiliser directement un tableau de primitives char:  
+	*char [] letters:*  
+	
+### Créer un tableau de primitives: (Creating an Array of Primitives) CreatingArray.java 
+
+La façon la plus courante de créer un tableau ressemble à ceci:  
+
+		int[] numbers = new int[3];	// [] les brackets sont obligatoires pour un tableau
+numbers est un tableau de type int et de taille 3.  
+Une autre façon de créer un tableau est de spécifier tous les éléments avec lesquels il doit commencer:  
+
+		int[] numbers2 = new int[] {4, 52, 89};
+Dans cet exemple, nous créons également un tableau int de taille 3. Cette fois, nous spécifions les valeurs initiales de ces trois éléments au lieu d'utiliser les valeurs par défaut.  
+Java reconnaît que cette expression est redondante. Puisque vous spécifiez le type du tableau sur le côté gauche du signe égal, Java connaît déjà le type. Et puisque vous spécifiez les valeurs initiales, il connaît déjà la taille. En tant que raccourci, Java vous permet d'écrire ceci:  
+
+		int[] numbers2 = {4, 52, 89};
+Enfin, vous pouvez taper le [] avant ou après le nom, et l'ajout d'un espace est facultatif. Cela signifie que ces 5 instructions font exactement la même chose:  
+
+		int[] numAnimals;
+		int [] numAnimals2;
+		int []numAnimals3;
+		int numAnimals4[];
+		int numAnimals5 [];
+* Plusieurs «tableaux» dans les déclarations: 
+
+	int [] ids, types; // on creé deux tableau de type int.
+	int [] a, b; // a un tableau de type int et b une primitive sur un entier
+### Création d'un tableau avec des variables de référence: (Creating an Array with Reference Variables) 
+
+Vous pouvez choisir n'importe quel type Java comme type de tableau. Cela inclut les classes que vous créez vous-même. Jetons un coup d'œil à un type String: 
+
+		String [] bugs = {"cricket", "beetle", "ladybug"};
+		String [] alias = bugs;
+		System.out.println(bugs.equals(alias));	// true
+		System.out.println(bugs.toString());	// [Ljava.lang.String;@39ed3c8d
+Nous pouvons appeler equals() car **un tableau est un objet**. Il renvoie true en raison de l'égalité de référence. La méthode equals () sur les tableaux ne regarde pas les éléments du tableau. Rappelez-vous que cela fonctionnerait même sur un int [] aussi. int est un primitif, int[] est un objet.
 ### Utilisation d'un tableau: (Using an Array)  
+
+Maintenant que nous savons comment créer un tableau, essayons d’y accéder:  
+
+		String[] mammals = {"monkey", "chimp", "donkey"};	// déclare et initialise le tableau
+		System.out.println(mammals.length); // 3
+		System.out.println(mammals[0]); // monkey
+		System.out.println(mammals[1]); // chimp
+		System.out.println(mammals[2]); // donkey
+Pour vous assurer que vous comprenez comment fonctionne la longueur (length):  
+	
+		String[] birds = new String[6];
+		System.out.println(birds.length);	// 6
 ### Tri: (Sorting)  
+
+Java facilite le tri d'un tableau en fournissant une méthode de tri, ou plutôt un ensemble de méthodes de tri. Tout comme StringBuilder vous a permis de transmettre presque tout à append (), vous pouvez passer presque n'importe quel tableau à **Arrays.sort ()**.  
+Arrays est la première classe fournie par Java que nous avons utilisée et qui nécessite une importation. Pour l'utiliser, vous devez avoir l'une des deux instructions suivantes dans votre classe:  
+
+		import java.util.* // import whole package including Arrays
+		import java.util.Arrays; // import just Arrays
+Cet exemple trie trois nombres:
+
+		int [] tab = {9, 5 , 1};
+		Arrays.sort(tab);
+		for(int i : tab)
+			System.out.println(i + " ");	// 1 5 9
+Réessayez avec les types String:  
+
+		String[] strings = { "10", "9", "100" };
+		Arrays.sort(strings);
+		for (String string : strings)
+			System.out.print(string + " ");	// 10 100 9
+Cette fois, le résultat n'est peut-être pas celui que vous attendez. Ce code produit 10 100 9. Le problème est que String trie par ordre alphabétique et 1 trie avant 9. (Les nombres sont triés avant les lettres et les majuscules avant les minuscules, au cas où vous vous poseriez la question.)
 ### Recherche: (Recherche)  
+
+Java fournit également un moyen pratique de recherche, mais uniquement si *le tableau est déjà trié*, en utilisant **Arrays.binarySearch()**. Ci-dessous on trouve les règles de la recherche:  
+	- Si l'élément cible est trouvé dans un tableau trié alors on retourne l'index de l'élément.  
+	- Si l'élément cible n'est pas trouvé dans un tableau trié alors on retourne une valeur négative strictement infèrieur à l'index ou devrait l'être.  
+	- Si le tableau n'est pas trié alors on aura une valeur surpprise.  
+Essayons ces règles avec un exemple:  
+
+		int[] tabInt = {2,4,6,8};
+		System.out.println(Arrays.binarySearch(tabInt, 2)); // 0
+		System.out.println(Arrays.binarySearch(tabInt, 4)); // 1
+		System.out.println(Arrays.binarySearch(tabInt, 1)); // -1
+		System.out.println(Arrays.binarySearch(tabInt, 3)); // -2
+		System.out.println(Arrays.binarySearch(tabInt, 9)); // -5
+Que pensez-vous qu'il se passe dans cet exemple ?  
+
+		int [] tabNoSort = new int[] {3,2,1};
+		System.out.println(Arrays.binarySearch(tabNoSort, 2));	//1
+		System.out.println(Arrays.binarySearch(tabNoSort, 3));	// -4
+Dans l'exam dès que vous voyez que le tableau n’est pas trié, recherchez un choix de réponse concernant une sortie imprévisible.
 ### Comparant: (Comparing) 
+
+Java fournit également des méthodes pour comparer deux tableaux afin de déterminer lequel est "plus petit". Nous allons d'abord couvrir la méthode compare(), puis passer à mismatch() " l'incompatibilité".  
 ###### compare():  
+
+Il y a un tas de règles que vous devez connaître avant d'appeler compare(). Vous devez d'abord savoir ce que signifie la valeur de retour. vous n'avez pas besoin de connaître les valeurs de retour exactes, mais vous devez connaître les éléments suivants:  
+	- Un nombre négatif signifie que le premier tableau est plus petit que le second.
+	- Un zéro signifie que les tableaux sont égaux.
+	- Le nombre positif signifie que le premier tableau est plus grand que le second.  
+Voici un exemple: 
+
+		System.out.println(Arrays.compare(new int[] {1}, new int[] {2}));	// -1
+retourne -1 parce que 1 est plus petit que 2, c'est normal.  
+Mais si on veut comparer deux tableaux avec une tailles differentes, qq ce passe ?  Ci-dessous des exemples qui illustrent les règles:  
+
+	System.out.println(Arrays.compare(new int[] {1, 2}, new int[] {2}));	// -1
+	System.out.println(Arrays.compare(new int[] {1, 2}, new int[] {1, 2}));	// 0
+	System.out.println(Arrays.compare(new int[] {1, 2}, new int[] {2, 1}));	// -1
+	System.out.println(Arrays.compare(new String[] {"a"}, new String[] {"aa"}));	// -1
+	System.out.println(Arrays.compare(new String[] {"a"}, new String[] {"A"}));	// 32
+	System.out.println(Arrays.compare(new String[] {"a"}, new String[] {null}));	//1
+	System.out.println(Arrays.compare(new int[] {1}, new String[] {"a"}));	// DOES NOT COMPILE
 ###### mismatch():  
+
+Il est maintenant temps d'en apprendre davantage sur les mismatch(). si les tableaux sont égaux, mismatch() renvoie -1. Sinon, il renvoie le premier index où ils diffèrent. Pouvez-vous comprendre ce que ces imprimés?  
+
+	System.out.println(Arrays.mismatch(new int[] {1},  new int[] {1}));	// -1
+		System.out.println(Arrays.mismatch(new String[] {"a"}, new String[] {"A"}));	// 0
+		System.out.println(Arrays.mismatch(new int[] {1, 2},  new int[] {1}));	// 1
 ### Varargs:  
+
+Lorsque vous créez un tableau vous-même, cela ressemble à ce que nous avons vu jusqu'à présent. Quand on est passé à votre méthode, il y a une autre façon dont cela peut ressembler. Voici trois exemples avec une méthode main():  
+
+		public static void main(String[] args)
+		public static void main(String args[])
+		public static void main(String... args) // varargs
+Le troisième exemple utilise une syntaxe appelée varargs (arguments de variable), que vous avez vue au chapitre 1. Vous apprendrez comment appeler une méthode à l'aide de varargs au chapitre 7, «Méthodes et encapsulation». Pour l'instant, tout ce que vous devez savoir, c'est que vous pouvez utiliser une variable définie à l'aide de varargs comme s'il s'agissait d'un tableau normal. Par exemple, args.length et args[0] sont légaux.
 # Tableaux multidimensionnels: (Multidimensional Arrays)   
+
+Les tableaux sont des objets et, bien entendu, les composants du tableau peuvent être des objets. Il ne faut pas beaucoup de temps, en frottant ces deux faits ensemble, pour se demander si les tableaux peuvent contenir d'autres tableaux, et bien sûr ils le peuvent.  
 ### Création d'un tableau multidimensionnel: (Creating a Multidimensional Array) 
+
+Plusieurs séparateurs de tableau sont tout ce qu'il faut pour déclarer des tableaux avec plusieurs dimensions. Vous pouvez les localiser avec le type ou le nom de variable dans la déclaration, comme précédemment:  
+
+		int[][] vars1; // 2D array
+		int vars2 [][]; // 2D array
+		int[] vars3[]; // 2D array
+		int[] vars4 [], space [][]; // a 2D AND a 3D array
+Vous pouvez spécifier la taille de votre tableau multidimensionnel dans la déclaration si vous le souhaitez:  
+
+		String [][] rectangle = new String[3][2];
+Le résultat de cette instruction est un de tableau avec trois éléments, chacun faisant référence à un 
+tableau de deux éléments. Vous pouvez considérer la plage adressable de rectangle[0][0] à rectangle[2][1], mais ne la 
+considérez pas comme une structure d'adresses comme [0,0] ou [2,1].  
+Supposons maintenant que nous définissions l'une de ces valeurs:  
+
+		rectangle[0][1] = "set";
+Une autre façon de créer un tableau 2D consiste à initialiser uniquement la première dimension d'un tableau et à définir la taille de chaque composant du tableau dans une instruction distincte:  
+
+		int [][] args = new int[4][];
+		args[0] = new int[5];
+		args[1] = new int[3];
+Cette technique révèle ce que vous obtenez réellement avec Java: des tableaux de tableaux qui, correctement gérés, offrent un effet multidimensionnel.
 ### Utilisation d'un tableau multidimensionnel: (Using a Multidimensional Array)
+
+L'opération la plus courante sur un tableau multidimensionnel est de le parcourir. Cet exemple imprime un tableau 2D:
+
+		int[][] twoD = new int[3][2];
+		for (int i = 0; i < twoD.length; i++) {
+			for (int j = 0; j < twoD[i].length; j++)
+				System.out.print(twoD[i][j] + " "); // print element
+			System.out.println(); // time for a new row
+		}
+
+# Comprendre une ArrayList: (Understanding an ArrayList)  
+### Créer une ArrayList: (Creating an ArrayList )  
+### Utilisation d'un ArrayList: (Using an ArrayList)
+###### add():
+###### remove():  
+###### set():  
+###### isEmpty() and size():  
+###### clear():  
+###### contains():  
+###### equals():  
+### Classes Enveloppée :(Wrapper Classes)  
+###### Autoboxing and Unboxing:  
+###### Conversion entre tableau et liste: (Converting Between array and List)  
+###### Utilisation de Varargs pour créer une liste: (Using Varargs to Create a List)  
+###### Tri: (Sorting)  
+# Création d'ensembles et de cartes: (Creating Sets and Maps)
+### Présentation des ensembles: (Introducing Sets)  
+### Présentation des cartes: (Introducing Maps)
+# Travailler avec les dates et les heures: (Working with Dates and Times)
+### Créer des dates et des heures: (Creating Dates and Times)
+### Manipulation des dates et des heures: (Manipulating Dates and Times)
+### Formatage des dates et heures: (Formatting Dates and Times)
+### Analyse des dates et heures: (Parsing Dates and Times)
+# Calcul avec les API Math: (Calculating with Math APIs)  
+### min() and max():  
+### round():  
+### pow():  
+### random():
