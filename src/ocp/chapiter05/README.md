@@ -764,13 +764,144 @@ Il existe également des méthodes spécifiques pour traiter les paires clé et 
 		for(String key: map.keySet())
 			System.out.println(map.get(key));	// bamboo
 
-# Travailler avec les dates et les heures: (Working with Dates and Times)
-### Créer des dates et des heures: (Creating Dates and Times)
-### Manipulation des dates et des heures: (Manipulating Dates and Times)
-### Formatage des dates et heures: (Formatting Dates and Times)
-### Analyse des dates et heures: (Parsing Dates and Times)
+# Travailler avec les dates et les heures: (Working with Dates and Times)   
+A pariter de Java 8, Oracle a complètement repensé la façon dont nous travaillons avec les dates et les heures. Vous pouvez toujours écrire du code «à l'ancienne», mais ces cours ne font pas partie de l'examen. Nous mentionnerons «l'ancienne méthode» dans les scénarios du monde réel afin que vous puissiez apprendre la «nouvelle façon» plus facilement si vous avez appris Java pour la première fois avant la version 8. Même si vous apprenez Java à partir de la version 8, cela vous aidera vous lorsque vous avez besoin de lire du code plus ancien. Sachez simplement que «l'ancienne méthode» ne fait pas partie de l'examen.     
+Comme avec une ArrayList, vous avez besoin d'une instruction d'importation pour travailler avec les classes de date et d'heure. La plupart d'entre eux sont dans le package **java.time**. Pour l'utiliser, ajoutez cette importation à votre programme: 
+
+		import java.time.*;  
+Dans les sections suivantes, nous examinerons la création, la manipulation et le formatage des dates et des heures.
+### Créer des dates et des heures: (Creating Dates and Times)   
+Dans le monde réel, nous parlons généralement de dates et de fuseaux horaires comme si l'autre personne se trouvait près de nous. Par exemple, si vous dites «Je vous appellerai mardi matin à 11h00», nous supposons que 11h00 signifie la même chose pour nous deux. Mais si vous vivez à New York et que nous vivons en Californie, vous devez être plus précis. La Californie est trois heures plus tôt que New York car les États sont dans des fuseaux horaires différents. Vous diriez plutôt: "Je vous appellerai à 11 h 00 HNE mardi matin." Heureusement, l'examen ne couvre pas les fuseaux horaires, il est donc plus facile de discuter des dates et des heures.   
+Lorsque vous travaillez avec des dates et des heures, la première chose à faire est de décider de la quantité d'informations dont vous avez besoin. L'examen vous offre trois choix:   
+###### LocalDate:  
+LocalDate contient juste une date, pas d'heure ni de fuseau horaire. Un bon exemple de LocalDate est votre anniversaire cette année. C'est votre anniversaire pour une journée entière quelle que soit l'heure.
+Pour commencer, créons simplement une date sans heure. Ces deux exemples créent la même date:  
+
+		LocalDate date1 = LocalDate.of(2015, Month.JANUARY, 20);	// 2015-01-20
+		LocalDate date2 = LocalDate.of(2015, 1, 20);	// 2015-01-20
+Les deux passent dans l'année, le mois et la date. Bien qu'il soit bon d'utiliser les constantes Month (pour rendre le code plus facile à lire), vous pouvez passer directement le nombre entier du mois. Utilisez simplement le numéro du mois de la même manière que vous le feriez si vous écriviez la date dans la vraie vie. Les signatures de méthode sont les suivantes:  
+
+		public static LocalDate of(int year, int month, int dayOfMonth)
+		public static LocalDate of(int year, Month month, int dayOfMonth)
+Month est un type spécial de classe appelé enum. Vous n'avez pas besoin de connaître les énumérations à l'examen OCA et vous ne pouvez pas simplement les traiter comme des constantes.  
+###### LocalTime:   
+Lors de la création d'une heure, vous pouvez choisir le niveau de détail souhaité. Vous pouvez spécifier uniquement l'heure et les minutes, ou vous pouvez ajouter le nombre de secondes. Vous pouvez même ajouter des nanosecondes si vous voulez être très précis. (Une nanoseconde est un milliardième de seconde - vous n'aurez probablement pas besoin d'être aussi précis.)    
+
+		LocalTime time1 = LocalTime.of(6, 15); // hour and minute 06:15
+		LocalTime time2 = LocalTime.of(6, 15, 30); // + seconds 06:15:30
+		LocalTime time3 = LocalTime.of(6, 15, 30, 200); // + nanoseconds 06:15:30.000000200
+Ces trois temps sont tous différents mais à moins d'une minute l'un de l'autre. Les signatures de méthode sont les suivantes:   
+
+		public static LocalTime of(int hour, int minute)
+		public static LocalTime of(int hour, int minute, int second)
+		public static LocalTime of(int hour, int minute, int second, int nanos)
+###### LocalDateTime:   
+Enfin, nous pouvons combiner des dates et des heures:  
+
+		LocalDateTime dateTime1 = LocalDateTime.of(2015, Month.JANUARY, 20, 6, 15, 30);	//2015-01-20T06:15:30
+		LocalDateTime dateTime2 = LocalDateTime.of(date1, time1);	// 2015-01-20T06:15
+La première ligne de code montre comment vous pouvez spécifier toutes les informations sur le droit LocalDateTime dans la même ligne. Il existe de nombreuses signatures de méthodes vous permettant de spécifier différentes choses. Cependant, avoir autant de chiffres d'affilée devient difficile à lire. La deuxième ligne de code montre comment créer des objets LocalDate et LocalTime séparément, puis les combiner pour créer un objet LocalDateTime.   
+Il y a beaucoup de signatures de méthodes car il y a plus de combinaisons. Violz qques signatures de méthode:    
+
+		public static LocalDateTime of(LocalDate date, LocalTime)
+		public static LocalDateTime of(int year, int month, int dayOfMonth, int hour, int minute)
+Chacune des trois classes a une méthode statique appelée now() qui donne la date et l'heure actuelles. Votre sortie dépendra de la date/heure à laquelle vous l'exécutez et de l'endroit où vous vivez. Les auteurs vivent aux États-Unis, ce qui donne à la sortie l'aspect suivant lorsqu'elle est diffusée le 20 janvier à 12 h 45:  
+
+		System.out.println(LocalDate.now());	// 2020-12-06
+		System.out.println(LocalTime.now());	// 10:40:44.529754300
+		System.out.println(LocalDateTime.now());	// 2020-12-06T10:40:44.529754300
+Avez-vous remarqué que nous n'avons pas utilisé de constructeur dans aucun des exemples? Les classes de date et d'heure ont des constructeurs privés, pour nous forcer à utiliser les méthodes statiques. Les créateurs de l'examen peuvent essayer de vous lancer quelque chose comme ceci:  
+
+		LocalDate d = new LocalDate(); // DOES NOT COMPILE
+### Manipulation des dates et des heures: (Manipulating Dates and Times)   
+L'ajout à une date est facile. Les classes de date et d'heure sont immuables, tout comme l'était String. Cela signifie que nous devons nous rappeler d'attribuer les résultats de ces méthodes à une variable de référence afin qu'ils ne soient pas perdus.  
+
+		LocalDate date = LocalDate.of(2014, Month.JANUARY, 20);
+		System.out.println(date); // 2014-01-20
+		date = date.plusDays(2);
+		System.out.println(date); // 2014-01-22
+		date = date.plusWeeks(1);
+		System.out.println(date); // 2014-01-29
+		date = date.plusMonths(1);
+		System.out.println(date); // 2014-02-28
+		date = date.plusYears(5);
+		System.out.println(date); // 2019-02-28
+		date = date.minusDays(5);
+		System.out.println(date); // 2019-02-23
+### Formatage des dates et heures: (Formatting Dates and Times)   
+Les classes de date et d'heure prennent en charge de nombreuses méthodes pour en extraire des données:   
+
+		LocalDate date = LocalDate.of(2020, Month.JANUARY, 20);
+		System.out.println(date.getDayOfWeek()); // MONDAY
+		System.out.println(date.getMonth()); // JANUARY
+		System.out.println(date.getYear()); // 2020
+		System.out.println(date.getDayOfYear()); // 20
+Nous pourrions utiliser ces informations pour afficher des informations sur la date. Cependant, ce serait plus de travail que nécessaire. Java fournit une classe appelée DateTimeFormatter pour nous aider. Contrairement à la classe LocalDateTime, DateTimeFormatter peut être utilisé pour mettre en forme tout type d'objet de date et / ou d'heure. Ce qui change, c'est le format. DateTimeFormatter est dans le package java.time.format.  
+
+		LocalDate dateF = LocalDate.of(2020, Month.JANUARY, 20);
+		LocalTime time = LocalTime.of(11, 12, 34);
+		LocalDateTime dateTime = LocalDateTime.of(dateF, time);
+		System.out.println(dateF.format(DateTimeFormatter.ISO_LOCAL_DATE));	// 2020-01-20
+		System.out.println(time.format(DateTimeFormatter.ISO_LOCAL_TIME));	// 11:12:34
+		System.out.println(dateTime.format(DateTimeFormatter.ISO_LOCAL_DATE_TIME));	// 2020-01-20T11:12:34
+L'**ISO** est une norme pour les dates.   
+Si vous ne souhaitez pas utiliser l'un des formats prédéfinis, vous pouvez créer le vôtre. Par exemple, ce code précise le mois:   
+
+		DateTimeFormatter f = DateTimeFormatter.ofPattern("MMMM dd, yyyy, hh:mm");
+		System.out.println(dateTime.format(f)); // January 20, 2020, 11:12  
+Avant d'examiner la syntaxe, sachez que vous n'êtes pas censé mémoriser la signification des différents nombres de chaque symbole. Tout ce que vous aurez à faire est de reconnaître la date et l'heure.   
+* MMMM: M représente le mois. Plus vous avez de Ms, plus la sortie Java est verbeuse. Par exemple, M sorties 1, MM sorties 01, MMM sorties Jan et MMMM sorties Janvier.  
+* dd: d représente la date du mois.  
+* yyyy: y représente l'année. yy génère une année à deux chiffres et yyyy une année à quatre chiffres.   
+* hh: h représente l'heure.   
+* Utilisez ":" : si vous souhaitez afficher deux points.
+* mm: m représente la minute.  
+   
+### Analyse des dates et heures: (Parsing Dates and Times)   
+Maintenant que vous savez comment convertir une date ou une heure en chaîne formatée, il vous sera facile de convertir une String en une date ou une heure. Tout comme la méthode format(), la méthode parse() prend également un formateur. Si vous n'en spécifiez pas, il utilise la valeur par défaut pour ce type.   
+
+		DateTimeFormatter dtf = DateTimeFormatter.ofPattern("MM dd yyyy");
+		LocalDate dateL = LocalDate.parse("01 02 2015", dtf);
+		LocalTime timeL = LocalTime.parse("11:22");
+		System.out.println(dateL); // 2015-01-02
+		System.out.println(timeL); // 11:22
+Ici, nous montrons en utilisant à la fois un formateur personnalisé et une valeur par défaut. Ce n'est pas courant, mais vous devrez peut-être lire du code qui ressemble à ceci lors de l'examen. L'analyse est cohérente en ce sens que si quelque chose ne va pas, Java lève une exception d'exécution. Cela peut être un format qui ne correspond pas à la chaîne à analyser ou une date non valide.
 # Calcul avec les API Math: (Calculating with Math APIs)  
+Il n'est pas surprenant que les ordinateurs soient bons pour calculer les nombres. Java est livré avec une classe de mathématiques puissante avec de nombreuses méthodes pour vous faciliter la vie. Nous aborderons ici quelques exemples courants qui sont les plus susceptibles d'apparaître à l'examen.Lorsque vous réalisez vos propres projets, consultez le Math Javadoc pour voir quelles autres méthodes peuvent vous aider.  
 ### min() and max():  
+les méthodes min() et max() comparent deux valeurs et retournent l'une d'elles. Les signatures de méthode pour 
+min() sont les suivantes:    
+
+	double min(double a, double b);
+	float min(float a, float b);i
+	int min(int a, int b);
+	long min(long a, long b);
+Il existe quatre méthodes surchargées, vous avez donc toujours une API disponible avec le même type. Chaque méthode renvoie la valeur la plus petite de a ou de b. La méthode max () fonctionne de la même manière sauf qu'elle renvoie la valeur de la lager.     
+Ce qui suit montre comment utiliser ces méthodes:   
+
+		int first = Math.max(3, 7);	// 7
+		int second = Math.min(8, -9);	// -9
 ### round():  
+La méthode round() supprime la partie décimale de la valeur, en choisissant le nombre immédiatement supérieur approprié. Si la partie fractionnaire est égale ou supérieure à 0,5 nous arrondissons. Les signatures de méthode pour round() sont les suivantes:   
+
+		long round(double d);
+		int roud(float f);
+Ce qui suit montre comment utiliser ces méthodes:   
+
+		long low = Math.round(123.45);	// 123
+		long high = Math.round(123.50);	//124 
+		int formfloat = Math.round(123.45f);	// 1233
 ### pow():  
-### random():
+La méthode pow () gère les exposants. 3 exposant 2 c-a-d 3*3, La signatures de méthode pour pow() est la suivante:  
+
+		double pow(double number, double exponent)
+Ce qui suit montre comment utiliser cette méthode:  
+
+		double squared = Math.pow(5, 2);	// 25 
+### random():   
+La méthode random() renvoie une valeur supérieure ou égale à 0 et inférieure à 1. La signature de la méthode est la suivante: 
+
+		double random()
+Ce qui suit montre comment utiliser cette méthode:  
+
+		double num = Math.random();	// 0.45324572940820507
