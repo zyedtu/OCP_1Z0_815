@@ -57,6 +57,11 @@ public class WorkingWithDatesAndTimes {
 		LocalTime timeL = LocalTime.parse("11:22");
 		System.out.println(dateL); // 2015-01-02
 		System.out.println(timeL); // 11:22
+		
+		LocalDate toDay = LocalDate.now();
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyMMdd");
+		System.out.println("Today is: " + toDay.format(formatter));
+		
 
 	}
 

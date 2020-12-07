@@ -12,5 +12,4 @@ public class ComparatorTester {
 	private static int comparaison(Integer o1, Integer o2, Comparator comparator) {
 		return comparator.compare(o1, o2);
 	}
-
 }
