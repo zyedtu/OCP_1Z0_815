@@ -218,10 +218,178 @@ Le comparateur ints utilise l'ordre de tri naturel. Du premier nombre est plus g
 	}
 Du coup on peut conclure que 8 est infèrieur de 11.   
 # Working with Variables in Lambdas: (Utilisation de variables dans Lambdas)  
+Les variables peuvent apparaître aux **3** endroits par rapport aux lambdas: la liste des paramètres, les variables locales déclarées à l'intérieur du corps lambda et les variables référencées à partir du corps lambda. Tous les trois sont des occasions pour l'examen de vous tromper. Nous explorerons chacun d'entre eux afin que vous soyez alerte lorsque des astuces apparaissent! 
 ### Parameter List: (Liste des paramètres)   
+Plus tôt dans ce chapitre, vous avez appris que la spécification du type de paramètres est facultative. En outre, var peut être utilisé à la place du type spécifique. cela signifie que ces trois déclarations sont interchangeables:   
+
+		Predicate<String> p1 = x -> true;
+		Predicate<String> p2 = (var x)  -> true;
+		Predicate<String> p3 = (String x) -> true;
+L'examen peut vous demander d'identifier le type du paramètre lambda. Dans notre exemple, la réponse est String. Comment avons-nous compris cela? Un lambda déduit les types à partir du contexte. Cela signifie que vous pouvez faire de même.		
+Dans ce cas, le lambda est assigné à un Predicate qui prend une String. Un autre endroit pour rechercher le type est dans une signature de méthode, Regardons cet exemple:  
+
+	public class WorkingWithVariablesInLambdas {
+		public static void main(String[] args) { 
+			consume((var x) -> System.out.println(x), 123);	// 123
+			
+			ArrayList<Integer> list =  new ArrayList<Integer>();
+			list.add(13); list.add(-1);list.add(5);
+			System.out.println("Avant: " + list);// Avant: [13, -1, 5]	
+			counts(list);
+			System.out.println("Après" + list);	// Après[-1, 5, 13]
+		}
+		private static void consume(Consumer<Integer> c, int num) {
+			c.accept(num);
+		}
+		private static void counts(List<Integer> list) {
+			list.sort((var x, var y) -> x.compareTo(y));
+		}
+	}
+Si vous avez deviné Intger, c-a-d vous avez raison.    	
 ### Local Variables inside the Lambda Body: (Variables locales à l'intérieur du corps Lambda)   
+Bien qu'il soit plus courant qu'un corps lambda soit une seule expression, il est légal de définir un bloc. Ce bloc peut contenir tout ce qui est valide dans un bloc Java normal, y compris les déclarations de variables locales.   
+Le code suivant fait exactement cela. il crée une variable locale nommée c qui est étendue au bloc lambde.   
+
+		(a, b) -> { int c = 0; return 5;}
+Lors de l'écriture de votre propre code, un bloc lambda avec une variable locale est un bon indice que vous devriez extraire ce code dans une méthode.  
+
+Maintenent regardant ce code:
+
+		(a, b) -> { int a = 0; retrun 5; }	// DOES NOT COMPILE
+Nous essayons de redéclarer la variable local "a", ce qui n'est pas autorisé. Java ne vous permet pas de créer une variable locale avec le même nom qu'une variable déjà déclarée dans la même portée (scope).   
+Maintenant, essayons un exemple dur. Combien d'erreurs de syntaxe voyez-vous dans cette méthode ?   
+
+		public void variables(int a) {
+			int  b = 1;
+			Predicate<Integer> p = a -> {	// ligne 3
+				int b = 0;	// ligne 4
+				int c = 0;
+				return b == c;
+			}// ligne 7 il manque ; à la fin
+		}
+Dans cette méthode il 3 erreurs:
+* Ligne 3: La variable "a" était déjà utilisée dans cette portée comme paramètre de méthode.   
+* ligne 4: Où le code tente de redéclarer la variable locale "b".  
+* ligne 7: Il manque un point-virgule à la variable p1 à la fin du block.
+
 ### Variables Referenced from the Lambda Body: (Variables référencées à partir du corps Lambda)  
+Les corps Lambda sont autorisés à référencer certaines variables du code environnant. 
+
+		class Crow{
+			private String color;
+			public void caw(String name) { // name effectively final
+				String volume = "loudly"; // volume effectively final
+				Consumer<String> consumer = s -> 
+				System.out.println(name + " says "
+						+ volume + " that she is " + color);
+			}
+		}
+Cela montre que lambda peut accéder à une variable d'instance, un paramètre de méthode ou une variable locale sous certaines conditions. Les variables d'instance (et les variables de classe) sont toujours autorisées.   
+
+Les paramètres de méthode et les variables locales peuvent être référencés s'ils sont effectivement définitifs *effectively final*. En termes simples, les objets ou valeurs primitives sont effectivement définitifs si nous ne modifions pas leurs valeurs après l'initialisation. 
+ 
+Si le code est toujours compilé, la variable est *effectively final*. Vous pouvez y penser comme si nous avions écrit ceci:
+
+		class Crow{
+			private String color;
+			public void caw(final String name) { // name final et non effectively final
+				final String volume = "loudly";	// volume final et non effectively final
+				Consumer<String> consumer = s -> 
+				System.out.println(name + " says "
+						+ volume + " that she is " + color);
+			}	
+		}
+Cela devient encore plus intéressant lorsque vous regardez où les erreurs du compilateur se produisent lorsque les variables ne sont pas *effectively final*. 
+
+		class Crow{
+			private String color;
+			public void caw(String name) {
+				String volume = "loudly";
+				name= "Caty";
+				color = "black";
+				Consumer<String> consumer = s -> 
+				System.out.println(name + " says "	// line 8
+						+ volume + " that she is " + color); // line 9
+				volume = "softly";	// line 10
+			}
+		}  
+La variable local name n'est plus *effectively final*, donc la ligne 8 ne compile pas, la variable volume aussi n'est plus *effectively final* (elle modifier dans le ligne 10)  point de vue lambda c'est une erreur aussi mais le compliteur nous fait sortir que la ligne 8. Par conséquent, le lambda doit être celui qui génère l'erreur du compilateur.   
+
+Règles d'accès à une variable à partir d'un corps lambda à l'intérieur d'une méthode:
+* Variable permise: Instance variable, Static variable, Lambda parameter.
+* Variable permise si elle est effectively final: Local variable, Method parameter.
+
 # Calling APIs with Lambdas: (Appeler des API avec Lambdas)  
-### removeIf():
-### sort():
+Maintenant que vous êtes familiarisé avec lambda et les interfaces fonctionnelles, nous pouvons examiner les méthodes les plus courantes qui les utilisent lors de l'examen.    
+### removeIf():  
+List et Set déclarent une méthode removeIf() qui prend un Predicate. La signature de la méthode est la suivante:   
+
+		default boolean removeIf(Predicate<? super E> filter)
+Imaginez que nous ayons une liste de noms pour les lapins de compagnie. Nous décidons de supprimer tous les noms de lapin qui ne commencent pas par la lettre 'h'. Nous pourrions résoudre ce problème en écrivant une boucle. Ou nous pourrions le résoudre en une seule ligne:  
+
+		public class CallingAPIsWithLambdas {
+			public static void main(String[] args) {
+				List<String> bunnies = new ArrayList<String>();
+				bunnies.add("long ear");		
+				bunnies.add("floppy");		
+				bunnies.add("hoppy");
+				System.out.println(bunnies);	// [long ear, floppy, hoppy]
+				bunnies.removeIf(s -> s.charAt(0) != 'h');
+				System.out.println(bunnies);	// [hoppy]
+			}
+		}
+La méthode removeIf() fonctionne de la même façon avec Set.   
+### sort():  
+Désormais, on peut utiliser la nouvelle API de tri *Sort* ajoutée à *java.util.List* dans Java 8-au lieu de l'ancienne API *Collections.sort*. La signature de la méthode est la suivante: 
+
+		default void sort(Comparator<? super E> c)
+Pour trier une liste, vous pouvez appeler Collection.sort (liste), mais maintenant vous pouvez trier directement sur l'objet de liste: 
+
+		public class CallingAPIsWithLambdas {
+		   public static void main(String[] args) {
+				List<String> bunnies = new ArrayList<String>();
+				bunnies.add("long ear");		
+				bunnies.add("floppy");		
+				bunnies.add("hoppy");
+				System.out.println(bunnies);	// [long ear, floppy, hoppy]
+				bunnies.sort((b1, b2) -> b1.compareTo(b2));
+				System.out.println(bunnies);	// [floppy, hoppy, long ear]
+		   }
+      }
 ### forEach():
+Notre dernière méthode est forEach(). Elle prend un Consumer et appelle un lambda pour chaque éléments rencontré.   
+La signature de la méthode est la suivante:  
+
+		default void forEach(Consumer<? super T> action)
+Regardons cet exemple:  
+
+	  public class CallingAPIsWithLambdas {
+		   public static void main(String[] args) {
+			List<String> bunnies = new ArrayList<String>();
+			bunnies.add("long ear");		
+			bunnies.add("floppy");		
+			bunnies.add("hoppy");
+			System.out.println(bunnies);	// [long ear, floppy, hoppy]
+			bunnies.forEach(b -> System.out.print(b + ", "));	// long ear, floppy, hoppy, 
+		 }
+     }
+Pour une Map, vous devez choisir si vous souhaitez passer par les clés ou les valeurs:  
+
+		Map<String, Integer> bun = new HashMap<>();
+		bun.put("long ear", 3);		
+		bun.put("floppy", 8);		
+		bun.put("hoppy", 1);		
+		bun.keySet().forEach(b -> System.out.println(b + " "));	// long ear, floppy, hoppy
+		bun.values().forEach(b -> System.out.print(b + " "));	// 3, 8, 1
+Il s'avère que les méthodes keySet() et values() renvoient chacune un Set. Puisque nous savons comment utiliser forEach() avec un Set, c'est facile.  
+### Real World Scenari: (Scénario du monde réel)    
+Vous n'avez pas besoin de le savoir pour l'examen, mais Java a une interface fonctionnelle appelée **BiConsumer**. La signature de la méthode forEach pour une Map est:   
+
+		default void forEach(BiConsumer<? super K, ? super V> action)
+Cela fonctionne comme Consumer sauf qu'il peut prendre deux paramètres. Cette interface fonctionnelle vous permet d'utiliser forEach() avec des paires clé/valeur de la forme Map.    
+
+		Map<String, Integer> bun = new HashMap<>();
+		bun.put("long ear", 3);		
+		bun.put("floppy", 8);		
+		bun.put("hoppy", 1);
+		bun.forEach((k, v) -> System.out.println(k + " " + v));

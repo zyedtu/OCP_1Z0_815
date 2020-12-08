@@ -60,7 +60,7 @@ public class WorkingWithDatesAndTimes {
 		
 		LocalDate toDay = LocalDate.now();
 		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyMMdd");
-		System.out.println("Today is: " + toDay.format(formatter));
+		System.out.println("Today is: " +  LocalDate.now().format(formatter));
 		
 
 	}

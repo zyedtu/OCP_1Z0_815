@@ -453,7 +453,7 @@ Vous pouvez spécifier la taille de votre tableau multidimensionnel dans la déc
 
 		String [][] rectangle = new String[3][2];
 Le résultat de cette instruction est un de tableau avec trois éléments, chacun faisant référence à un 
-tableau de deux éléments. Vous pouvez considérer la plage adressable de rectangle[0][0] à rectangle[2][1], mais ne la considérez pas comme une structure d'adresses comme [0,0] ou [2,1].  
+tableau de deux éléments. Vous pouvez considérer la plage adressable de rectangle [0][0] à rectangle[2][1], mais ne la considérez pas comme une structure d'adresses comme [0,0] ou [2,1].  
 Supposons maintenant que nous définissions l'une de ces valeurs:  
 
 		rectangle[0][1] = "set";
