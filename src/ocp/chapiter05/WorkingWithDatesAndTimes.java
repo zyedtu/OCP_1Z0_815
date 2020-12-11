@@ -62,6 +62,12 @@ public class WorkingWithDatesAndTimes {
 		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyMMdd");
 		System.out.println("Today is: " +  LocalDate.now().format(formatter));
 		
+		
+		Instant instant = Instant.now();
+		long timeStampMillis = instant.toEpochMilli();
+		System.out.println("epoch milliseconds is: " + timeStampMillis);
+		long timeStampSeconds = instant.getEpochSecond();
+		System.out.println("epoch-seconds is:" + timeStampSeconds);
 
 	}
 

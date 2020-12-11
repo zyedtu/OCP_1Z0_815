@@ -813,6 +813,17 @@ Chacune des trois classes a une méthode statique appelée now() qui donne la da
 Avez-vous remarqué que nous n'avons pas utilisé de constructeur dans aucun des exemples? Les classes de date et d'heure ont des constructeurs privés, pour nous forcer à utiliser les méthodes statiques. Les créateurs de l'examen peuvent essayer de vous lancer quelque chose comme ceci:  
 
 		LocalDate d = new LocalDate(); // DOES NOT COMPILE
+######  Current Timestamp :(Horodatage actuel)  
+* Timestamp (Horotadage): Lorsque l’on enregistre la date et l’heure d'un événement, on parle d’**horodatage**, c'est l'instant de l'évenement (date et heure). 
+* Epoch: Une époque est une référence temporelle absolue, La plupart des langages de programmation dont Java  utilisent l'époque Unix (midnight 1/1/1970).  
+
+Utilisez *java.time.Instant* pour obtenir un horodatage de l'époque Java. Selon le JavaDoc , «les secondes d'époque sont mesurées à partir de l'époque Java standard de 1970-01-01T00: 00: 00Z, où les instants après l'époque ont des valeurs positives:   
+
+		Instant instant = Instant.now();
+		long timeStampMillis = instant.toEpochMilli();
+		System.out.println("epoch milliseconds is: " + timeStampMillis);	// 1607426862354
+		long timeStampSeconds = instant.getEpochSecond();
+		System.out.println("epoch-seconds is:" + timeStampSeconds);	// 1607426862
 ### Manipulation des dates et des heures: (Manipulating Dates and Times)   
 L'ajout à une date est facile. Les classes de date et d'heure sont immuables, tout comme l'était String. Cela signifie que nous devons nous rappeler d'attribuer les résultats de ces méthodes à une variable de référence afin qu'ils ne soient pas perdus.  
 
