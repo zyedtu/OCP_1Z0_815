@@ -297,7 +297,7 @@ Dans la boucle for il y a 5 étapes:
 4. Exécuter updateStatement
 5. Retourner à l'étape 2  
 
-Jetons un coup d'il à un exemple qui imprime les cinq premiers nombres commençant par zéro:  
+Jetons un coup d'œil à un exemple qui imprime les cinq premiers nombres commençant par zéro:  
 
 		for(int i = 0; i < 5; i++) {
 			System.out.print(i + " "); // 0 1 2 3 4
@@ -306,7 +306,7 @@ Jetons un coup d'il à un exemple qui imprime les cinq premiers nombres commen
 ### Afficher d'éléments à l'envers: (Printing Elements in Reverse)  
 
 Disons que vous vouliez imprimer les mêmes cinq premiers nombres pour zéro que nous l'avons fait dans la section précédente, mais cette fois dans l'ordre inverse, le but est d'afficher 4 3 2 1 0.  
-Comment feriez-vous cela? À partir de Java 10, vous pouvez maintenant voir var utilisé dans une boucle for, alors utilisons-le pour cet exemple. Une mise en uvre initiale peut ressembler à ce qui suit:
+Comment feriez-vous cela? À partir de Java 10, vous pouvez maintenant voir var utilisé dans une boucle for, alors utilisons-le pour cet exemple. Une mise en œuvre initiale peut ressembler à ce qui suit:
 
 		for(var counter = 5; counter > 0; counter--) {
 			System.out.print(counter + " "); //5 4 3 2 1

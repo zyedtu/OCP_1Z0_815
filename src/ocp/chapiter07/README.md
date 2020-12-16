@@ -135,24 +135,471 @@ Lors de l'appel d'une méthode avec un paramètre vararg, vous avez le choix. Vo
 			System.out.println(nums.length);
 		}
 # Applying Access Modifiers: (Application des modificateurs d'accès)  
+Vous avez déjà vu qu'il existe quatre modificateurs d'accès: accès public, privé, protégé et par défaut. Nous allons en discuter dans l'ordre du plus restrictif au moins restrictif:   
+* **private:** accessible uniquement dans la même classe
+* **default (package private) access:** classes privées et autres dans le même package
+* **protected:** accès par défaut et classes enfants
+* **public:** accès protected et classes dans les autres packages
+
+private < default (package private) access < protected  < public (ordre croissant).  
 ### Private Access: (Accès privé)  
+L'accès privé est facile. Seul le code de la même classe peut appeler des méthodes privées ou accéder à des champs privés.
+
+	package ocp.chapiter07.pond.duck;
+	public class FatherDuck {
+		private String noise = "quack";
+
+		private void quack() {
+			System.out.println(noise); // private access is ok
+		}
+		
+		private void makeNoise() {
+			quack(); // private access is ok
+		}
+	}
+la méthode quack() affiche l'attribut noise qui est private mais c'est ok dans la même classe.
+la méthode makeNoise() appel le méthode quack() qui est privée c ok dans la même classe.
+Regardons maintenant un autre exemple.  
+
+		package ocp.chapiter07.pond.duck;
+		public class BadDuckling {
+			public void makeNoise() {
+				FatherDuck duck = new FatherDuck();
+				duck.quack(); // DOES NOT COMPILE
+				System.out.println(duck.noise); // DOES NOT COMPILE
+			}
+		}
+BadDuckling essaie d'accéder à des membres d'une autre classe (FatherDuck), au début on instance un objet de type FatherDuck, et après la classe BadDuckling essaye d'accéder à la méthode quack(), or elle est private donc n'est pas visible, par conséquent ça compile pas. Dans la ligne suivante il essaye d'accéder àl'attribut noise, pareil il est private donc erreur de compilation (non visible dans cette classe).
 ### Default (Package-Private) Access: (Accès par défaut (package-privé))
+Lorsqu'il n'y a pas de modificateur d'accès, Java utilise la valeur par défaut, qui est l'accès privé au package. Cela signifie que le membre (méthodes est attributs) est "privé" pour les classes du même package. En d'autres termes, seules les classes du package peuvent y accéder.
+Regardons cet exemple ci-dessous:
+
+		package ocp.chapiter07.pond.duck;
+		public class MotherDuck {
+		
+			 String noise = "quack";	// Default (Package-Private) Access
+			 void quack() {
+				 System.out.println(noise); // default access is ok
+			 }
+			 private void makeNoise() {
+				 quack(); // default access is ok
+			 }
+		}
+On déclare une 2ème classe dans le même package:
+
+		package ocp.chapiter07.pond.duck;
+		public class GoodDuckling {
+
+			public void makeNoise() {
+				MotherDuck duck = new MotherDuck();
+				duck.quack(); // default access
+				System.out.println(duck.noise); // default access
+			}
+		}
+La classe GoodDuckling essaye d'accéder à des membres de la classe MotherDuck, donc on crée une reference sur l'objet MotherDuck, ensuit on appele la méthode quack(), comme cette méthode est a un modificateur d'acces par defaut est les 2 classes sont dans le même package alors elle est visible.
+
+Maintenant, créant une autre classe mais dans un package different:
+	
+		package ocp.chapiter07.pond.swan;
+		import ocp.chapiter07.pond.duck.MotherDuck;
+		
+		public class BadCygnet {
+			public void makeNoise() {
+				MotherDuck duck = new MotherDuck();
+				duck.quack(); // DOES NOT COMPILE
+				System.out.println(duck.noise); // DOES NOT COMPILE
+		} }
+Comme la classe BadCygnet se trouve dans le package "pond.swan" qui est different ud package de la classe MotherDuck " pond.duck", alors les membres par défaut ne sont pas visibles du cooup DOES NOT COMPILE.   
 ### Protected Access: (Accès protégé)  
-### Public Access: (Accès publique)
+L'accès protégé permet tout ce que permet l'accès par défaut (package privé) et plus encore. Le modificateur d'accès protégé ajoute la possibilité d'accéder aux membres d'une classe parent. Nous aborderons la création de sous-classes en profondeur dans le chapitre 8. Pour l'instant, nous aborderons l'utilisation la plus simple possible d'une classe enfant.    
+Dans ce paragraphe on va créer trois classe differente {Bird, Gosling et BirdWatcher}, Bird et BirdWatcher appartiennent au même package, et Gosling extends de Bird.
+
+		package ocp.chapiter07.pond.shore;
+
+		public class Bird {
+			protected String text = "floating"; // protected access
+		
+			protected void floatInWater() { // protected access
+				System.out.println(text);
+			}
+		}
+La classe Gosling qui hérite de Bird:
+
+		package ocp.chapiter07.pond.goose;
+		import ocp.chapiter07.pond.shore.Bird;
+		
+		public class Gosling extends Bird {
+			public void swim() {
+				floatInWater(); // calling protected member
+				System.out.println(text); // calling protected member
+			}
+		}
+Il s'agit d'une sous-classe très simple. Il étend la classe Bird. Étendre signifie créer une sous-classe qui a accès à tous les membres protégés ou publics de la classe parente. L'exécution de ce code affiche deux fois "floating", une fois à partir de l'appel de floatInWater() et une fois à partir de l'instruction print dans swim(). Étant donné que Gosling est une sous-classe de Bird, il peut accéder à ces membres même s'il se trouve dans un package différent.
+
+La classe BirdWatcher qui est dans le même package de la classe Bird:
+
+		package ocp.chapiter07.pond.shore;
+
+		public class BirdWatcher {
+			public void watchBird() {
+				Bird bird = new Bird();
+				bird.floatInWater(); // calling protected member
+				System.out.println(bird.text); // calling protected member
+			}
+		}
+Comme les deux classes sont dans le même package, alors la classe BirdWatcher peut accéderaux memebres protected de la classe Bird, donc ce code compile.
+
+Regardons cet exemple qui est **tordu**: 
+
+		package ocp.chapiter07.pond.swan;
+		import ocp.chapiter07.pond.shore.Bird;
+		
+		public class Swan extends Bird {
+			public void swim() {
+				floatInWater(); // package access to superclass line 5
+				System.out.println(text); // package access to superclass line 6
+			}
+		
+			public void helpOtherSwanSwim() {
+				Swan other = new Swan();
+				other.floatInWater(); // package access to superclass line 10
+				System.out.println(other.text);// package access to superclass line 11
+			}
+		
+			public void helpOtherBirdSwim() {
+				Bird other = new Bird();
+				other.floatInWater(); // DOES NOT COMPILE line 15
+				System.out.println(other.text); // DOES NOT COMPILE line 16
+			}
+		}
+En remarque que les lignes 5, 6, 10 et 1 complient mais les ligne 15 et 16 ne compilent pas c'est etrange, n'est ce pas.
+C’est normal d’être confus. C'est sans doute l'un des points les plus déroutants de l'examen. En regardant les choses d'une manière différente, les règles *protected* s'appliquent dans deux scénarios:
+* Un membre est utilisé sans faire référence à une variable. C'est le cas des lignes 5 et 6. Dans ce cas, nous profitons de l'héritage et l'accès protégé est autorisé.      
+* Un membre est utilisé via une variable (référance). C'est le cas aux lignes 10, 11, 15 et 16. Dans ce cas, ce sont les règles du type de référence de la variable qui comptent. S'il s'agit d'une sous-classe, l'accès protégé est autorisé.       
+
+Dans la ligne 10 et 11 on a une référence de type Swan, donc sous-classe de Bird => Compile.
+Dans la ligne 16 et 16 on a une référance de type Bird, n'est pas une sous-classe de Bird et n'est pas dans le même package de Bird => les membres protected ne sont pas visible donc ne compile pas.   
+### Public Access: (Accès publique)   
+L'accès protégé était un concept difficile. Heureusement, le dernier type de modificateur d'accès est simple: public signifie que tout le monde peut accéder au membre de la classe.  
+Créant une classe "DuckTeacher" avec tout les membres public.
+
+		package ocp.chapiter07.pond.duck;
+		public class DuckTeacher {
+			public String name = "helpful"; // public access
+		
+			public void swim() { // public access
+				System.out.println("swim");
+			}
+		}
+DuckTeacher permet d'accéder à n'importe quelle classe qui le souhaite. Maintenant, nous pouvons l'essayer:
+
+		package ocp.chapiter07.pond.goose;
+		import ocp.chapiter07.pond.duck.DuckTeacher;
+		
+		public class LostDuckling {
+			public void swim() {
+				DuckTeacher teacher = new DuckTeacher();
+				teacher.swim(); // allowed
+				System.out.println("Thanks" + teacher.name); // allowed
+			}
+		}
+LostDuckling peut faire référence à swim() et au name sur DuckTeacher car ils sont publics. Les membres (méthodes et champs) sont visible à partir de la classe LostDuckling.
 # Applying the static Keyword: (Application du mot-clé statique)  
+Lorsque le mot clé static est appliqué à une variable, une méthode ou une classe, il s'applique à la classe plutôt qu'à une instance spécifique de la classe. Dans cette section, vous verrez que le mot-clé static peut également être appliqué aux instructions d'importation.  
 ### Designing static Methods and Fields: (Conception de méthodes et de champs statiques)  
+À l'exception de la méthode main(), nous avons examiné les méthodes d'instance. Les méthodes statiques ne nécessitent pas d'instance de la classe. Ils sont partagés entre tous les utilisateurs de la classe. Vous pouvez considérer la statique comme un membre de l'objet de classe unique qui existe indépendamment de toute instance de cette classe.   
+Nous avons vu une méthode statique depuis le chapitre 1. La méthode main() est une méthode statique. Cela signifie que vous pouvez l'appeler par le nom de la classe.  
+
+		public class Koala {
+			public static int count = 0; // static variable
+			public static void main(String[] args) { // static method
+				System.out.println(count);
+			}
+		}
+Nous avons dit que la JVM d'appeler Koala.main () pour lancer le programme. Ce programme afficher 0.  
+En plus des méthodes main(), les méthodes statiques ont deux objectifs principaux:
+* Pour les méthodes utilitaires ou d'assistance qui ne nécessitent aucun état d'objet. Puisqu'il n'est pas nécessaire d'accéder aux variables d'instance, avoir des méthodes statiques élimine le besoin pour l'appelant d'instancier l'objet juste pour appeler la méthode.   
+* Pour un état partagé par toutes les instances d'une classe, comme un compteur.  
+
 ### Accessing a static Variable or Method: (Accéder à une variable ou une méthode statique)  
+Pour accéder à un membre statique, il suffit de mettre le nom de la classe avec la méthode ou la vriable.  
+
+		System.out.println(Koala.count); 
+En revanche,Vous pouvez utiliser une instance de l'objet pour appeler une méthode statique:
+
+		public class Koala {
+			public static int count = 0;
+			public static void main(String[] args) {
+				Koala k = new Koala();
+				System.out.println(k.count); // k is a Koala
+				k = null;
+				System.out.println(k.count); // k is still a Koala
+			}
+		}
+Ce code afficher 0 deux fois, pourtant on a mit k = null, or Java ne se soucie pas que k soit nul. Puisque nous recherchons un statique, cela n’a pas d’importance.  
+Encore une fois parce que c'est vraiment important, ça donne quoi le suivant ?  
+
+		Koala.count = 4;
+		Koala koala1 = new Koala();
+		Koala koala2 = new Koala();
+		koala1.count = 6;
+		koala2.count = 5;
+		System.out.println(Koala.count);	// affiche 5
 ### Static vs. Instance: (Statique vs instance)  
+Les créateurs d'examens essaieront d'une autre manière de vous tromper concernant les membres statiques et d'instance. (N'oubliez pas que «membre» signifie champ ou méthode.) Un membre statique ne peut pas appeler un membre d'instance. Cela ne devrait pas être une surprise car statique ne nécessite aucune instance de la classe.    
+Voici une erreur courante des programmeurs débutants:   
+
+	 public class Static {
+		 private String name = "Static class";
+		 public static void first() { }
+		 public static void second() { }
+		 public void third() { System.out.println(name); }
+		 
+		 public static void main(String args[]) {
+			 first();
+			 second();
+			 third(); // DOES NOT COMPILE
+			 System.out.println(name); // DOES NOT COMPILE
+		 }
+	 }
+On constate que le compilateur génère une erreur sur la métohde third() et le champ "name", c'est normal parce que ces deux membres non sont pas static donc on peut pas les appeler dans une méthode static.   
+Pour resoudre le problème on a deux solutions: 
+* Soit on ajoute le modificateur static devant la méthode third().
+* On appelle la méthode third() comme une méthode d'instance new Static().third();    
+
+Pour vulgariser la règle des appels des méthodes:  
+* Une méthode static ou méthode d'instance peut appeler une méthode static.
+* Seule une méthode d'instance peut appeler une autre méthode d'instance sur la même classe sans utilisée une référence. 
+
+Regardons cet exemple:
+
+		public class Gorilla {
+			public static int count;
+			public static void addGorilla() { count++; }
+			public void babyGorilla() { count++; }
+			
+			public void announceBabies() {
+				addGorilla();
+				babyGorilla();
+			}
+			
+			public static void announceBabiesToEveryone() {
+				addGorilla();
+				babyGorilla(); // DOES NOT COMPILE line 11
+				Gorilla gorilla = new Gorilla();
+				gorilla.babyGorilla();// COMPILE
+			}
+			public int total;
+			public static average = total / count; // DOES NOT COMPILE line 14
+		}
+La ligne 11 ne compile pas car une méthode statique ne peut pas appeler une méthode d'instance.  
+De même, la ligne 14 ne compile pas car une variable static tente d'utiliser une variable d'instance.  
+Une utilisation courante des variables statiques consiste à compter le nombre d'instances:  
+
+	public class Counter {
+		private static int count;
+		public Counter() { count++; }
+		
+		public static void main(String[] args) {
+			 Counter c1 = new Counter();
+			 Counter c2 = new Counter();
+			 Counter c3 = new Counter();
+			 System.out.println(count); // 3
+		}
+	}
+Chaque fois que le constructeur est appelé, il incrémente le nombre de 1.  
 ### Static Variables: (Variables statiques)  
+Certaines variables statiques sont censées changer pendant l'exécution du programme. Les compteurs sont un exemple courant. Vous pouvez initialiser une variable statique sur la ligne où elle est déclarée:
+
+		public class Initializers {
+			private static int counter = 0; // initialization
+		}
+Mais il y a d'autres variables statiques sont censées ne jamais changer pendant le programme. Ce type de
+variable est appelé constante.
+
+		public class Initializers {
+		private static final int NUM_BUCKETS = 45;
+		
+		public static void main(String[] args) {
+				NUM_BUCKETS = 5; // DOES NOT COMPILE
+		} }
+Comme la variable de classe est définit final on peut pas le modifier après initialisation. Que 
+Pensez-vous de cet exemple:
+
+		private static final ArrayList<String> values = new ArrayList<>();
+		
+		public static void main(String[] args) {
+			values.add("changed");
+		}
+Ca compile en fait. "values" est une variable de référence. Nous sommes autorisés à appeler des méthodes sur des variables de référence. Tout ce que le compilateur peut faire est de vérifier que nous n’essayons pas de réaffecter les valeurs finales pour pointer vers un objet différent.	   
 ### Static Initialization: (Initialisation statique)  
-### Static Imports: (Importations statiques)  
+Dans le chapitre 2, nous avons couvert les initialiseurs d'instances qui ressemblaient à des méthodes sans nom. Il suffit de coder entre accolades. Les initialiseurs statiques se ressemblent. Ils ajoutent le mot-clé static pour spécifier qu'ils doivent être exécutés lors de la première utilisation de la classe. Par exemple:  
+
+		private static final int NUM_SECONDS_PER_HOUR;
+		static {
+			int numSecondsPerMinute = 60;
+			int numMinutesPerHour = 60;
+			NUM_SECONDS_PER_HOUR = numSecondsPerMinute * numMinutesPerHour;
+		}
+L'initialiseur statique s'exécute lorsque la classe est utilisée pour la première fois. Les instructions qu'il contient s'exécutent et affectent toutes les variables statiques selon les besoins. Il y a quelque chose d'intéressant dans cet exemple. Nous venons juste de dire que les variables finales ne peuvent pas être réaffectées. La clé ici est que l'initialiseur statique est la première affectation. Et comme cela se produit à l'avant, ça va.   
+Essayons un autre exemple pour vous assurer que vous comprenez la distinction:
+
+		public class StaticInitialization {
+			private static int one;
+			private static final int two;
+			private static final int three = 3;
+			private static final int four; // DOES NOT COMPILE
+			static {
+				one = 1;
+				two = 2;
+				three = 3; // DOES NOT COMPILE
+				two = 4; // DOES NOT COMPILE
+			}
+		}
+la variable "four" est déclaré comme une variable finale qui n'est jamais initialisée.   
+la variable "three" est initialisé 2 fois ne compile pas.  
+la variable"two" pareil, intialisée deux fois.   
+### Static Imports: (Importations statiques)    
+Dans le chapitre 1, nous avons vu que nous pouvions importer une classe spécifique ou toutes les classes d'un package:  
+
+		import java.util.ArrayList;
+		import java.util.*;
+Nous pourrions utiliser cette technique pour importer:   
+
+		import java.util.List;
+		import java.util.Arrays;
+		public class Imports {
+			public static void main(String[] args) {
+				List<String> list = Arrays.asList("one", "two");
+			}
+		} 
+Les importations sont pratiques car vous n’avez pas besoin de spécifier d’où vient chaque classe à chaque fois que vous l’utilisez. Il existe un autre type d'importation appelé importation statique. Les importations régulières sont destinées à l'importation de classes. Les importations statiques servent à importer des membres statiques de classes. Tout comme les importations régulières, vous pouvez utiliser un caractère générique ou importer un membre spécifique. L’idée est que vous ne devriez pas avoir à spécifier d’où provient chaque méthode ou variable statique chaque fois que vous l’utilisez. Regardons cet exemple:   
+
+		import java.util.List;
+		import static java.util.Arrays.asList; // static import
+		public class StaticImports {
+			public static void main(String[] args) {
+				List<String> list = asList("one", "two");
+			}
+		}
+Dans cet exemple, nous importons spécifiquement la méthode asList. Cela signifie que chaque fois que nous nous référons à asList dans la classe, il appellera Arrays.asList().   
+Le compilateur se plaindra si vous essayez de faire explicitement une importation statique de deux méthodes avec le même nom ou de deux variables statiques avec le même nom. Par exemple: 
+
+		import static statics.A.TYPE;
+		import static statics.B.TYPE; // DOES NOT COMPILE
+Heureusement, lorsque cela se produit, nous pouvons simplement faire référence aux membres statiques via leur nom de classe dans le code au lieu d'essayer d'utiliser une importation statique.  
 # Passing Data among Methods: (Transmission de données entre méthodes)  
-# Overloading Methods: (Surcharge de méthodes)  
-### Varargs:
-### Autoboxing:  
-### Reference Types: (Types de référence)  
-### Primitives:  
-### Generics:  
-### Arrays:  
-### Putting it All Together: (Mettre tous ensemble)  
+### Pass-by-value:  
+Java est un langage «pass-by-value». Cela signifie qu'une copie de la variable est effectuée et que la méthode reçoit cette copie. Les attributions effectuées dans la méthode n'affectent pas l'appelant. Prenons un exemple:
+
+	public class PassingDataamongMethods {
+	
+		public static void main(String[] args) {
+			int num = 4;
+			newNumber(num);
+			System.out.println(num);	// 4
+		}
+		
+		public static void newNumber(int num) { num = 8; }
+	}
+Ici la variable "num" reçoit la valeur 4. Ensuite, nous appelons la méthode newNumber() en passant une copie de la variable "num" comme paramètre. La variable "num" ne change jamais car aucune affectation ne lui est faite.  
+
+Maintenant que vous avez vu les primitives, essayons un exemple avec un type de référence. Que pensez-vous du code suivant ?
+
+		public static void main(String[] args) {
+			String name = "Webby";
+			speak(name);
+	    	System.out.println(name);	// Webby
+		}	
+			
+		public static void speak(String p) { p = "Sparky"}; }
+La bonne réponse est Webby. Tout comme dans l'exemple primitif, l'affectation de variable est uniquement au paramètre de méthode et n'affecte pas l'appelant. 
+En fait on va shematiser cet exemple:
+name -> "Webby", en passant name dans la méthode speak() on passe une copie de la référfence name, donc:  
+name -> "Webby" <- p (avec p une copie de la référence name), ensuite dans la methode static speak() on affecte cette copie: p-> "Sparky" et name toujours refère sur "Webby", alors on peut dire L'appelé peut faire ce qu'il veut avec sa copie sans jamais modifier la référence d'origine détenue par l'appelant.  
+
+Remarquez comment nous parlons constamment d'attributions de variables. C'est parce que nous pouvons appeler des méthodes sur les paramètres. À titre d'exemple, nous avons du code qui appelle une méthode sur le StringBuilder passé dans la méthode:
+
+		public static void main(String[] args) {
+			StringBuilder sb = new StringBuilder("Sparky");
+			speak(sb);
+			System.out.println(sb); // SparkyWebby
+		}
+		
+		public static void speak(StringBuilder s) { s.append("Webby"); }
+Dans ce cas, la sortie est SparkyWebby car la méthode appelle simplement une méthode sur le paramètre. Il n'attribue pas de "sb" à un objet différent.  
+vous pouvez voir comment le pass-by-value est toujours utilisé."s" est une copie de la variable "sb". Les deux pointent vers le même Objet de type StringBuilder "Sparky" ( sb-> "Sparky" <- s ), ce qui signifie que les modifications apportées au StringBuilder sont disponibles pour les deux références.  
+
+Pour prouvez que Java utilise le passage par valeur pour obtenir des données dans une méthode. L’attribution d’une nouvelle primitive ou d’une nouvelle référence à un paramètre ne change pas l’appelant.
+### Exemple avec return type:  
+Récupérer la valuer de retour d'une méthode est facile. Une copie est faite de la primitive ou de la référence et renvoyée par la méthode. La plupart du temps, cette valeur renvoyée est utilisée. Par exemple, il peut être stocké dans une variable. Si la valeur renvoyée n'est pas utilisée, le résultat est ignoré. Surveillez cela lors de l'examen. Les valeurs renvoyées ignorées sont délicates.  
+
+		public class ReturningValues {
+			public static void main(String[] args) {
+				int number = 1; // 1
+				String letters = "abc"; // abc
+				number(number); // 1
+				letters = letters(letters); // abcd
+				System.out.println(number + letters); // 1abcd
+			}
+		
+			public static int number(int number) {
+				number++;
+				return number;
+			}
+			
+			public static String letters(String letters) {
+				letters += "d";
+				return letters;
+			}
+		}
+# Overloading Methods: (Surcharge de méthodes) 
+Maintenant que vous êtes familiarisé avec les règles de déclaration des méthodes, il est temps de créer des méthodes avec la même signature dans la même classe. La surcharge de méthode se produit lorsqu'il existe différentes signatures de méthode avec le même nom mais des paramètres différents ou de type différents. Tout autre que la signature de méthode peut varier pour les méthodes surchargées. Cela signifie qu'il peut y avoir une différence des modificateurs d'accès, spécificateurs (comme static), types de retour et listes d'exceptions mais n'impliquent pas sur le Overloading de la méthode.   
+Ce sont toutes des méthodes surchargées (Overloading) valides:
+
+		public void fly(int numMiles) { }
+		public void fly(short numFeet) { }
+		public boolean fly() { return false; }
+		void fly(int numMiles, short numFeet) { }
+		public void fly(short numFeet, int numMiles) throws Exception { }
+Comme vous pouvez le voir, nous pouvons surcharger en modifiant n'importe quoi dans la liste des paramètres. Nous pouvons avoir un type différent, plusieurs types ou les mêmes types dans un ordre différent. Notez également que le modificateur d'accès et la liste d'exceptions ne sont pas dans la règle  pour la surcharge.  
+Regardons maintenant un exemple de surcharge qui n'est pas valide:
+
+		public void fly(int numMiles) { }
+		protected void fly(int numMiles) { }	// DOES NOT COMPILE
+		public int fly(int numMiles) { } // DOES NOT COMPILE
+		public static void fly(int numMiles) { } // DOES NOT COMPILE
+protected est un modificateur d'acces donc la méthode ne compile pas.
+La deuxième erreur dû que la difference entre les 2 méthode est la valeur de retour void et int, mais on garde la même signature, donc erreur de compilation. 
+La 3em erreur, la signature de la méthode et la même, la seul difference est le specificatuer static. 
+
+L'appel de méthodes surchargées est facile. Vous écrivez simplement du code et Java appelle le bon. Par exemple, regardez ces deux méthodes:  
+
+		public void fly(int numMiles) {
+		 System.out.println("short");
+		}
+		public void fly(short numFeet) { // Ok Overloading
+		 System.out.println("short");
+		} 
+Pour appeler la méthode avec le paramètre short, il suffit de faire ça:  fly((short) 1);   	
+### Varargs
+Quelle méthode pensez-vous est appelée si nous passons un int [] ?
+
+		public void fly(int[] lengths) { }
+		public void fly(int... lengths) { } // DOES NOT COMPILE		  
+Question piège! N'oubliez pas que Java traite les varargs comme s'il s'agissait d'un tableau. Ça signifie
+que la signature de la méthode est la même pour les deux méthodes donc ne compile pas !   
+### Autoboxing: 
+Dans le chapitre 5, vous avez vu comment Java convertit un int primitif en un objet Integer pour l'ajouter à une ArrayList à travers les merveilles de l'autoboxing. Cela fonctionne aussi pour le code que vous écrivez.  
+
+		public void fly(int numMiles) { }
+		public void fly(Integer numMiles) { }	// OK Overloading
+Si on essaye d'appeler fly(3); avec un type primitive, qq ça va passer ?
+Java correspondra à la version int numMiles. Java essaie d'utiliser la liste de paramètres la plus spécifique qu'il peut trouver. Lorsque la version primitive int n'est pas présente, elle sera autobox.  
+### Reference Types: (Types de référence)   
+Compte tenu de la règle selon laquelle Java choisit la version la plus spécifique d'une méthode possible, que pensez-vous que ce code produit ? 
+### Primitives: 
+### Generics: 
+### Arrays: 
+### Putting it All Together: (Mettre tous ensemble) 
 # Encapsulating Data: (Encapsulation des données)  

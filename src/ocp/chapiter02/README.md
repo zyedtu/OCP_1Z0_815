@@ -5,12 +5,12 @@ Pour créer une instance de classe, il suffit d'ecrire le mot **new <nom_de_clas
 Park p = new Park();  
 Park est le type de variable, p une referance sur un objet de type Park et Park() le constructeur. 
 
-#####Exécution de blocs d'initialisation d'instance:   
+### Exécution de blocs d'initialisation d'instance:   
 
 Lorsque vous avez découvert les méthodes, vous avez vu des accolades ({}) le code entre les accolades s'appelle un bloc de code. Partout où vous voyez des accolades se trouve un bloc de code.   
 Parfois le bloc de code (*code block*) est dans une méthode, il sera exécuté quand on appelle la méthode, autre moment en dehors de la méthode, il s'appelle  initialiseur d'instance **instance initializer**.   
 
-##### Suite à l'ordre d'initialisation: (Following Order of initialisation) (voir code  OcpTest1)  
+### Suite à l'ordre d'initialisation: (Following Order of initialisation) (voir code  OcpTest1)  
  
 Quand on ecrit ce code ci-dessous:
 
@@ -39,7 +39,7 @@ losqu'on crée l'objet avec *new OcpTest1()*, java intialise l'attribut name = "
 
 Dans les applications java, il y a deux types de variable, type primitive et type de référance:
 
-##### Type Primitive: (voir code  OcpTest2)   
+### Type Primitive: (voir code  OcpTest2)   
 
 * boolean: peut avoir deux valeurs true ou false.
 * type numéric sans floating-point (décimal): byte, short, int et long (123L) 
@@ -50,7 +50,7 @@ Tous les type numéric sont signés peuvent avoir une valuer négative, int x = 
 
 Pour l'**examen**, sachez que short et char sont étroitement liés, les deux type sont sur 16-bit, la difference entre les deux que short est signé mais char non signé. 
 
-##### Ecrire les Literals:
+### Ecrire les Literals:
 
 il y a une choses que vous devez savoir sur les primitives numériques. Lorsqu'un nombre est présent dans le code, il est appelé un *literal*.
 
@@ -93,7 +93,7 @@ Une variable est un nom pour un morceau de mémoire qui stocke des données.
 Une fois qu'on a déclaré une variable on lui donne une valuer, et là on parle d'initialiser une variable.  
 
 	 int numberAnimals = 100; 
-##### Identifier les identifiants (Identifying identifiers):  (OcpTest3)  
+### Identifier les identifiants (Identifying identifiers):  (OcpTest3)  
 
 Java a mit des régles précises sur le nom de l'identifiant, Un **identifiant** est le nom d'une variable, méthode, classe, interface ou package. Heureusement, les régles relatives aux identificateurs de variables s'appliquent à tous les autres types que vous êtes libre de nommer.  
 * Les identificatiant doivent commencer par une lettre, un symbole $ ou un symbole _  
@@ -112,7 +112,7 @@ obtiennent automatiquement cette valeur, et d'autres nécessitent que le program
 Dans les sections suivantes, nous examinerons les différences entre les valeurs par défaut des 
 variables locales, les variable d'instance et variables de classe.
 
-##### Créer des variables locales: (Creating local variables)  
+### Créer des variables locales: (Creating local variables)  
 
 Une variable locale est variable définie dans un constructeur, méthode ou un bloc d'intialisation.  
 Une variable localen n'a pas une valuer par défaut est **doit** etre initialisée.  
@@ -125,7 +125,7 @@ Une variable localen n'a pas une valuer par défaut est **doit** etre initialis�
 	}
 Ce code ne compile pas parce que la variable x est utilisée sans etre initialisée.  
 
-##### Passer des paramétres de constructeur et de méthode: (Passing constructor and method parameters)  
+### Passer des paramétres de constructeur et de méthode: (Passing constructor and method parameters)  
 
 Les variables passées à un constructeur ou à une méthode sont appelées paramètres de constructeur 
 ou paramétres de méthode, respect. Ces paramètres sont des variables locales qui ont été 
@@ -139,7 +139,7 @@ pré-initialisées.
 	}
 L'appel de findAnswer ne compile pas par ce que la variable value n'etait pas initialisée.  
 
-##### Définition des variables d'instance et de classe: (Defining instance and class variables)  
+### Définition des variables d'instance et de classe: (Defining instance and class variables)  
 
 * Une variable d'instance, et appeler aussi un champ, est une valeur définie dans une instance 
 spécifique d'un objet.   
@@ -154,12 +154,12 @@ caractiriser par le mot clé **static** avant la variable.
 les variables d'instance ou de classe, n'est pas obligatoire de l'insialisées. Dés que vous déclarez 
 ces variables, une valeur par défaut leur est attribuée.  
 
-	boolean  				    	false
-	byte, short, int, long  	    0
-	float, double 			 	    0.0
-	char 					    	'\u0000' (NULL)
-	All Object references   	    null
-##### Présentation de var: (Introducing var)  
+	boolean		false
+	byte, short, int, long		0
+	float, double		0.0
+	char		'\u0000' (NULL)
+	All Object references		null
+### Présentation de var: (Introducing var)  
 
 A partir de Java 10, vous avez la possibilité d'utiliser le mot-clé var au lieu du type de variable 
 locale sous certaines conditions. Pour utiliser cette fonctionnalité, vous tapez simplement var au 
@@ -176,7 +176,7 @@ Le nom formel de cette fonctionnalité est *l'inférence de type de variable loc
 	}
 Ce code ne compile pas par ce que cette fonctionnalitée concerne que les varaible **locale**.  
 
-##### Inférence de type de var: (Type inference of var)  
+### Inférence de type de var: (Type inference of var)  
 
 Maintenant que vous comprenez la partie variable locale, il est temps de passer aux signification 
 d'inférence de type. la bonne nouvelle est que cela signifie également à quoi cela ressemble. 
@@ -201,7 +201,7 @@ Par exemple, vous pouvez insérer un saut de ligne entre le nom de la variable e
 			= 7;
 	}  
 
-##### Exemples avec var:  
+### Exemples avec var:  
 
 	public void doesThisCompile(boolean check) {
 		var question; // DOES NOT COMPILE
@@ -230,7 +230,7 @@ valeur nulle après sa déclaration, à condition que le type sous-jacent du var
 		var m = null; // DOES NOT COMPILE
 		var var = 7.1; // COMPILE
 	} 
-##### Révision des règles var: (Review of var Rules) 
+### Révision des règles var: (Review of var Rules) 
 Nous complétons cette section en résumant toutes les différentes règles d'utilisation de var dans 
 votre code.  
 1. Un var est utilisé comme variable **locale**.    
@@ -252,7 +252,7 @@ locales voyez-vous dans cet exemple:
 	}
 Il y a deux variables locales {piecesOfCheese et bitesOfCheese}  
 
-##### Limiter la portée: (Limiting Scope)  
+### Limiter la portée: (Limiting Scope)  
 
 Les variables locales ne peuvent jamais avoir une portée plus grande que la méthode dans laquelle 
 elles sont définies. Cependant, elles peuvent avoir une portée plus petite.  
@@ -267,7 +267,7 @@ La variable hungry a une portée de la méthode entière, tandis que la variable
 portée plus petite. Il n'est disponible que pour une utilisation dans l'instruction if dans 
 laquelle il est déclaré.  
 
-##### Imbrication portée: (Nesting scope)  
+### Imbrication portée: (Nesting scope)  
 
 N'oubliez pas que les blocs peuvent contenir d'autres blocs. Ces petits blocs contenus peuvent 
 référencer des variables définies dans les grands blocs de portée, mais pas l'inverse. Voici un 
@@ -283,7 +283,7 @@ exemple:
 		}
 		System.out.println(teenyBit);// DOES NOT COMPILE
 	}
-##### Application de portée aux classes: (Applying Scope to Classes)  
+### Application de portée aux classes: (Applying Scope to Classes)  
 
 Tout cela était pour les variables locales. Heureusement, la règle des variables d'instance est plus
 simple: elles sont disponibles dés qu'elles sont définies et durent toute la durée de vie de 
@@ -299,7 +299,7 @@ l'objet lui-même.
 			}
 		}
 	}
-##### Révision de la portée: (Reviewing Scope)  
+### Révision de la portée: (Reviewing Scope)  
 
 Vous avez tout ça? Passons en revue les règles de portée.  
 * Variables locales: dans la portée de la déclaration à la fin du bloc
@@ -313,7 +313,7 @@ Maintenant que j'ai joué avec nos objets, il est temps de les ranger. Heureusem
 charge automatiquement pour vous. Java fournit un garbage collector pour rechercher automatiquement
 les objets qui ne sont plus nécessaires.  
 
-##### Comprendre la collecte des ordures: (Understanding Garbage Collection)  
+### Comprendre la collecte des ordures: (Understanding Garbage Collection)  
 
 Le garbage collection fait référence au processus de libération automatique de la mémoire sur le 
 tas **heap** en supprimant les objets qui ne sont plus accessibles dans votre programme. Il existe 
@@ -322,7 +322,7 @@ connaître pour l'examen. Si vous êtes curieux, cependant, un alghorithme est d
 sur le nombre de lieux où un objet est accessible à un moment donné et de le marquer comme èligible 
 pour le ramasse-miettes si le compteur atteint jamais zéro.  
 
-##### Eligible à la collecte des ordures: (Eligible for Garbage Collection)  
+### Eligible à la collecte des ordures: (Eligible for Garbage Collection)  
 
 En tant que développeur, la partie la plus intéressante du garbage collection est de déterminer 
 quand la mémoire appartenant à un objet peut être récupérée. En Java et dans d'autres langages, 
@@ -342,7 +342,7 @@ En tant que programmeur, la chose la plus importante que vous puissiez faire pou
 problèmes de mémoire insuffisante est de vous assurer que les objets sont éligibles pour GC une 
 fois qu'ils ne sont plus nécessaires. il est de la responsabilité de la JVM d'actualiser le GC   
 
-##### Appel System.gc(): (Calling System.gc())  
+### Appel System.gc(): (Calling System.gc())  
 
 Java inclut une méthode intégrée pour aider à prendre en charge le garbage collection qui peut être appelé à tout moment.  
 
@@ -352,7 +352,7 @@ Java inclut une méthode intégrée pour aider à prendre en charge le garbage c
 Quel est le rôle garanti de **la commande System.gc()** ? Rien, en fait.  
 System.gc() **suggère** simplement que la JVM de lancer le garbage collection, La JVM peut effectuer un garbage collection à ce moment-là ou non. La JVM est libre d'ignorer la demande  
  
-##### Tracage Eligibilité: (Tracing Eligibility)  
+### Tracage Eligibilité: (Tracing Eligibility)  
 
 Comment la JVM sait-elle quand un objet est éligible pour le garbage collection? la JVM attend patiemment et surveille chaque objet jusqu'à ce qu'elle détermine que le code n'a plus besoin de cette mémoire. Un objet restera sur le tas (heap) jusqu'à ce qu'il n'est plus accéssible. Un objet n'est plus accessible lorsque l'une des deux situations se produit:
 * L'objet n'a plus de références pointant vers lui  
@@ -371,5 +371,3 @@ Comment la JVM sait-elle quand un objet est éligible pour le garbage collection
 Dans le mémoire on a deux objets de types String "a" et "b".   
 Avec l'instruction one = two, l'objet "a" est eligible pour la premier fois en GC, et apres on a les 3 references pointent sur le'objet "b".  
 avec l'instruction one = null, aucune référence qui pointe vers "b", donc à son toure l'objet est eligible pur GC.    
-
-
