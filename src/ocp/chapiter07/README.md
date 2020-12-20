@@ -598,8 +598,182 @@ Si on essaye d'appeler fly(3); avec un type primitive, qq ça va passer ?
 Java correspondra à la version int numMiles. Java essaie d'utiliser la liste de paramètres la plus spécifique qu'il peut trouver. Lorsque la version primitive int n'est pas présente, elle sera autobox.  
 ### Reference Types: (Types de référence)   
 Compte tenu de la règle selon laquelle Java choisit la version la plus spécifique d'une méthode possible, que pensez-vous que ce code produit ? 
+
+		public class ReferenceTypes {
+
+			public static void main(String[] args) {
+				ReferenceTypes r = new ReferenceTypes();
+				r.fly("test");	// String
+				r.fly(56);	// Object
+			}
+			
+			public void fly(String s) {
+				 System.out.println("string ");
+			}
+			 
+			public void fly(Object o) {
+				System.out.println("object ");
+			}
+		}
+Le premier appel est une chaîne et trouve une correspondance directe. Il n'y a aucune raison d'utiliser la version Object.   
+Le deuxième appel recherche une liste de paramètres int. Lorsqu'il n'en trouve pas, il renvoie automatiquement à Integer. Puisqu'il ne trouve toujours pas de correspondance, il passe à l'objet un.  
 ### Primitives: 
-### Generics: 
+Les primitives fonctionnent de manière similaire aux variables de référence. Java essaie de trouver la méthode surchargée correspondante la plus spécifique. Que pensez-vous qu'il se passe ici ?   
+		public class Plane {
+
+			public static void main(String[] args) {
+				Plane p = new Plane();
+				 p.fly(123);	// int
+				 p.fly(123L);	// long
+			}
+		
+			public void fly(int i) {
+				System.out.println("int ");
+			}
+			
+			public void fly(long l) {
+				System.out.println("long ");
+			}
+		}
+Le premier appel passe un int et trouve une correspondance exacte.  
+Le deuxième appel passe un long et trouve également une correspondance exacte.    
+### Generics:   
+Vous serez peut-être surpris d'apprendre que ces surcharges non valides.  
+
+	public void walk(List<String> strings) {}
+	public void walk(List<Integer> integers) {}	// DOES NOT COMPILES
+Java a un concept appelé effacement de type où les génériques *type erasure* ne sont utilisés qu'au moment de la compilation. Cela signifie que le code compilé ressemble à ceci:  
+
+	public void walk(List<String> strings) {}
+	public void walk(List<Integer> integers) {}
+Nous ne pouvons clairement pas avoir deux méthodes avec la même signature de méthode, donc cela ne compile pas. N'oubliez pas que les surcharges de méthode doivent différer dans au moins un des paramètres de méthode.  
 ### Arrays: 
+Contrairement à l'exemple précédent, ce code est correcte:
+
+	public static void walk(int[] ints) {}
+	public static void walk(Integer[] integers) {}
+Les tableaux existent depuis le début de Java. Ils spécifient leurs types réels et ne participent pas à l'effacement (erasure).     
 ### Putting it All Together: (Mettre tous ensemble) 
-# Encapsulating Data: (Encapsulation des données)  
+Jusqu'à présent, toutes les règles relatives au moment où une méthode surchargée est appelée doivent être logiques. Java appelle la méthode la plus spécifique possible. Lorsque certains types interagissent, les règles Java se concentrent sur la compatibilité descendante. Dans Java 1.4 et versions antérieures, l'autoboxing et les varargs n'existaient pas. Même si c'était il y a longtemps, l'ancien code doit encore fonctionner - ce qui signifie que l'auto-box et les varargs viennent en dernier lorsque Java examine les méthodes surchargées. 
+
+Ordre que Java utilise pour choisir la bonne méthode surchargée: Rules -> Example of what will be chosen for glide(1,2)  
+* Correspondance exacte par type: public String glide(int i, int j) {}  
+* Type primitif plus grand: public String glide(long i, long j) {}   
+* Type Autoboxed: public String glide(Integer i, Integer j) {}  
+* Varargs public String glide(int... nums) {} 
+
+Pratiquons ceci en utilisant les règles:  
+
+		public class Glider2 {
+			
+			public static String glide(String s) {
+				return "1";
+			}
+			
+			public static String glide(String... s) {
+				return "2";
+			}
+			
+			public static String glide(Object o) {
+				return "3";
+			}
+			
+			public static String glide(String s, String t) {
+				return "4";
+			}
+			
+			public static void main(String[] args) {
+				System.out.print(glide("a"));
+				System.out.print(glide("a", "b"));
+				System.out.print(glide("a", "b", "c"));
+			}
+		}
+Il affiche **142**. Le premier appel correspond à la signature en prenant une seule chaîne car c'est la correspondance la plus spécifique. Le deuxième appel correspond à la signature, en prenant deux paramètres String car il s'agit d'une correspondance exacte. Ce n’est qu’au troisième appel que la version varargs est utilisée car il n’ya pas de meilleures correspondances.  
+
+Aussi accommodant que Java puisse essayer de trouver une correspondance, il ne fera qu'une seule conversion:  
+
+		public class TooManyConversions {
+		
+			public static void play(Long l) { }
+			public static void play(Long... l) { }
+			
+			public static void main(String[] args) {
+				play(4); // DOES NOT COMPILE
+				play(4L); // calls the Long version
+			}
+		}
+Ici, nous avons un problème. Java est content de convertir le int 4 en un long 4 ou un Integer 4. Il ne peut pas gérer la conversion en deux étapes en un long, puis en un Long. Si nous avions public static void play (Object o) {}, cela correspondrait car une seule conversion serait nécessaire: de int à Integer. Un entier est un objet, comme vous le verrez au chapitre 8.
+# Encapsulating Data: (Encapsulation des données) 
+Au chapitre 2, nous avons eu un exemple de classe avec un champ qui n’était pas privé:   
+
+		public class Swan {
+			int numberEggs; // instance variable
+		}
+Nous n'avons plus le contrôle de ce qui se passe dans notre propre classe. Un appelant pourrait même 
+écrire ceci: mother.numberEggs = -1; est ça ce n'est pas bon.   
+L'encapsulation signifie que nous configurons la classe afin que seules les méthodes de la classe puissent faire référence aux variables d'instance. Les appelants doivent utiliser ces méthodes.   
+Jetons un coup d'œil à notre nouvelle classe Swan:  
+
+		public class Swan {
+			private int numberEggs; // private
+			
+			public int getNumberEggs() { // getter
+				return numberEggs;
+			}
+			
+			public void setNumberEggs(int numberEggs) { // setter
+				if (numberEggs >= 0) // guard condition
+					this.numberEggs = numberEggs;
+		} }
+Remarque numberEggs est désormais privé, et nous avons ajouter deux méthodes public, getNumberEggs() pour lire la variable est appelée accessor ou getter, et la deuxième methode setNumberEggs(int numberEggs) qui permet de mettre à jour la valeur est appelée mutator ou setter. Le setter a une instruction if dans cet exemple pour éviter de définir la variable d'instance sur une valeur non valide. Cette condition de garde protège la variable d'instance.   
+
+Pour l'encapsulation, rappelez-vous que les données (les variables d'instance) sont privées et que les getters/setters sont publics.   
+Java définit une convention de nomination en se basant sur le standard JavaBeans, les varaibles d'instances sont applelées *propiètées* et sont privée, et la règle des getter/setter ci-dessous:
+
+### Rules for JavaBeans naming conventions:    
+* Les propriétés sont privées: private int numberEggs;
+* Les méthodes getter commencent par "is" si la propriété est un booléen: 
+
+		public boolean isHappy() {
+			 return happy;
+		}
+* Les méthodes Getter commencent par get si la propriété n'est pas un booléen:
+
+		public int getNumEggs() {
+			return numEggs;
+		}
+* Les méthodes Setter commencent par set:
+
+		public void setHappy(boolean happy) {
+			this.happy = happy;
+		}
+* Le nom de la méthode doit avoir le préfixe set/get/is, suivi de la première lettre de la propriété en majuscules, suivie du reste du nom de la propriété.  
+
+Il est temps de pratiquer. Voyez si vous pouvez déterminer quelles lignes suivent les conventions de dénomination JavaBeans: 
+
+		private boolean playing;
+		private String name;
+		public boolean getPlaying() { return playing; }	// KO
+		public boolean isPlaying() { return playing; }	// OK
+		public String name() { return name; }	// KO
+		public void updateName(String n) { name = n; }	// KO
+	   public void setname(String n) { name = n; }	// KO
+getPlaying(): ne suit pas les conventions de dénomination JavaBeans (isPlaying()).     
+name(): ne suit pas les conventions de dénomination JavaBeans (getName()).  
+updateName(String n):  ne suit pas les conventions de dénomination JavaBeans (setName(String n)).   
+setname(String n): ne suit pas les conventions de dénomination JavaBeans (setName(String n)).   
+### Creating Immutable Classes: (Création de classes immuables)  
+L'encapsulation des données est utile car elle empêche les appelants d'apporter des modifications incontrôlées à votre classe. Une autre technique courante consiste à rendre les classes immuables afin qu'elles ne puissent pas être modifiées du tout. La classe "String" est un cas concré des classe immutable.  
+Une étape pour rendre une classe immuable est d'omettre les setters,mais au même temps nous voulons toujours que l'appelant puisse spécifier la valeur initiale, donc on doit crée un constructeur:  
+
+		public class ImmutableClasses {
+			 private int numberEggs;
+			 
+			 public ImmutableClasses (int numberEggs) {
+				 this.numberEggs = numberEggs;
+			 }
+			 
+			 public int getNumberEggs() {
+				 return numberEggs;
+			 }
+		}
