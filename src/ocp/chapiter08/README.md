@@ -1,4 +1,4 @@
-											CLASS DEDIGN
+									CLASS DESIGN
 									
 À la base, une conception de classe Java appropriée concerne la réutilisabilité du code, une fonctionnalité accrue et la standardisation. Par exemple, en créant une nouvelle classe qui étend une classe existante, vous pouvez accéder à un grand nombre de primitives, d'objets et de méthodes hérités. Sinon, en concevant une interface standard pour votre application, vous vous assurez que toute classe qui implémente l'interface dispose de certaines méthodes requises définies. Enfin, en créant des définitions de classe abstraites, vous définissez une plate-forme que d'autres développeurs peuvent étendre et utiliser.   					
 # Comprendre l'héritage: (Understanding Inheritance)  
@@ -632,7 +632,7 @@ Prêt pour un exemple plus difficile:
 				new Okapi(2);
 			}
 		}
-Ce programme affiche:
+Ce programme affiche:     
 
 		AFBECHG
 		BECHG
@@ -651,14 +651,407 @@ Passons en revue certaines des règles de constructeur les plus importantes que 
 7. Toutes les variables d'instance finale doivent se voir attribuer une valeur exactement une fois à la fin du constructeur. Toute variable d'instance finale sans valeur attribuée sera signalée comme une erreur du compilateur sur la ligne où le constructeur est déclaré.   
 
 Assurez-vous de bien comprendre ces règles. l'examen fournira souvent un code qui enfreint une ou plusieurs de ces règles et ne compile donc pas.  
-# Membres héritiers: (Inheriting Members)
-### Appel des membres hérités: (Calling Inherited Members)
-### Hériter des méthodes: (Inheriting Methods)
-### Masquer les variables: (Hiding Variables)
+# Membres héritiers: (Inheriting Members)  
+L'une des plus grandes forces de Java est de tirer parti de son modèle d'héritage pour simplifier le code. 
+Disons que vous avez cinq classes d'animaux qui s'étendent chacune de la classe Animal. De plus, chaque classe définit une méthode eat() avec des implémentations identiques. Dans ce scénario, il est beaucoup mieux de définir la méthode eat() une fois dans la classe Animal avec les modificateurs d'accès appropriés que de devoir maintenir la même méthode dans cinq classes distinctes. Comme vous le verrez également dans cette section, Java permet à l'une des cinq sous-classes de remplacer l'implémentation de la méthode parente lors de l'exécution.  
+### Appel des membres hérités: (Calling Inherited Members)   
+Les classes Java peuvent utiliser n'importe quel membre public ou protégé de la classe parent, y compris des méthodes, des primitives ou des références d'objet. Si la classe parent et la classe enfant font partie du même package, la classe enfant peut également utiliser tous les membres par défaut définis dans la classe parent. Enfin, une classe enfant ne peut jamais accéder à un membre privé de la classe parent, du moins pas via une référence directe. Comme vous l'avez vu dans le premier exemple de ce chapitre, un âge de membre privé peut être accédé indirectement via une méthode publique ou protégée.   
+Pour référencer un membre dans une classe parent, vous pouvez simplement l'appeler directement, comme dans l'exemple suivant avec la fonction de sortie displaySharkDetails():   
+
+		class Fish {
+			 protected int size;
+			 private int age;
+		
+			 public Fish(int age) {
+				 this.age = age;
+			 }
+			 public int getAge() {
+				 return age;
+			 }
+		}
+		
+		public class Shark extends Fish {
+			private int numberOfFins = 8;
+			
+			public Shark(int age) {
+				super(age);
+				this.size = 4;
+			}
+			 public void displaySharkDetails() {
+				 System.out.print("Shark with age: "+getAge());
+				 System.out.print(" and "+size+" meters long");
+				 System.out.print(" with "+numberOfFins+" fins");
+			}
+		}
+Dans la classe enfant, nous utilisons la méthode publique getAge() et le membre protégé "size" pour accéder aux valeurs de la classe parent.  
+N'oubliez pas que vous pouvez utiliser *this* pour accéder aux membres visibles de la classe actuelle ou d'une classe parent, et vous pouvez utiliser *super* pour accéder aux membres visibles d'une classe parent.  
+
+	public void displaySharkDetails() {
+		System.out.print("Shark with age: "+super.getAge());
+		System.out.print(" and "+super.size+" meters long");
+		System.out.print(" with "+super.numberOfFins+" fins"); // DOES NOT COMPILE
+	}
+Dans cet exemple, getAge() et size sont accessibles avec "this" ou "super" puisqu'ils sont définis dans la classe parent, tandis que numberOfFins ne peut être accédé qu'avec "this" et non "super" car il ne s'agit pas d'un héritage.     
+### Hériter des méthodes: (Inheriting Methods)  
+Inheriting a class grants us access to the public and protected members of the parent
+class, but also sets the stage for collisions between methods defi ned in both the parent class
+and the subclass. In this section, we’ll review the rules for method inheritance and how
+Java handles such scenarios.
+##### Redéfinir une méthode: (Overriding a Method)   
+Que faire si une méthode est définie dans les classes parent et enfant avec la même signature ? Par exemple, vous pouvez définir une nouvelle version de la méthode et la faire se comporter différemment pour cette sous-classe. La solution consiste à redéfinir la méthode dans la classe enfant. En Java, la redéfinition d'une méthode se produit lorsqu'une sous-classe déclare une nouvelle implémentation pour une méthode héritée avec la même signature et le même type de retour compatible. N'oubliez pas qu'une signature de méthode comprend le nom de la méthode et les paramètres de méthode.   
+Lorsque vous redifinissez une méthode, vous pouvez référencer la version parente de la méthode à l'aide du mot clé *super*. De cette manière, les mots-clés *this* et *super* vous permettent de choisir entre la version actuelle et la version parente d'une méthode, respectivement. Nous illustrons cela avec l'exemple suivant:   
+
+	class Canine {
+		public double getAverageWeight() {
+			return 50;
+		}
+	}
+	public class Wolf extends Canine{
+		
+		public double getAverageWeight() {
+			 return super.getAverageWeight()+20;
+		}
+		public static void main(String[] args) {
+			System.out.println(new Canine().getAverageWeight());
+			System.out.println(new Wolf().getAverageWeight());
+		}
+	}
+Dans cet exemple, dans lequel la classe enfant Wolf remplace la classe parent Canine, la méthode getAverageWeight() s'exécute sans problème et génère les éléments suivants:
+
+	50.0
+	70.0
+Vous vous demandez peut-être si l’utilisation de *super* dans la méthode de l’enfant était nécessaire ? Par exemple, que produirait le code suivant si nous supprimions le mot clé *super* dans la méthode getAverageWeight() de la classe Wolf ?
+
+	public double getAverageWeight() {
+		return getAverageWeight()+20; // StackOverFlowError (INFINITE LOOP)
+	}
+Dans cet exemple, le compilateur n'appellerait pas la méthode Canine parent, il appellerait la méthode de la classe Wolf car il penserait que vous exécutez un appel récursif. Une fonction récursive est une fonction qui s'appelle elle-même dans le cadre de l'exécution, et elle est courante en programmation. Une fonction récursive doit avoir une condition de terminaison. Dans cet exemple, il n'y a pas de condition d'arrêt, par conséquent, l'application tentera de s'appeler elle-même infiniment et produira une "stackOverflowError" au moment de l'exécution.  
+
+*Définition du sous-type et du super type: (Defining Subtype and SuperType)*  
+Lorsque nous discutons d'héritage et de polymorphisme, nous utilisons souvent le mot sous-type plutôt que sous-classe, depuis que Java inclut l'interface.   
+Un sous-type est la relation entre deux types où un type hérite de l'autre. Si nous définissons X comme étant un sous-type de Yn, alors l'un des éléments suivants est vrai:    
+* X et Y sont des classes et X est une sous-classe de Y.  
+* X et Y sont des interfaces, et X est une sous-interface de Y.  
+* X est une classe et Y est une interface, et X implémente Y (soit directement soit via une classe héritée).
+
+Le redéfinition d'une méthode a des limites. Le compilateur effectue les vérifications suivantes lorsque vous remplacez une méthode non privée:  
+* La méthode de la classe enfant doit avoir la même signature que la méthode de la classe parent.  
+* La méthode de la classe enfant doit être au moins le même niveau d'accessibleté ou plus accessible que la méthode de la classe parent.  
+* La méthode de la classe enfant ne peut pas lever une nouvelle exception vérifiée, ou plus large que l'exception levée dans la méthode de classe parent.  
+* Si la méthode retourne une valeur, elle doit être de mêmetype ou une sous-classe de tyep de retour de la méthode dans la classe parente (appelée types de retour covariants).  
+
+La première règle consistant à ignorer une méthode est assez explicite. Si deux méthodes ont le même nom mais des signatures différentes, les méthodes sont surchargées et non redéfinies. Les méthodes surchargées sont considérées comme indépendantes et ne partagent pas les mêmes propriétés polymorphes que les méthodes redéfinies.
+
+*Surchargé contre redéfinit: (Overloading vs. Overriding)*      
+La surcharge d'une méthode et la redéfinition d'une méthode sont similaires en ce qu'elles impliquent toutes deux a utilisé le même nom. Ils diffèrent en ce qu'une méthode surchargée utilisera une signature différente d'une méthode redéfinit. Cette distinction permet aux méthodes surchargées beaucoup plus de liberté dans la syntaxe qu'une méthode redéfinit n'en aurait. Par exemple, comparez le chargmement de fly() surchargé avec al redefinition de eat() dans la classe Eagle.     
+
+	class Bird {
+		public void fly() {
+			System.out.println("Bird is flying");
+		}
+	
+		public void eat(int food) {
+			System.out.println("Bird is eating " + food + " units of food");
+		}
+	}
+	
+	public class Eagle extends Bird {
+		public int fly(int height) {
+			System.out.println("Bird is flying at " + height + " meters");
+			return height;
+		}
+		public int eat(int food) { // DOES NOT COMPILE
+			System.out.println("Bird is eating " + food + " units of food");
+			return food;
+		}
+	}
+La première méthode, fly(), est surchargée dans la sous-classe Eagle, car la signature passe d'une méthode sans argument à une méthode avec un argument int. Étant donné que la méthode est surchargée et non redéfinit, le type de retour peut être changé de void à int sans problème.  
+La deuxième méthode, eat(), est redéfinit dans la sous-classe Eagle, puisque la signature est la même que dans la classe parente Bird. Elles prennent toutes les deux un seul argument int. Étant donné que la méthode est redéfnit, le type de retour de la méthode dans Eagle doit être le même ou une sous-classe du type de retour de la méthode dans Bird. Dans cet exemple, le type de retour void n'est pas une sous-classe de int, par conséquent, le compilateur ne compile passur cette définition de méthode.  
+Chaque fois que vous voyez une méthode sur l'examen avec le même nom qu'une méthode dans la classe parente, déterminez si la méthode est surchargée ou redéfinit en premier, cela vous aidera à vous demander si le code sera compilé.    
+
+Quel est le but de la deuxième règle sur les modificateurs d'accès ? Essayons un exemple illustratif  
+
+	class Camel {
+		protected int getNumberOfHumps() {
+			return 1;
+		}
+	}
+	class BactrianCamel extends Camel {
+		private int getNumberOfHumps() { // DOES NOT COMPILE
+			return 2;
+		}
+	}
+	public class Rider {
+		public static void main(String [] args) {
+			Camel c = new BactrianCamel();
+			System.out.println(c.getNumberOfHumps());
+		}
+	} 
+Dans cet exemple, BactrianCamel tente de redéfinir la méthode getNumberOfHumps() définie dans la classe parente mais échoue car le modificateur d'accès private est plus restrictif que celui défini dans la version parente de la méthode. Disons que BactrianCamel a été autorisé à compiler! L'appel à getNumberOfHumps() dans Rider et la méthode main() a-t-il réussi ou échoué ? Comme vous le verrez lorsque nous entrerons dans le polymorphisme plus loin dans ce chapitre, la réponse est assez ambiguë. Le type de référence de l'objet est Camel, où la méthode est déclarée publique, mais l'objet est en fait une instance de type BactrianCamel, qui est déclarée privée. Java évite ces types de problèmes d'ambiguïté en limitant la redéfinition d'une méthode pour accéder à des modificateurs qui sont aussi accessibles ou plus accessibles que la verison de la méthode héritée.     
+
+La troisième règle dit que la redéfinition d'une méthode ne peut pas déclarer de nouvelles exceptions vérifiées ou deélarer une exception plus large de la méthode héritée. Ceci est fait pour des raisons polymorphes similaires à celles des modificateurs d'accès limitants.  
+En d'autres termes, vous pourriez vous retrouver avec un objet plus restrictif que le type de référence auquel il est affecté, résultant en une exception vérifiée qui n'est pas gérée ou déclarée. Nous discuterons de ce que signifie une exception à vérifier dans le chapitre 10, "Exception". Pour l'instant, vous devez simplement reconnaître que si une exception vérifiée plus large est déclarée dans la méthode de redefinition, le code ne sera pas compilé. Essayons un exemple:  
+
+	class Reptile {
+		protected void sleepInShell() throws IOException {}
+		protected void hideInShell() throws NumberFormatException {}
+		protected void exitShell() throws FileNotFoundException {}
+	}
+	
+	public class GalapagosTortois extends Reptile{
+		public void sleepInShell() throws FileNotFoundException {}
+		public void hideInShell() throws IllegalArgumentException  {}
+		public void exitShell() throws IOException {}	// DOES NOT COMPILE
+	}
+Dans l'exemple, nous avons trois méthodes rédéfinies. Ces méthodes rédéfinies utilisent le modificateur public plus accessible, qui est autorisé par notre deuxième règle sur les méthodes rédéfinies. La méthode rédéfinie sleepInShell() déclare FileNotFoundException, qui est une sous-classe de l'exception déclarée dans la méthode héritée, IOException. Selon notre troisième règle des méthodes rédéfinies, il s'agit d'un rédéfinissement réussi car l'exception est plus étroite dans la méthode rédéfinie.  
+La méthode rédéfinie hideInShell(), compile aussi pour la même raison que la méthode que la méthode hideInShell().  
+La troisième redifinission de la méthode exitShell(), ne complile pas, parce que la méthode redéfinit declare une exception IOException qui est une supre-classe de l'exception déclarée dans la méthode héritée FileNotFoundException.   
+
+La quatrième et dernière règle concernant le redéfinition d'une méthode est probablement la plus compliquée, car elle nécessite de connaître les relations entre les types de retour. La méthode de redéfinit doit utiliser un type de retour qui est covariant avec le type de retour de la méthode héritée. Essayons un exemple à des fins d'illustration:   
+
+	class Rhino {
+		protected CharSequence getName() {
+			return "rhino";
+		}
+		protected String getColor() {
+			return "grey, black, or white";
+		}
+	}
+	public class JavaRhino extends Rhino {
+		public String getName() {
+			return "rhino";
+		}
+		public CharSequence getColor() {	// DEOS NOT COMPILE
+			return "grey, black, or white";
+		}
+	}
+La sous-classe JavaRhino tente de redéfinir deux méthodes de Rhino, getName() et getColor(). Les deux méthodes redéfinies ont les mêmes nom, mêmes signatures que les méthode héritées, le modifiacteur d'accés et plus large qui celui des méthodes héritées (public > protected). Du coup les règles 1 et 2 sont bien valides (3 y a pas de declaration d'exception). Dans le chapitre 5 on a dit que la classe String implemente l'interfece CharSequence, donc String est un sous-type de CharSequence, le redéfinition de la méthode getName() ok parce que le type de retour est String, mais le redéfinition de getColor() ne compile pas car CharSequence est un super-type de String. La règle 4 n'est pas valide.   
+##### Remplacer une méthode générique: (Overriding a Generic Method)	
+La redéfinitition des méthodes est assez compliqué, mais ajoutez-y des génériques et les choses ne font que devenir plus difficiles. Dans cette section, nous fournirons une discussion sur les aspects de la redéfinitition des méthodes génériques que vous devrez connaître pour l'examen.   
+###### Revue de la surcharge d'une méthode générique: (Review of Overloading a Generic Method)    
+Au chapitre 7, vous avez appris que vous ne pouvez pas surcharger la méthode en changeant le type générique en raison de l'effacement de type. Pour vérifier, une seule des deux méthodes est autorisée dans une classe car l'effacement de type réduira les deux ensembles d'arguments à (List input).
+
+		public class LongTailAnimal {
+			protected void chew(List<Object> input) {}
+			protected void chew(List<Double> input) {}	// DOES NOT COMPILE
+		}
+Pour la même raison, vous *ne pouvez pas* non plus redéfinir une méthode générique dans une classe parent:
+
+		public class LongTailAnimal {
+			protected void chew(List<Object> input) {}
+		}
+		class Anteater extends LongTailAnimal {
+			protected void chew(List<Double> input) {}	// DOES NOT COMPILE
+		}
+La compilation de ces deux exemples échoue en raison de l'effacement du type. Pendant la compilation le type générique est supprimé et apparaît comme une méthode surchargée non valide.  
+###### Paramètres de méthode générique: (Generic Method Parameters)  
+D'autre part, vous pouvez redéfinit une méthode avec un paramètre générique, mais vous devez faire correspondre exactement la signature comprenant le type générique. Par exemple, cette version de la classe Anteater se compile car elle utilise le même type générique dans la méthode redéfinie que celle définie dans la classe parent.  
+
+		public class LongTailAnimal {
+			protected void chew(List<String> input) {}
+		}
+		class Anteater extends LongTailAnimal {
+			protected void chew(List<String> input) {}
+		}
+Les paramètres de type générique doivent correspondre, mais qu'en est-il de la classe ou de l'interface générique ? Jetez un œil à l'exemple suivant. D'après ce que vous savez jusqu'à présent, pensez-vous que ces classes vont se compiler ?
+
+		public class LongTailAnimal {
+			protected void chew(List<Object> input) {}
+		}
+		class Anteater extends LongTailAnimal {
+			protected void chew(ArrayList<Double> input) {}
+		}
+Oui, ces classes se compilent. Cependant, ils sont considérés comme une méthode surchargée et non une méthode redéfinie, parce que la signature ce n'est pas le même. L'effacement de type ne change pas le fait que l'un des arguments de méthode est une List et l'autre est une ArrayList.
+###### Génériques et Joker: (Generics and Wildcards)  
+Java inclut la prise en charge de Wildcard génériques utilisant le caractère point d'interrogation (?). Il prend même en charge les wildcards délimités.   
+
+	void sing1(List<?> v) {} // unbounded wildcard
+	void sing2(List<? super String> v) {} // lower bounded wildcard
+	void sing1(List<? extends String> v) {} // upper bounded wildcard
+Utiliser des génériques avec des "jokers", des méthodes surchargées et des méthodes surchargées peut devenir assez compliqué. Heureusement, les caractères génériques sont hors de portée pour l'examen 1Z0-815. Ils avaient besoin de connaissances cependant, lorsque vous passez l'examen 1Z0-816.  
+Les caractères génériques sont situés dans des positions différentes ont des significations différentes :  
+* Collection<?>: Décrit un ensemble qui accepte tous les types d'arguments (contient tous les types d'objets).   
+​​​​​​​* List<? extends Number>: décrit une liste où tous les éléments sont du type Number ou sous-type de Number.   
+* Comparator<? super String>: décrit un comparateur (Comparator) dont le paramètre doit être String ou un class parent de string (superclass).  
+
+		Collection<?> coll = new ArrayList<Double>();
+		List<? extends Number> listNumber = new ArrayList<Long>();
+		List<? super String> listString = new ArrayList<CharSequence>();
+Ci-dessous, des exemples qui ne compilent pas: 
+
+	// String n'est pas le sous-type de Number, donc il y a une erreur.
+	List<? extends Number> list = new ArrayList<String>();
+	// String n'est pas une super-type parent d'Integer, donc il y a une erreur.
+	ArrayList<? super String> cmp = new ArrayList<Integer>();
+###### Redéclarer des méthodes privées: (Redeclaring private Methods)   
+Lorsque vous travaillez avec des méthodes redéfinies qui renvoient des génériques, les valeurs de retour doivent être covariantes. En termes de génériques, cela signifie que le type de retour de la classe ou de l'interface déclarée dans la méthode de redéfinition doit être un sous-type de la classe définie dans la classe parente. Le type de paramètre générique doit correspondre exactement au type de son parent.
+Compte tenu de la déclaration suivante pour la classe Mammal, laquelle des deux sous-classes Monkey et Goat compile ?  
+
+		class Mammal{
+			public List<CharSequence> play() { ... } 
+			public CharSequence spleep() { ... } 
+		}
+		class Monkey extends Mammal{
+			public ArrayList<CharSequence> play() { ... }
+		}
+		class Goat extends Mammal{
+			public List<String> play() { ... }	// DOES NOT COMPILE
+			public CharSequence spleep() { ... } 
+		}
+La classe Monkey se compile car ArrayList est un sous-type de List. La méthode play() de la classe Goat ne compile pas, cependant. Pour que les types de retour soient covariants, le paramètre de type générique doit correspondre. Même si String est un sous-type de CharSequence, il ne correspond pas exactement au type générique défini dans la classe Mammal. Par conséquent, cela est considéré comme un redéfinition non valide.  
+Notez que la méthode sleep() de la classe Goat se compile car String est un sous-type de CharSequence. Cet exemple montre que la covariance s'applique au type de retour, mais pas au type de paramètre générique.   
+Pour l'examen, il peut être utile que vous appliquiez la suppression (erasure) de type aux questions impliquant des génériques pour vous assurer qu'elles se compilent correctement. Une fois que vous avez déterminé quelles méthodes sont redéfinies et celles qui sont surchargées, travaillez en arrière, en vous assurant que les types génériques correspondent aux méthodes remplacées. Et rappelez-vous, les méthodes génériques ne doivent pas être surchargées en changeant uniquement le type de paramètre générique.  
+##### Redéclarer des méthodes privées: (Redeclaring private Methods)  
+Que se passe-t-il si vous essayez de remplacer une méthode privée ? En Java, vous ne pouvez pas redéfinir les méthodes privées car elles ne sont pas héritées. Ce n'est pas parce qu'une classe enfant n'a pas accès à la méthode parente que la classe enfant ne peut pas définir sa propre version de la méthode. Cela signifie simplement, à proprement parler, que la nouvelle méthode n’est pas une version redéfnie de la méthode de la classe parente.   
+Java vous permet de redéclarer une nouvelle méthode dans la classe enfant avec la même signature ou une signature modifiée que la méthode de la classe parent. Cette méthode de la classe enfant est une méthode distincte et indépendante, sans rapport avec la méthode de la version parente, de sorte qu’aucune des règles de remplacement des méthodes n’est appelée. Par exemple, revenons à l'exemple Camel que nous avons utilisé dans la section précédente et montrons deux classes associées qui définissent la même méthode:  
+
+	class Camel {
+		private String getNumberOfHumps() {
+			return ""Undefined";
+		}
+	}
+	class BactrianCamel extends Camel {
+		private int getNumberOfHumps() {
+			return 1;
+		}
+	}
+Ce code se compile sans problème. Notez que le type de retour diffère dans la méthode enfant de String à int. Dans cet exemple, la méthode getNumberOfHumps() de la classe parent est masquée, donc la méthode de la classe enfant est une nouvelle méthode et non une redéfinition de la méthode dans la classe parent. Comme vous l'avez vu dans la section précédente, si la méthode de la classe parente était publique ou protégée, la méthode de la classe enfant ne serait pas compilée car elle violerait règles deux de méthodes de redéfinition. La méthode parente dans cet exemple est privée, il n'y a donc pas de tels problèmes.  
+### Masquer les variables: (Hiding Variables) 
+Une méthode masquée se produit lorsqu'une classe enfant définit une méthode statique avec le même nom et la même signature qu'une méthode statique définie dans une classe parent. Le masquage de méthode est similaire mais pas exactement le même que le redéfinition de méthode. Les quatre règles précédentes pour redéfinir une méthode doivent être suivies lorsqu'une méthode est masquée. De plus, une nouvelle règle est ajoutée pour masquer une méthode.    
+5) La méthode définie dans la classe enfant doit être marquée comme statique si elle est marquée comme statique dans la classe parent (masquage de méthode).   
+
+En termes simples, il s'agit d'un masquage de méthode si les deux méthodes sont marquées statiques et d'une substitution de méthode si elles ne sont pas marquées statiques. Si l'un est marqué comme statique et l'autre non, la classe ne se compilera pas.   
+Passons en revue quelques exemples de la nouvelle règle.  
+
+	class Bear {
+		public static void eat() {
+			System.out.println("Bear is eating");
+		}
+	}
+	public class Panda extends Bear {
+		public static void eat() {
+			System.out.println("Panda bear is chewing");
+		}
+		public static void main(String[] args) {
+			Panda.eat();
+		}
+	}
+Dans cet exemple, le code se compile et s'exécute sans problème. La méthode eat() dans la classe enfant masque la méthode eat() dans la classe (parente) Bear, et afficher "Panda bear is chewing"à l'exécution. Comme ils sont tous les deux marqués comme statiques, cela n'est pas considéré comme une méthode redéfinie. 
+Cela dit, il y a encore un héritage en cours. si vous supprimez la méthode eat () dans la classe Panda, alors le programme imprime "Bear is eating" à l'exécution.
+Comparons ceci avec des exemples qui violent la cinquième règle:
+
+		class Bear {
+			public static void sneeze() {
+				System.out.println("Bear is sneezing");
+			}
+			public void hibernate() {
+				System.out.println("Bear is hibernating");
+			}
+			public static void laugh() {
+				System.out.println("Bear is laugh");
+			}
+		}
+		public class Panda extends Bear {
+			public void sneeze() { // DOES NOT COMPILE
+				System.out.println("Panda bear sneezes quietly");
+			}
+			public static void hibernate() { // DOES NOT COMPILE
+				System.out.println("Panda bear is going to sleep");
+			}
+			protected static void laugh() {	// DOES NOT COMPILE
+				System.out.println("Panda is laugh");
+			}
+		}
+Dans cet exemple, sneeze() est marqué comme statique dans la classe parent mais pas dans la calsse enfant. Le compilateur détecte que vous essayez de redéfinir à l'aide d'une méthode d'instance. Cependant, sneeze() est une méthode statique qui doit être masquée, ce qui oblige le compilateur à générer une erreur.  
+Dans la deuxième méthode, hibernate() est un membre d'instance dans la classe parent mais une méthode statique dans la classe enfant.Dans ce scénario, le compilateur pense que vous essayez de masquer une méthode statique. Étant donné que hibernate() est une méthode d'instance qui doit être redénie, le compilateur génère une erreur.   
+Enfin, la méthode laugh() ne compile pas. Même si les deux versions de méthode sont marquées comme statiques, la version de la classe Panda a un modificateur d'accès plus restrictif que celui dont elle hérite, et elle viole la deuxième règle de redéfinition des méthodes. N'oubliez pas que les quatre règles de redefinition des méthodes doivent être suivies lors du masquage des méthodes statiques.     
+### Création de méthodes finales: (Creating final Methods)
+Nous concluons notre discussion sur l'héritage de méthode par une règle quelque peu explicite: les méthodes finales ne peuvent pas être remplacées.   
+En marquant une méthode comme finale, vous interdisez à une classe enfant de redéfinir cette méthode. Cette règle est en place à la fois lorsque vous remplacez une méthode et lorsque vous masquez une méthode. En d'autres termes, vous ne pouvez pas masquer une méthode statique dans une classe parent si elle est marquée comme finale.
+Prenons un exemple:  
+
+		public class Bird {
+			public final boolean hasFeathers() {
+				return true;
+			}
+			public final static void flyAway() {}
+		}
+		public class Penguin extends Bird {
+			public final boolean hasFeathers() { // DOES NOT COMPILE
+				return false;
+			}
+			public final static void flyAway() {} // DOES NOT COMPILE
+		}
+Dans cet exemple, la méthode hasFeathers() est marquée comme finale dans la classe parent Bird, de sorte que la classe enfant Penguin ne peut pas redéfinir la méthode parent, ce qui entraîne une erreur du compilateur.  
+Dans cet exemple, la méthode hasFeathers() est marquée comme finale dans la classe parent Bird, de sorte que la classe enfant Penguin ne peut pas remplacer la méthode parent, ce qui entraîne une erreur du compilateur.   
+Cette règle s'applique uniquement aux méthodes héritées. Par exemple, si les deux méthodes étaient marquées comme privées dans la classe Bird parente, alors la classe Penguin telle que définie serait compilée. Dans ce cas, les méthodes privées seraient redéclarées, non écrasées ou masquées.   
+### Masquer les variables: (Hiding Variables)   
+Comme vous l'avez vu avec laredéfinition de méthode, il existe de nombreuses règles lorsque deux méthodes ont la même signature et sont définies dans les classes parent et enfant. Heureusement, les règles pour les variables portant le même nom dans les classes parent et enfant sont beaucoup plus simples. En fait, *Java n'autorise pas la redéfinition des variables*. Les variables peuvent cependant être *masquées*.  
+Une *variable masquée* se produit lorsqu'une classe enfant définit une variable portant le même nom qu'une variable héritée définie dans la classe parent. Cela crée deux copies distinctes de la variable dans une instance de la classe enfant: une instance définie dans la classe parent et une autre définie dans la classe enfant.  
+Comme lorsque vous masquez une méthode statique, vous ne pouvez pas redefinir une variable, vous ne pouvez que la masquer.  Prenons l'exemple suivant:  
+
+		class Carnivore {
+			protected boolean hasFur = false;
+		}
+		public class Meerkat extends  Carnivore{
+			protected boolean hasFur = true;
+		
+			public static void main(String[] args) {
+				Meerkat m = new Meerkat();
+				Carnivore c = m;
+				System.out.println(m.hasFur);	// true
+				System.out.println(c.hasFur);	// false
+			}
+		}
+Il affiche vrai suivi de faux. Confus ? Ces deux classes définissent une variable hasFur, mais avec des valeurs différentes. Même s'il n'y a qu'un seul objet créé par la méthode main(), les deux variables existent indépendamment l'une de l'autre. La sortie change en fonction de la variable de référence utilisée.   
+Si vous n'avez pas compris le dernier exemple, ne vous inquiétez pas. La section suivante sur le polymorphisme expliquera en quoi le remplacement et le masquage diffèrent. Pour l'instant, il vous suffit de savoir que la substitution d'une méthode remplace la méthode parente sur toutes les variables de référence (autres que super), alors que le masquage d'une méthode ou d'une variable ne remplace le membre que si un type de référence enfant est utilisé.
 # Comprendre le polymorphisme: (Understanding Polymorphism)
 Java supporte le polymorphisme, la propriété d'un objet peut avoir de nombreuses formes différentes. Plus précisément, un objet Java peut être accédé en utilisant une référence du même type que l'objet, une référence qui est une super-classe de l'objet ou une référence définissant une interface que l'objet implémente, soit directement, soit via une superclasse. 
 De plus, un cast n'est pas nécessaire si l'objet est réaffecté à un super type ou à une interface de l'objet.
 En Java, *tous les objets sont accessibles par référence*. En tant que développeur, vous n’avez jamais accès directement à l’objet lui-même.
+
+*Introduction à l'interface:*   
+Nous discuterons des interfaces en détail dans le prochain chapitre. Pour ce chapitre, vous devez connaître les éléments suivants:   
+* Une interface peut définir des méthodes abstraites.
+* Une classe peut implémenter n'importe quel nombre d'interfaces.
+* Une classe implémente une interface en remplaçant les méthodes abstraites héritées.
+* Un objet qui implémente une interface peut être affecté à une référence pour cette interface.  
+Comme vous le verrez dans le chapitre suivant, les mêmes règles pour les méthodes de substitution et le polymorphisme s'appliquent.   
+
+Illustrons cette propriété de polymorphisme avec l'exemple suivant:  
+
+		public class Primate {
+			public boolean hasHair() {
+				return true;
+			}
+		}
+		
+		public interface HasTail {
+			public boolean isTailStriped();
+		}
+		
+		public class Lemur extends Primate implements HasTail {
+			public boolean isTailStriped() {
+				return false;
+			}
+		
+			public int age = 10;
+		
+			public static void main(String[] args) {
+				Lemur lemur = new Lemur();
+				System.out.println(lemur.age);
+				HasTail hasTail = lemur;
+				System.out.println(hasTail.isTailStriped());
+				Primate primate = lemur;
+				System.out.println(primate.hasHair());
+			}
+		}
+Ce code compile et s'exécute sans problème et donne la sortie suivante:  
+
+		10
+		false
+		true
+La chose la plus importante à noter à propos de cet exemple est qu'un seul objet *Lemur* est créé et référencé. *Le polymorphisme* permet à une instance de Lemur d'être réaffectée ou passée à une méthode utilisant l'un de ses supertypes, comme Primete ou HasTail.
 ### Objet contre référence: (Object vs. Reference)
 ### Casting des objets: (Casting Objects)
 ### L'opérateur instanceof: ( The instanceof Operator)

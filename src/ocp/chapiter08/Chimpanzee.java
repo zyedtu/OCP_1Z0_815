@@ -1,12 +1,12 @@
 package ocp.chapiter08;
 
-class Primate{
-	public Primate() {
+class Primate1{
+	public Primate1() {
 		System.out.print("Primate-");
 	}
 }
 
-class Ape extends Primate{
+class Ape extends Primate1{
 	public Ape(int fur) {
 		System.out.print("Ape1-");
 	}

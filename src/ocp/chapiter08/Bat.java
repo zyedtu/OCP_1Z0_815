@@ -1,5 +1,8 @@
 package ocp.chapiter08;
 
+import java.util.ArrayList;
+import java.util.List;
+
 class Mammal{
 	String type = "mammal";
 }
@@ -16,3 +19,4 @@ public class Bat extends Mammal{
 		System.out.println(new Bat().getType());
 	}
 }
+
