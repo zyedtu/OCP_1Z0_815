@@ -1051,9 +1051,192 @@ Ce code compile et s'exécute sans problème et donne la sortie suivante:
 		10
 		false
 		true
-La chose la plus importante à noter à propos de cet exemple est qu'un seul objet *Lemur* est créé et référencé. *Le polymorphisme* permet à une instance de Lemur d'être réaffectée ou passée à une méthode utilisant l'un de ses supertypes, comme Primete ou HasTail.
-### Objet contre référence: (Object vs. Reference)
-### Casting des objets: (Casting Objects)
-### L'opérateur instanceof: ( The instanceof Operator)
-### Polymorphisme et redéfinissement de méthode: (Polymorphism and Method Overriding) 
-### Redéfinir contre masquer des membres: (Overriding vs. Hiding Members)
+La chose la plus importante à noter à propos de cet exemple est qu'un seul objet *Lemur* est créé et référencé. *Le polymorphisme* permet à une instance de Lemur d'être réaffectée ou passée à une méthode utilisant l'un de ses supertypes, comme Primete ou HasTail.   
+Une fois qu'un nouveau type de référence a été attribué à l'objet, seules les méthodes et variables disponibles pour ce type de référence peuvent être appelées sur l'objet sans conversion explicite. Par exemple, les extraits de code suivants ne seront pas compilés:   
+
+		HasTail hasTail = lemur;
+		System.out.println(hasTail.age); // DOES NOT COMPILE
+		Primate primate = lemur; 
+		System.out.println(primate.isTailStriped()); // DOES NOT COMPILE
+Dans cet exemple, la référence hasTail a un accès direct uniquement aux méthodes déﬁnies avec l'interface HasTail, par conséquent, il ne sait pas que l’âge variable fait partie de l’objet. De même, le primate de référence n’a accès qu’aux méthodes déﬁnies dans la classe Primate et n’a pas d’accès direct à la méthode isTailStriped().   
+### Objet contre référence: (Object vs. Reference)   
+En Java, tous les objets sont accessibles par référence, de sorte qu'en tant que développeur, vous n'avez jamais d'accès direct à l'objet lui-même. Conceptuellement, cependant, vous devez considérer l'objet comme l'entité qui existe en mémoire, allouée par l'environnement d'exécution Java. Quel que soit le type de référence que vous avez pour l’objet en mémoire, l’objet lui-même ne change pas. Par exemple, puisque tous les objets héritent de java.lang.Object, ils peuvent tous être réaffectés à java.lang.Object, comme illustré dans l'exemple suivant:   
+
+		Lemur lemur = new Lemur();
+		Object lemurAsObject = lemur;
+Même si l'objet Lemur a reçu une référence avec un *type différent*, l'objet lui-même n'a pas changé et existe toujours en tant qu'objet Lemur en mémoire. Ce qui a changé, c'est notre capacité à accéder aux méthodes de la classe Lemur avec la référence lemurAsObject. Sans un cast explicite vers Lemur, comme vous le verrez dans la section suivante, nous n'avons plus accès aux propriétés Lemur de l'objet.   
+Nous pouvons résumer ce principe avec les deux règles suivantes:   
+1. Le type de l'objet détermine les propriétés qui existent dans l'objet en mémoire.  
+2. Le type de référence à l'objet détermine les méthodes et les variables accessibles au programme Java.   
+
+Il s'ensuit donc que la modification réussie d'une référence d'un objet vers un nouveau type de référence peut vous donner accès à de nouvelles propriétés de l'objet, mais ces propriétés existaient avant le changement de référence.    
+### Casting des objets: (Casting Objects)  
+Dans l'exemple précédent, nous avons créé une seule instance d'un objet Lemur et y avons accédé via des références de superclasse et d'interface. Une fois que nous avons changé le type de référence, cependant, nous avons perdu l'accès à des méthodes plus spécifiques dé ﬁ nies dans la sous-classe qui existent toujours dans l'objet. Nous pouvons récupérer ces références en convertissant l'objet dans la sous-classe spécifique dont il provient:  
+
+		Lemur lemur2 = primate; //	DOES NOT COMPILE
+		
+		Lemur lemur3 = (Lemur) primate;	//	Explicit Cast
+		System.out.println(lemur3.age);
+Dans cet exemple, nous essayons d'abord de reconvertir la référence de primate en une référence de l'objet Lemur à lemur2, sans conversion explicite. Le résultat est que le code ne se compilera pas.    Dans le deuxième exemple, cependant, nous convertissons explicitement l'objet dans une sous-classe de l'objet Primate et nous avons accès à toutes les méthodes disponibles pour la classe Lemur.  
+La conversion d'objet est similaire à la conversion de primitives, comme vous l'avez vu au chapitre 3. Lors de la conversion d'objets, vous n'avez pas besoin d'un opérateur de conversion si la référence actuelle est un sous-type du type cible. C'est ce qu'on appelle une conversion de type ou de conversion implicite. Sinon, si la référence actuelle n'est pas un sous-type du type cible, vous devez effectuer un cast explicite avec un type compatible. Si l'objet sous-jacent n'est pas compatible avec le type, une exception *ClassCastException* sera lancée lors de l'exécution.   
+Voici quelques règles de base à garder à l'esprit lors de la conversion de variables:   
+1. Le cast d'une référence d'un sous-type vers un supertype ne nécessite pas de conversion explicite    
+2. Le cast d'une référence d'une superclasse vers une sous-classe nécessite un cast explicite *Down cast*.    
+3. Le compilateur n'autorisera pas les transtypages (cast) vers des types non liés.  
+4. Même lorsque le code se compile sans problème, une exception peut être levée au moment de l'exécution si l'objet en cours de conversion n'est pas réellement une instance de cette classe.    
+
+La troisième règle est importante, l'examen peut essayer de vous tromper avec un cast que le compilateur ne permet pas. Par exemple, nous avons pu convertir une référence Primate en référence Lemur, car Lemur est une sous-classe de Primate et donc liée. Consider this example:  
+
+		class Bird { }
+		
+		class Fish {
+			public static void main(String[] args) {
+				Fish fish = new Fish();
+				Bird bird = (Bird) fish; // DOES NOT COMPILE
+			}
+		}
+Dans cet exemple, les classes Fish et Bird ne sont liées par aucune hiérarchie de classes dont le compilateur a connaissance, par conséquent, le code ne compile pas.   
+
+Le casting n'est pas sans limites. Même si deux classes partagent une hiérarchie liée, cela ne signifie pas qu'une instance de l'une peut être automatiquement convertie en une autre. Voici un exemple:  
+
+	class Rodent { }
+	
+	class Capybara extends Rodent {
+		public static void main(String[] args) {
+			Rodent rodent = new Rodent();
+			Capybara capybara = (Capybara) rodent; // Throws ClassCastException at runtime
+		}
+	}
+Ce code crée une instance de Rodent, puis tente de la convertir en une sous-classe de Rodent, Capybara. Bien que ce code se compile sans problème, il lèvera une exception ClassCastException au moment de l'exécution car l'objet référencé n'est pas une instance de la classe Capybara. La chose à garder à l'esprit dans cet exemple est que l'objet qui a été créé n'est en aucun cas lié à la classe Capybara.    
+Lorsque vous passez en revue une question de l'examen qui implique le cast et le polymorphisme, assurez-vous de vous rappeler quelle est réellement l'instance de l'objet. Ensuite, concentrez-vous sur si le compilateur autorisera l'objet à être référencé avec ou sans casts explicites.
+### L'opérateur instanceof: ( The instanceof Operator)   
+Dans le chapitre 3, nous avons présenté l'opérateur instanceof, qui peut être utilisé pour vérifier si un objet appartient à une classe ou une interface particulière et pour empêcher ClassCastException au moment de l'exécution. Contrairement à l'exemple précédent, l'extrait de code suivant ne lève pas d'exception lors de l'exécution et effectue le cast uniquement si l'opérateur instanceof renvoie true:   
+
+		if(rodent instanceof Capybara) {
+		 Capybara capybara = (Capybara)rodent;
+		}
+Tout comme le compilateur ne permet pas de convertir un objet en types non liés, il ne permet pas non plus d'utiliser instanceof avec des types non liés. Nous pouvons le démontrer avec nos classes Bird  et de Fish sans rapport avec:
+
+		class Bird { }
+		
+		class Fish {
+			public static void main(String[] args) {
+				Fish fish = new Fish();
+				if(fish instanceof Bird){ // DOES NOT COMPILE
+				Bird bird = (Bird) fish; // DOES NOT COMPILE
+				}
+			}
+		}
+Dans cet extrait de code, ni l'opérateur instanceof ni l'opérateur cas explicite ne sont compilés.  
+### Polymorphisme et redéfinissement de méthode: (Polymorphism and Method Overriding)   
+En Java, le polymorphisme indique que lorsque vous remplacez une méthode, vous remplacez tous les appels à celle-ci, même ceux définis dans la classe parente. À titre d'exemple, que pensez-vous de la sortie d'extrait de code suivant ?  
+
+		class Penguin {
+			public int getHeight() { return 3; }
+			public void printInfo() {
+				System.out.println(this.getHeight());
+			}
+		}
+		public class EmperorPenguin extends Penguin{
+			public int getHeight() { return 8; } 
+			public static void main(String[] args) {
+				Penguin penguin = new EmperorPenguin();
+				penguin.printInfo();
+			}
+		}
+Si vous avez dit **8**, vous êtes sur la bonne voie pour comprendre le polymorphisme. Dans cet exemple, l'objet en cours d'opération en mémoire est un EmperorPenguin. La méthode getHeight() est redéfnie dans les sous-types, ce qui signifie que tous les appels à celle-ci sont remplacés au moment de l'exécution. Bien que printInfo() soit défini dans la classe Penguin, l'appel de getHeight() sur l'objet appelle la méthode associée à l'objet précis en mémoire, et non le type de référence actuel où il est appelé. Même l'utilisation de *référence this*, qui est facultative dans cet exemple, n'appelle pas la version parent car la méthode a été replacée.   
+Dans la facette du polymorphisme qui remplace les méthodes via la redéfinition est l'une des propriétés les plus importantes dans tout Java. Il vous permet de créer des modèles d'héritage complexes, avec des sous-classes qui ont leur propre implémentation personnalisée de méthodes redéfines. cela signifie également que la classe parente n'a pas besoin d'être mise à jour pour utiliser une méthode personnalisée ou redéfinie. si la méthode est correctement remplacée, la version remplacée sera utilisée à tous les endroits qu'elle appelle.    
+N'oubliez pas que vous pouvez choisir de limiter le comportement polymorphe en marquant les méthodes comme *finale*, ce qui évite qu'elles ne soient redéfinies par une sous-classe.  
+###### Méthodes virtuelles: (Virtual Methods) 
+La caractéristique la plus importante du polymorphisme - et l'une des principales raisons pour lesquelles nous avons une structure de classe, est de prendre en charge les méthodes virtuelles.   
+Une méthode virtuelle est une méthode dans laquelle l'implémentation spécifique n'est pas déterminée avant l'exécution. En fait, toutes les méthodes Java non finales, non statiques et non privées sont considérées comme des méthodes virtuelles, car chacune d'elles peut être remplacée lors de l'exécution.   
+
+	public class Bird {
+		public String getName() {
+			return "Unknown";
+		}
+	
+		public void displayInformation() {
+			System.out.println("The bird name is: " + getName());
+		}
+	}
+	
+	public class Peacock extends Bird {
+		public String getName() {
+			return "Peacock";
+		}
+	
+		public static void main(String[] args) {
+			Bird bird = new Peacock();
+			bird.displayInformation();		// The bird name is: Peacock
+		}
+	}
+Ce code compile et s'exécute sans problème et afficher: *The bird name is: Peacock*
+###### Appel de la version parente d'une méthode remplacée: (Calling the parent Version of an Overridden Method)   
+Comme vous l'avez vu dans cechapitre, il existe une exception pour remplacer une méthode où la méthode parente peut encore être appelée, et c'est à ce moment que la super référence est utilisée.  
+Comment pouvez-vous modifier notre exemple EmperorPenguin pour afficher 3 , comme défini dans la méthode Penguin getHeight() ? Vous pouvez essayer d'appeler super.getHeight() dans la méthode printInfo() de la classe Penguin.   
+
+	class Penguin {
+		... 
+		public void printInfo() {
+			System.out.println(super.getHeight());
+		}
+	}
+Malheureusement, cela ne compile pas, car super fait référence à la superclasse de Penguin, dans ce cas Object. La solution est de redéfinir la méthode printInfo() dans la classe EmperorPenguin et utliser super dedans.  
+
+	class EmperorPenguin extends Penguin {
+			... 
+			public void printInfo() {
+				System.out.println(super.getHeight());
+			}
+			...
+	}
+Cette nouvelle version de la classe EmperorPenguin utilise la méthode getHeight() dans la classe parent et affiche 3.   
+### Redéfinir contre masquer des membres: (Overriding vs. Hiding Members)   
+Alors que la redéfinition de méthode remplace la méthode partout où elle est appelée, la méthode statique et le masquage de variables ne le font pas. À proprement parler, masquer des membres n'est pas une forme de polymorphisme puisque les méthodes et les variables conservent leurs propriétés individuelles. Contrairement au remplacement de méthode, le masquage des membres est très sensible au type de référence et à l'emplacement où le membre est utilisé.   
+Jetons un coup d'œil à un exemple:   
+
+	class Penguin {
+		public static int getHeight() { return 3; }
+		public void printInfo() {
+			System.out.println(this.getHeight());
+		}
+	}
+	public class CrestedPenguin extends Penguin{
+		public static int getHeight() { return 8; } 
+		public static void main(String[] args) {
+			Penguin penguin = new CrestedPenguin();
+			penguin.printInfo();
+		}
+	}
+L'exemple CrestedPenguin est presque identique à notre précédent exemple EmporerPenguin, bien que comme vous l'avez probablement déjà deviné, il imprime 3 au lieu de 8. La méthode getHeight() est static donc il est masquée et non redéfini. Le résultat est que l'appel de getHeight() dans CrestedPenguin renvoie une valeur différente de celle de l'appel dans le Penguin, même si l'objet sous-jacent est le même. Comparez cela avec la redéfinition d'une méthode, où elle renvoie la même valeur pour un objet quelle que soit la classe dans laquelle il est appelé.  
+Et que pensez-vous, le fait d'utiliser *this* pour acceder à la méthode static *this.getHeight()* ? Comme expliqué dans le chapitre 7, bien que vous soyez autorisé à utiliser une référence d'instance pour accéder à une variable statique ou à une méthode, cela est souvent déconseillé. En fait, le compilateur vous avertira lorsque vous accédez à des membres statiques de manière non-statique. Dans ce cas, la *référence this* n'a eu aucun impact sur les résultats du programme.   
+
+Outre l'emplacement, le type de référence peut également déterminer la valeur que vous obtenez lorsque vous travaillez avec des membres masqués. Prêt ? Essayons un exemple plus complexe:   
+
+	class Marsupial {
+		protected int age = 2;
+		public static boolean isBiped() {
+			return false;
+		}
+	}
+	public class Kangaroo extends Marsupial{
+	
+		protected int ager = 6;
+		public static boolean isBiped() {
+			return true;
+		}
+		public static void main(String[] args) {
+			Kangaroo joey = new  Kangaroo();
+			Marsupial moey = joey;
+			System.out.println(joey.isBiped());	// true
+			System.out.println(moey.isBiped());	// false
+			System.out.println(joey.age);	// 6
+			System.out.println(moey.age);	// 2
+		}
+	}
+Souvenez-vous, dans cet exemple, qu'un seul *objet* de type Kangourou, est créé et stocké en mémoire. Étant donné que les méthodes statiques ne peuvent être que masquées et non écrasées, Java utilise le type de référence pour déterminer quelle version de isBiped () doit être appelée, ce qui fait que joey.isBiped() affiche true et moey.isBiped () affiche false.   
+De même, la variable age est masquée, et non remplacée, le type de référence est donc utilisé pour déterminer la valeur à afficher. Il en résulte que joey.age renvoie 6 et moey.age renvoie 2.
+
+*Ne cachez pas les membres dans la pratique: (Don't Hide Members in Practice)*     
+Bien que Java vous permette de masquer des variables et des méthodes statiques, il est considéré comme une pratique de codage extrêmement médiocre. Comme vous l'avez vu dans l'exemple précédent, la valeur de la variable ou de la méthode peut changer en fonction de la référence utilisée, ce qui rend votre code très déroutant, difficile à suivre et difficile à maintenir pour les autres. Ceci est encore aggravé lorsque vous commencez à modifier la valeur de la variable dans les méthodes parent et enfant, car il peut être clair quelle variable vous mettez à jour.   
