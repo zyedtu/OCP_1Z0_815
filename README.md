@@ -6,6 +6,6 @@
 # Chapter 6: Lambdas And Functional Interfaces
 # Chapter 7: Methods And Encapsulation
 # Chapter 8: CLASS DEDIGN
-# Chapter 9:
+# Chapter 9: Advanced Class Design
 # Chapter 10:
 # Chapter 11:
