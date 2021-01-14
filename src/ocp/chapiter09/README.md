@@ -708,7 +708,7 @@ Nous résumons les règles d'interface dans cette partie du chapitre dans la lis
 
 ###### Règles de méthode d'interface abstraite:(Abstract Interface Method Rules)   
 1. Les méthodes abstraites ne peuvent être définies que dans des classes abstraites ou des interfaces.   
-2. Les méthodes abstraites (Pas d'une interface) ne peuvent pas être déclarées privées ou finales.  
+2. Les méthodes abstraites (Pas une méthode d'interface) ne peuvent pas être déclarées privées ou finales.  
 3. Les méthodes abstraites ne doivent pas fournir un corps/une implémentation de méthode dans la classe abstraite pour laquelle elle est déclarée.   
 4. L'implémentation d'une méthode abstraite dans une sous-classe suit les mêmes règles pour redéfinir une méthode, y compris les types de retour covariants, la déclaration d'exception, etc.  
 5. Une méthode d'interface sans corps est supposée être abstract et public.   
@@ -717,6 +717,65 @@ Nous résumons les règles d'interface dans cette partie du chapitre dans la lis
 1. Les variables d'interface sont supposées être public, static et final. Par conséquent, le marquage d'une variable comme private ou protected ou abstract déclenchera une erreur du compilateur.    
 2. La valeur d'une variable d'interface doit être initialisée lorsqu'elle est déclarée car elle est marquée comme final.  
 
-# Présentation des classes internes: (Introducing Inner Classes)
-### Définition de membres de classes Internes: (Defining a Member Inner Classes)
-### Utilisation de membres de classes Internes: (Using a Member Inner Classes)
+# Présentation des classes internes: (Introducing Inner Classes)  
+Nous concluons ce chapitre par une brève discussion des classes internes. Pour l'examen 1Z0-815, il vous suffit de connaître les bases des classes internes. En particulier, vous devez connaître la différence entre une classe de premier niveau et une classe interne, les modificateurs d'accès autorisés pour une classe interne et comment définir une classe interne de memeber.   
+* Remarque: Pour plus de simplicité, nous ferons souvent référence aux interfaces internes ou imbriquées comme des classes internes, car les règles décrites dans ce chapitre pour les classes internes s'appliquent à la fois au type de classe et d'interface.         
+
+### Définition de membres de classes Internes: (Defining a Member Inner Classes)   
+*Une classe interne* est une classe définie au niveau de membre de la classe (le même niveau que les méthodes, les variables d'instance et les constructeurs). C'est l'opposé d'une classe de premier niveau, en ce sens qu'elle ne peut être déclarée que si elle se trouve dans une autre classe.    
+les développeurs définissent souvent une classe interne membre dans une autre classe si la relation entre les deux classes est très étroite. Par exemple, un zoo vend des billets pour ses clients, par conséquent, il peut souhaiter gérer le cycle de vie de l'objet Ticket.   
+Voici un exemple de la classe externe Zoo avec une classe interne Ticket:   
+
+		public class Zoo {
+			public class Ticket {}
+		}
+Nous pouvons étendre cela pour inclure une interface:  
+
+		public class Zoo {
+			private interface Paper {}
+			public class Ticket implements Paper {}
+		}
+Alors que les classes et interfaces de niveau supérieur ne peuvent être définies qu'avec un accès public ou package-private, la classe interne membre n'a pas la même restriction. Une classe interne membre peut être déclarée avec tous les mêmes modificateurs d'accès qu'un membre de classe, comme, public, protected, package-private et private.    
+Une classe interne membre peut contenir un grand nombre des mêmes méthodes et variables qu'une classe de niveau supérieur. Certains membres ne sont pas autorisés dans la classe interne des membres, tels que les membres statiques, bien que vous n'ayez pas besoin de le savoir pour l'examen 1Z0-815. Mettons à jour notre exemple avec quelques membres d'instance.   
+
+		public class Zoo {
+			private interface Paper {
+				String getId();
+			}
+			public class Ticket implements Paper {
+				private String serialNumber;
+				public String getId() { return serialNumber;}
+			}
+		}
+Nos exemples de Zoo et de Ticket commencent à devenir plus intéressants. Dans la section suivante, nous vous montrerons comment les utiliser.   
+### Utilisation de membres de classes Internes: (Using a Member Inner Classes)  
+Une des façons d'utiliser une classe interne membre est de l'appeler dans la classe externe. Poursuivant notre exemple précédent, définissons une méthode dans Zoo qui utilise la classe interne membre avec une nouvelle méthode sellTicket().   
+
+	public class Zoo {
+		private interface Paper {
+			String getId();
+		}
+		public class Ticket implements Paper {
+			private String serialNumber;
+			public String getId() { return serialNumber;}
+		}
+		
+		public Ticket sellTicket(String serialNumber) {
+			var t = new Ticket();
+			t.serialNumber = serialNumber;
+			return t;
+		}
+	}
+l'avantage d'utiliser une classe interne membre dans cet exemple est que la classe Zoo gère complètement le cycle de vie de la classe Ticket.  
+ajoutons un point d'entrée à cet exemple:
+
+		public class Zoo {
+		...
+			public static void main(String... unsuse) {
+				var z = new Zoo();
+				var t = z.sellTicket("12345");
+				System.out.println(t.getId()+" Ticket sold!");
+			}
+		} 
+Cela compile et afficher *12345 Ticket sold!* au moment de l'exécution.    
+Pour l'examen 1Z0-815, c'est l'étendue de ce que vous devez savoir sur les classes internes. Comme indiqué, lorsque vous étudiez pour l'examen 1Z0-816, vous devrez en savoir beaucoup plus.    

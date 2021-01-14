@@ -7,5 +7,5 @@
 # Chapter 7: Methods And Encapsulation
 # Chapter 8: CLASS DEDIGN
 # Chapter 9: Advanced Class Design
-# Chapter 10:
+# Chapter 10: EXCEPTION
 # Chapter 11:
