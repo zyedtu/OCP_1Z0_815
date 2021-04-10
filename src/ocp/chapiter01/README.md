@@ -188,31 +188,12 @@ On peut créer une jar par nous meme, en utilisant la commande jar avec deux fa�
 
 	java -jar file.jar
 
-# Order elements in a Class:
-____________________________________________________________________________   
-|				    |					 |					 |							    |    
-| **Element**		|   **Exemple** 	 |	 **Obligatoire** | **ordere dans la classe**	|    
-|___________________|____________________|___________________|______________________________|     
-|				    |					 |					 |								|  
-| package		    | package abc;	     | Non				 | premier élément	            |  
-|___________________|____________________|___________________|______________________________|   
-|					|					 |					 |                              | 	  
-| import			| import java.util.*;| Non				 | juste apés le package        |   
-|					|				     |			         | s'il est present	            |   
-|___________________|____________________|___________________|______________________________|     
-|					|				     |					 |								|   
-| class			    | puplic class A	 | Oui               |juste apés l'import  			|  
-|					|				     |			         | s'il est present				|  
-|___________________|____________________|___________________|______________________________|     
-|					|				     |					 |								|  
-| champs et		    | int a;			 |  Non 	         | Dans la classe				|  
-| méthodes		    | void method(){}	 |					 |								|  
-|___________________|____________________|___________________|______________________________|  
- 
+# Order elements in a Class:    
 
-
-| Tables        | Are           | Cool  |
-| ------------- |:-------------:| -----:|
-| col 3 is      | right-aligned | $1600 |
-| col 2 is      | centered      |   $12 |
-| zebra stripes | are neat      |    $1 |
+| Element           | Exemple            | Obligatoire  | ordere dans la classe                   |
+| ------------------|:------------------:| ------------:|----------------------------------------:|
+| package           | package abc;       | NON          | premier élément                         |
+| import            | import java.util.*;| NON          | juste aprés le package s'il est present |
+| class             | puplic class A     | OUI          | juste aprés l'import s'il est present   |
+| champs et méthodes| int a; method() {} | NON          | Dans la Classe                          |
+					  	
