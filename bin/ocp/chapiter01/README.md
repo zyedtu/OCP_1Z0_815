@@ -6,13 +6,13 @@ le JRE est un subset du JDK.
 # TLS: (Long Time Support)
 Oracle a annoncé un changement radical dans le cycle de release de Java. Il y aura dorénavant une release majeure tous les 6 mois, une mineure tous les 2 mois et une LTS (Long Time Support, Support à long terme) tous les 3 ans
 
-#Ecrire le méthode main():
+# Ecrire le méthode main():
 - Pour vérifier le version du java, on lance cette commande: **java -version**   
 -  On écrit cette méthode dans un fichier Zoo.java:   
 
 			public class Zoo {    
 				public static void main(String[] args) {    
-			       System.out.println("Hello Zoo");   
+					System.out.println("Hello Zoo");   
 				}    
 			}  
     
@@ -28,8 +28,8 @@ La méthode main(), recoit une liste de param, representée sous forme d'un tabl
 
 	 public class Zoo {    
 			public static void main(String[] args) {    
-		       System.out.println(args[0]);     
-			   System.out.println(args[1]);   
+				System.out.println(args[0]);     
+				System.out.println(args[1]);   
 			}    
 		}    
 
