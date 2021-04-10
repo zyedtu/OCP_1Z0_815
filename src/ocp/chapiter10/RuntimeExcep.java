@@ -11,5 +11,4 @@ public class RuntimeExcep {
 					 "# eggs must not be negative");
 		this.numberEggs = numberEggs;
 	}
-	
 }
