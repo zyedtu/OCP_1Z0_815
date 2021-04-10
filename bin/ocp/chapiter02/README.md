@@ -49,7 +49,7 @@ Dans les applications java, il y a deux types de variable, type primitive et typ
  
 * char: 'a', La primitive char est utilisée pour stocker un seul caractère **Unicode 16 bits** et nécessite 16 bits de mémoire.    
 
-Tous les type numéric sont signés peuvent avoir une valuer négative, int x = -128   
+Tous les type numéric sont **signés** peuvent avoir une valuer négative, int x = -128   
 
 Pour l'**examen**, sachez que short et char sont étroitement liés, les deux type sont sur 16-bit, la difference entre les deux que short est signé mais char non signé. 
 

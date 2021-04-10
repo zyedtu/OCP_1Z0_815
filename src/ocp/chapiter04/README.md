@@ -297,7 +297,7 @@ Dans la boucle for il y a 5 étapes:
 4. Exécuter updateStatement
 5. Retourner à l'étape 2  
 
-Jetons un coup d'œil à un exemple qui imprime les cinq premiers nombres commençant par zéro:  
+Jetons un coup d'oeil à un exemple qui imprime les cinq premiers nombres commençant par zéro:  
 
 		for(int i = 0; i < 5; i++) {
 			System.out.print(i + " "); // 0 1 2 3 4
@@ -306,7 +306,7 @@ Jetons un coup d'œil à un exemple qui imprime les cinq premiers nombres comm
 ### Afficher d'éléments à l'envers: (Printing Elements in Reverse)  
 
 Disons que vous vouliez imprimer les mêmes cinq premiers nombres pour zéro que nous l'avons fait dans la section précédente, mais cette fois dans l'ordre inverse, le but est d'afficher 4 3 2 1 0.  
-Comment feriez-vous cela ? À partir de Java 10, vous pouvez maintenant voir var utilisé dans une boucle for, alors utilisons-le pour cet exemple. Une mise en œuvre initiale peut ressembler à ce qui suit:
+Comment feriez-vous cela ? À partir de Java 10, vous pouvez maintenant voir var utilisé dans une boucle for, alors utilisons-le pour cet exemple. Une mise en oeuvre initiale peut ressembler à ce qui suit:
 
 		for(var counter = 5; counter > 0; counter--) {
 			System.out.print(counter + " "); //5 4 3 2 1
@@ -343,9 +343,9 @@ Ce code montre 3 variables dans une boucle for
 		for(int x = 4; x < 5; x++) { // DOES NOT COMPILE
 			System.out.println(x + "");
 		}
-Ce code ne compile pas, à cause du bloc d'initialisation, x est répété dans le bloc d'initialisation après avoir déjà été déclaré avant la boucle.  Pour corriger ça:
+Ce code ne compile pas, à cause du bloc d'initialisation, x est répété dans le bloc d'initialisation après avoir déjà été déclaré avant la boucle.  Pour corriger ça:     
 
-	   int x = 0;
+		int x = 0;
 		
 		for(x = 4; x < 5; x++) { // COMPILE
 			System.out.println(x + "");
@@ -386,9 +386,9 @@ Que se passe-t-il si vous modifiez une variable dans une boucle for, ou toute au
 		
 		for(int k=0; k<10;)
 			k++;
-Ces deux codes compilient bien, comme Java vous permet de modifier les variables de boucle, qu'elles soient dans les boucles for, while ou do / while  
-* Le premier et le deuxieme exemple créent une boucle infinie.
-* Le dernier exécute la boucle 10 fois.
+Ces deux codes compilient bien, comme Java vous permet de modifier les variables de boucle, qu'elles soient dans les boucles for, while ou do/while      
+* Le premier et le deuxieme exemple créent une boucle infinie.    
+* Le dernier exécute la boucle 10 fois.    
 
 ### La boucle for-each: (The for-each Loop)
 
@@ -431,7 +431,7 @@ Le dernier type de structure de contrôle que nous aborderons dans le chapitre s
 
 ### Boucles imbriquées: (Nested loops)
 
-Avant de passer aux instructions de branchement, nous devons introduire le concept de boucles imbriquées. Une boucle imbriquée est une boucle qui contient une autre boucle comprenant des boucles while, do/while, for et for-each, supposons maintenant que ce qui suit est de savoir comment déclarer un tableau à deux dimensions:
+Avant de passer aux instructions de branchement, nous devons introduire le concept de boucles imbriquées. Une boucle imbriquée est une boucle qui contient une autre boucle comprenant des boucles while, do/while, for et for-each, supposons maintenant que ce qui suit est de savoir comment déclarer un tableau à deux dimensions:     
 
 	   int [][] myComplexArray = {{5,2,1,3}, {3,9,8,9}, {5,7,12,7}};
 		for(int[] mySimpleArray: myComplexArray) {

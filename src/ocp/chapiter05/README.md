@@ -619,15 +619,18 @@ Voici un exemple:
 ###### Classes Enveloppée :(Wrapper Classes)  
 Jusqu'à présent, nous n'avons placé que des objets String dans ArrayList. Que se passe-t-il si nous voulons insérer des primitives? Chaque type primitif a une classe wrapper, qui est un type d'objet qui correspond à la primitive.  
 
-	Primitive type				Wrapper class				 Example of creating
-	boolean				       Boolean				    Boolean.valueof(true)
-	byte 				          Byte 				       new Byte((byte) 1)
-	short 				          Short 				       new Short((short) 1)
-	int 				          Integer 				    new Integer(1)
-	long 				          Long 				       new Long(1)
-	float 				          Float 				       new Float(1.0)
-	double 				       Double 				    new Double(1.0)
-	char 				          Character 				 new Character('c')
+
+| Primitive type        | Wrapper class	            | Example of creating  |
+| --------------------- |:-------------------------:| --------------------:|
+| boolean				| Boolean		            | Boolean.valueof(true)|
+| byte 				    | Byte 		                | new Byte((byte) 1)   |
+| short 				| Short 	                | new Short((short) 1  |
+| int 				    | Integer 	                | new Integer(1)       |
+| long 				    | Long 		                | new Long(1)          |
+| float 				| Float 	                | new Float(1.0)       |
+| double 				| ble 		                | new Double(1.0)      |
+|  char 				| Character                 | new Character('c')   |
+
 Les classes wrapper ont également une méthode qui se reconvertit en primitive. Vous n’avez pas besoin d’en savoir beaucoup sur les méthodes de type valueOf () ou intValue () pour l’examen, car l’autoboxing en a supprimé le besoin (voir la section suivante). Vous pouvez rencontrer cette syntaxe sur des questions qui figurent à l'examen depuis de nombreuses années. Cependant, il vous suffit de pouvoir lire le code et de ne pas y chercher des astuces. 
 
 		Integer valWrapp = Integer.valueOf(2);	// valueOf valeur primitive to wrapper class
