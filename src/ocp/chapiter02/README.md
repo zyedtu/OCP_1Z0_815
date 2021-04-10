@@ -40,7 +40,7 @@ losqu'on crée l'objet avec *new OcpTest1()*, java intialise l'attribut name = "
 Dans les applications java, il y a deux types de variable, type primitive et type de référance:
 
 ### Type Primitive: (voir code  OcpTest2)   
-| Type                                      | Valeur par défault |                 |
+| Type                                      | Valeur par défault                   |
 | ----------------------------------------- |:------------------------------------:|
 | boolean                                   | true or false                        |
 | type numéric sans floating-point (décimal)| byte, short, int et long (123L)      |
