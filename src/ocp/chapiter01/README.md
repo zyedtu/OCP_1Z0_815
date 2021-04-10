@@ -26,7 +26,7 @@ La méthode main(), recoit une liste de param, representée sous forme d'un tabl
 
 # Passing param to a java Program:  
 
-	 public class Zoo {    
+		public class Zoo {    
 			public static void main(String[] args) {    
 				System.out.println(args[0]);     
 				System.out.println(args[1]);   
@@ -152,7 +152,7 @@ Pour que cet exemple compile il faut se deplacer dans:
 	/OCP-EXAMS-1Z0-815/src/> java ocp.chapiter1.Account   
 Résultat: *Hello 1 2 3 testing...*
      
-#####Utilisation d'un autre répertoire:  
+### Utilisation d'un autre répertoire:  
 
 Par défaut la commande javac place les classes compilées dans leurs repertoires sources, en revanche il existe une option pour placer le fichiers class complilent dans un repertoire différent, -d demande au compilateur de créer la structure de repertoires selon le nom du package de la classe et de placer  le fichier dans repertoir cible (targer directory) c'est pour ça -d (directory).   
 
@@ -179,12 +179,12 @@ cette commande copie *Account.class* **sous**  *ocp/chapiter1*, pour exécute le
 # Compiling with JAR Files:  
 
 	java -cp "c:\tmp\maJarFile.jar" MyPackage.MyClass    
-##### Creating Jar File:   
+### Creating Jar File:   
 On peut créer une jar par nous meme, en utilisant la commande jar avec deux façon:
   
 	jar -cvf myNewFile.jar <=> jar --create --verbose --file myNewFile.jar  
 
-##### How run a Jar file: 
+### How run a Jar file: 
 
 	java -jar file.jar
 
