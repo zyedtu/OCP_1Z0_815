@@ -40,11 +40,14 @@ losqu'on crée l'objet avec *new OcpTest1()*, java intialise l'attribut name = "
 Dans les applications java, il y a deux types de variable, type primitive et type de référance:
 
 ### Type Primitive: (voir code  OcpTest2)   
-
-* boolean: peut avoir deux valeurs true ou false.
-* type numéric sans floating-point (décimal): byte, short, int et long (123L) 
-* type numéric avec floating_point (décimal): float(123.45f), double 
-* char: 'a', La primitive char est utilisée pour stocker un seul caractère **Unicode 16 bits** et nécessite 16 bits de mémoire.
+| Type                                      | Valeur par défault |                 |
+| ----------------------------------------- |:------------------------------------:|
+| boolean                                   | true or false                        |
+| type numéric sans floating-point (décimal)| byte, short, int et long (123L)      |
+| type numéric avec floating_point (décimal)| float(123.45f), double               |
+| type char                                 |stocker un seul caractère sur 16 bits | 
+ 
+* char: 'a', La primitive char est utilisée pour stocker un seul caractère **Unicode 16 bits** et nécessite 16 bits de mémoire.    
 
 Tous les type numéric sont signés peuvent avoir une valuer négative, int x = -128   
 
