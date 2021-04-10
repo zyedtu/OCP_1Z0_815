@@ -194,6 +194,6 @@ On peut créer une jar par nous meme, en utilisant la commande jar avec deux fa�
 | ------------------|:------------------:| ------------:|----------------------------------------:|
 | package           | package abc;       | NON          | premier élément                         |
 | import            | import java.util.*;| NON          | juste aprés le package s'il est present |
-| class             | puplic class A     | OUI          | juste aprés l'import s'il est present   |
+| class             | public class A     | OUI          | juste aprés l'import s'il est present   |
 | champs et méthodes| int a; method() {} | NON          | Dans la Classe                          |
 					  	
