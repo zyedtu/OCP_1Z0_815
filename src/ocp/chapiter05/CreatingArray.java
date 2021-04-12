@@ -64,6 +64,8 @@ public class CreatingArray {
 		System.out.println(Arrays.mismatch(new int[] {1},  new int[] {1}));
 		System.out.println(Arrays.mismatch(new String[] {"a"}, new String[] {"A"}));
 		System.out.println(Arrays.mismatch(new int[] {1, 2},  new int[] {1}));
+		
+		int[][] differentSizes = {{1, 4}, {3}, {9,8,7}};
 	}
 
 }

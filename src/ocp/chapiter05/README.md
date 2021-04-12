@@ -462,7 +462,13 @@ Une autre façon de créer un tableau 2D consiste à initialiser uniquement la p
 		int [][] args = new int[4][];
 		args[0] = new int[5];
 		args[1] = new int[3];
-Cette technique révèle ce que vous obtenez réellement avec Java: des tableaux de tableaux qui, correctement gérés, offrent un effet multidimensionnel.
+Cette technique révèle ce que vous obtenez réellement avec Java: des tableaux de tableaux qui, correctement gérés, offrent un effet multidimensionnel. 
+   
+Bien que ce tableau soit de forme rectangulaire, un tableau n’a pas besoin de l’être. Considérez celui-ci:     
+
+	int[][] differentSizes = {{1, 4}, {3}, {9,8,7}};
+Nous commençons toujours avec un tableau de trois éléments. Cependant, cette fois, les éléments du niveau suivant sont tous de tailles différentes. L'une est de longueur 2, la longueur suivante 1 et la dernière longueur 3 (voir figure ci-dessous). Cette fois, le tableau est composé de primitives, elles sont donc affichées comme si elles étaient elles-mêmes dans le tableau.    
+![Alt text](https://github.com/zyedtu/OCP_1Z0_815/blob/master/src/ocp/chapiter11/figure%20.png?raw=true "Title")
 ### Utilisation d'un tableau multidimensionnel: (Using a Multidimensional Array)
 L'opération la plus courante sur un tableau multidimensionnel est de le parcourir. Cet exemple imprime un tableau 2D:
 
