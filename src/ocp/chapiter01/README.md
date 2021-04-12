@@ -159,6 +159,7 @@ Par défaut la commande javac place les classes compilées dans leurs repertoire
 	javac -d classes packagea/ClassA packageb/ClassB   
 ![Alt text](https://github.com/zyedtu/OCP_1Z0_815/blob/master/src/ocp/chapiter01/figure%201.2.png?raw=true "Title")
 
+Dans cet exemple on dit au compilateur de compliler les deux classes ClassA et ClassB et de copier les fichier .class sous le repertoire *classes*. 
 Là on a comme résultat:  
 *C:\temp\classes\packagea\ClassA.class* **et** *C:\temp\classes\packageb\ClassB.class*   
 
