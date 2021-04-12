@@ -53,7 +53,36 @@ Le système de module de plate-forme Java empêche ce scénario. Un package ne p
 # Creating and Running a Modular Program:   
 Dans cette section, nous allons créer, construire et exécuter le module zoo.animal.feeding. Nous avons choisi celui-ci pour commencer car tous les autres modules en dépendent. La figure ci-dessous montre la conception de ce module. En plus du fichier module-info.java, il contient un package avec une classe à l'intérieur.    
 ![Alt text](https://github.com/zyedtu/OCP_1Z0_815/blob/master/src/ocp/chapiter11/figure%2013.png?raw=true "Title")  
+
+Dans la section suivante, nous allons créer, compiler, exécuter et empaqueter le module zoo.animal.feeding.   
 ### Creating the Files:    
+Tout d'abord, nous avons une classe très simple qui affiche une ligne dans une méthode main(). Nous savons que ce n’est pas vraiment une mise en œuvre. Tous ces programmeurs que nous avons embauchés peuvent le remplir avec une logique métier. Dans ce livre, nous nous concentrerons sur ce que vous devez savoir pour l'examen. Alors, créons une classe simple.    
+
+	package ocp.chapiter11.zoo.animal.feeding;
+	
+	public class Task {
+		public static void main(String[] args) {
+			System.out.println("All fed!");
+		}
+	
+	}
+
+Vient ensuite le fichier *module-info.java*. C'est la version la plus simple possible.   
+
+	module zoo.animal.feeding {
+	}  
+Il existe quelques différences clés entre un fichier d'informations de module et une classe Java standard:   
+* Le fichier module-info doit se trouver dans le répertoire racine de votre module. Les classes Java standard doivent être dans des packages.   
+* Le fichier module-info doit utiliser le mot-clé module au lieu de class, interface ou enum.    
+* Le nom du module suit les règles de dénomination des noms de package. Il comprend souvent des points (.) Dans son nom. Les noms de classe et de package normaux ne sont pas autorisés à avoir des tirets (-). Les noms de module suivent la même règle.   
+
+C'est beaucoup de règles pour le fichier le plus simple possible. Il y aura beaucoup plus de règles lorsque nous étofferons ce fichier plus tard dans le chapitre.
+* Remarque: (Un fichier module-info.java peut-il être vide ?) Oui. Pour simplifier, il était légal de compiler n'importe quel fichier vide avec une extension .java avant même les modules. Le compilateur voit qu'il n'y a pas de classe là-dedans et quitte sans créer de fichier .class.    
+
+L'étape suivante consiste à vous assurer que les fichiers sont dans la bonne structure de répertoires. La figure ci-dessous montre la structure de répertoires attendue.  
+![Alt text](https://github.com/zyedtu/OCP_1Z0_815/blob/master/src/ocp/chapiter11/figure%2014.png?raw=true "Title")
+
+
 ### Compiling Our First Module:   
 ### Running Our First Module:
 ### Packaging Our First Module:
