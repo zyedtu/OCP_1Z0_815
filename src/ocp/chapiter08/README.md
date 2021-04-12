@@ -308,7 +308,7 @@ L'un des constructeurs prend un seul paramètre int. L'autre prend un int et un 
 Il y a cependant un problème ici. Il y a un peu de duplication. En programmation, même un peu de duplication a tendance à se transformer en beaucoup de duplication. Ce que nous voulons vraiment, c'est que le premier constructeur appelle le second constructeur avec deux paramètres. Vous pourriez être tenté d'écrire ceci:  
 
 		public Hamster(int weight) {
-		 Hamster(weight, "brown"); // DOES NOT COMPILE
+			Hamster(weight, "brown"); // DOES NOT COMPILE
 		}
 Cela ne fonctionnera pas. Les constructeurs ne peuvent être appelés qu'en *écrivant new avant le nom du constructeur. Ce ne sont pas des méthodes normales que vous pouvez simplement appeler. Que se passe-t-il si nous plaçons new avant le nom du constructeur ?
 
@@ -1113,7 +1113,7 @@ Lorsque vous passez en revue une question de l'examen qui implique le cast et le
 Dans le chapitre 3, nous avons présenté l'opérateur instanceof, qui peut être utilisé pour vérifier si un objet appartient à une classe ou une interface particulière et pour empêcher ClassCastException au moment de l'exécution. Contrairement à l'exemple précédent, l'extrait de code suivant ne lève pas d'exception lors de l'exécution et effectue le cast uniquement si l'opérateur instanceof renvoie true:   
 
 		if(rodent instanceof Capybara) {
-		 Capybara capybara = (Capybara)rodent;
+			Capybara capybara = (Capybara) rodent;
 		}
 Tout comme le compilateur ne permet pas de convertir un objet en types non liés, il ne permet pas non plus d'utiliser instanceof avec des types non liés. Nous pouvons le démontrer avec nos classes Bird  et de Fish sans rapport avec:
 
@@ -1123,7 +1123,7 @@ Tout comme le compilateur ne permet pas de convertir un objet en types non liés
 			public static void main(String[] args) {
 				Fish fish = new Fish();
 				if(fish instanceof Bird){ // DOES NOT COMPILE
-				Bird bird = (Bird) fish; // DOES NOT COMPILE
+					Bird bird = (Bird) fish; // DOES NOT COMPILE
 				}
 			}
 		}

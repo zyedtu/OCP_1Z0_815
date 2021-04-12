@@ -692,7 +692,7 @@ Si la ligne 28 lance une IOException, le bloc catch des lignes 20–25 est exéc
 La plupart des exemples que vous voyez avec la gestion des exceptions sur l'examen sont abstraits. Ils utilisent des lettres ou des chiffres pour s'assurer que vous comprenez le flux. Celui-ci montre que seule la dernière exception à lancer compte.    
 
 
-	    try {
+		try {
 	    	throw new RuntimeException(); // LINE 27
 		} catch (RuntimeException e) { // LINE 28
 			throw new RuntimeException();	// LINE 29
