@@ -375,22 +375,22 @@ System.gc() **suggère** simplement que la JVM de lancer le garbage collection, 
  
 ### Tracage Eligibilité: (Tracing Eligibility)  
 
-Comment la JVM sait-elle quand un objet est éligible pour le garbage collection? la JVM attend patiemment et surveille chaque objet jusqu'à ce qu'elle détermine que le code n'a plus besoin de cette mémoire. Un objet restera sur le tas (heap) jusqu'à ce qu'il n'est plus accéssible. Un objet n'est plus accessible lorsque l'une des deux situations se produit:
+Comment la JVM sait-elle quand un objet est éligible pour le garbage collection? la JVM attend patiemment et surveille chaque objet jusqu'à ce qu'elle détermine que le code n'a plus besoin de cette mémoire. Un objet restera sur le tas (heap) jusqu'à ce qu'il n'est plus accéssible. Un objet n'est plus accessible lorsque l'une des deux situations se produit:     
 * L'objet n'a plus de références pointant vers lui  
 * Toutes les références à l'objet sont hors de portée            
 
-	public class Scope {
-		public static void main(String[] args) {
-			String one, two;
-			one = new String("a");
-			two = new String("b"); // LINE 5
-			one = two; // LINE 6
-			String three = one;
-			one = null;
+		public class Scope {
+			public static void main(String[] args) {
+				String one, two;
+				one = new String("a");
+				two = new String("b"); // LINE 5
+				one = two; // LINE 6
+				String three = one;
+				one = null;
+			}
 		}
-	}
 
-Dans le mémoire on a deux objets de types String "a" et "b". jusqu'à la ligne 5 
+Dans le mémoire on a deux objets de types String "a" et "b". jusqu'à la ligne 5     
 ![Alt text](https://github.com/zyedtu/OCP_1Z0_815/blob/master/src/ocp/chapiter02/figure%202.2.png?raw=true "Title")
   
 Avec l'instruction one = two (ligne 6), l'objet "a" est eligible pour la premier fois en GC, et après on a les 3 references pointent sur le'objet "b".  
