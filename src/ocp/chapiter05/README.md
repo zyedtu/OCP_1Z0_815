@@ -733,6 +733,8 @@ Le tri d'un ArrayList est très similaire au tri d'un tableau. Vous utilisez sim
 Bien que les sujets de collections avancés ne soient pas couverts avant le 1Z0-816. vous devriez toujours connaître les bases de Set and Map maintenant.
 ### Présentation des ensembles: (Introducing Sets)  
 Un ensemble (Set) est une collection d'objets qui ne peuvent pas contenir de doublons. Si vous essayez d'ajouter un doublon à un ensemble, l'API ne répondra pas à la demande.   
+![Alt text](https://github.com/zyedtu/OCP_1Z0_815/blob/master/src/ocp/chapiter05/figure%205.9.png?raw=true "Title")
+
 Toutes les méthodes que vous avez apprises pour ArrayList s'appliquent à un ensemble à l'exception de celles qui prennent un index comme paramètre.    
 Toutes les méthodes que vous avez apprises pour ArrayList s'appliquent à un Set à l'exception de celles qui prennent un index comme paramètre. Pourquoi est-ce? eh bien, un ensemble n'est pas ordonné, donc cela n'aurait pas de sens de parler du premier élément. Cela signifie que vous ne pouvez pas appeler set(index, valeur) ou remove(index, valeur). Vous pouvez appeler d'autres méthodes comme add(value) ou remove(value).   
 Vous souvenez-vous de la valeur de retour booléenne sur add() qui renvoie toujours true pour un ArrayList? Set est une raison pour laquelle il a besoin d'exister. Lorsque vous essayez d'ajouter une valeur en double, la méthode renvoie false et n'ajoute pas la valeur.  
@@ -747,6 +749,8 @@ Pour vous assurer que vous comprenez les Set, suivez ce code:
 		System.out.println(set.isEmpty());	// true
 ### Présentation des cartes: (Introducing Maps)
 Une Map utilise une clé pour identifier la valeur. Par exemple, lorsque vous utilisez la liste de contacts sur votre téléphone, vous recherchez «George» plutôt que de parcourir chaque numéro de téléphone à tour de rôle.   
+![Alt text](https://github.com/zyedtu/OCP_1Z0_815/blob/master/src/ocp/chapiter05/figure%205.10.png?raw=true "Title")
+
 L'implémentation la plus courante de Map est HashMap. Certaines des méthodes sont les mêmes que celles de arrayList comme clear(), isEmpty() et size().   
 Il existe également des méthodes spécifiques pour traiter les paires clé et valeur. 
 
