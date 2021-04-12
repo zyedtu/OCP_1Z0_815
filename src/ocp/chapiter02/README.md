@@ -398,3 +398,6 @@ Ensuite avec l'instruction String three = one, on obtient 3 references qui point
 ![Alt text](https://github.com/zyedtu/OCP_1Z0_815/blob/master/src/ocp/chapiter02/figure%202.3.png?raw=true "Title")
 
 avec l'instruction one = null, aucune référence qui pointe vers "b", donc à son tour l'objet est eligible pour GC.    
+##### finalize():     
+Java permet aux objets d'implémenter une méthode appelée finalize(). Cette fonctionnalité peut être déroutante et difficile à utiliser correctement. En un mot, le garbage collector appelle une fois la méthode finalize(). Si le ramasse-miettes ne s’est pas exécuté, il n’y a pas eu d’appel à finaliser(). Si le garbage collector n'a pas réussi à collecter l'objet et a réessayé plus tard, il n'y a pas eu de deuxième appel à finalize().
+Ce sujet n'est plus à l'examen. En fait, il est obsolète dans Object à partir de Java 9, la documentation officielle indiquant: «Le mécanisme de finalisation est intrinsèquement problématique.» Nous mentionnons la méthode finalize() au cas où Oracle emprunterait à une ancienne question d'examen. N'oubliez pas que finalize() peut s'exécuter zéro ou une fois. Il ne peut pas fonctionner **deux** fois.
