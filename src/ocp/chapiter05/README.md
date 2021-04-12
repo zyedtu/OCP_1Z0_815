@@ -468,7 +468,7 @@ Bien que ce tableau soit de forme rectangulaire, un tableau n’a pas besoin de 
 
 	int[][] differentSizes = {{1, 4}, {3}, {9,8,7}};
 Nous commençons toujours avec un tableau de trois éléments. Cependant, cette fois, les éléments du niveau suivant sont tous de tailles différentes. L'une est de longueur 2, la longueur suivante 1 et la dernière longueur 3 (voir figure ci-dessous). Cette fois, le tableau est composé de primitives, elles sont donc affichées comme si elles étaient elles-mêmes dans le tableau.    
-![Alt text](https://github.com/zyedtu/OCP_1Z0_815/blob/master/src/ocp/chapiter11/figure%20.png?raw=true "Title")
+![Alt text](https://github.com/zyedtu/OCP_1Z0_815/blob/master/src/ocp/chapiter05/figure%205.8.png?raw=true "Title")
 ### Utilisation d'un tableau multidimensionnel: (Using a Multidimensional Array)
 L'opération la plus courante sur un tableau multidimensionnel est de le parcourir. Cet exemple imprime un tableau 2D:
 
