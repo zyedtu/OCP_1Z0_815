@@ -114,7 +114,21 @@ Bien que vous puissiez utiliser celui que vous préférez, assurez-vous de pouvo
 Avant de conditionner notre module, nous devons nous assurer qu'il fonctionne en l'exécutant. Pour ce faire, nous devons apprendre la syntaxe complète. Supposons qu'il existe un module nommé book.module. À l'intérieur de ce module se trouve un package nommé com.sybex, qui a une classe nommée OCP avec une méthode main(). La Figure ci-dessous montre la syntaxe pour exécuter un module. Faites particulièrement attention à la partie book.module/com.sybex.OCP. Il est important de se rappeler que vous spécifiez le nom du module suivi d'une barre oblique (/) suivie du nom de classe complet.  
 ![Alt text](https://github.com/zyedtu/OCP_1Z0_815/blob/master/src/ocp/chapiter11/figure%2011.5.png?raw=true "Title")  
 
-Maintenant que nous avons vu la syntaxe, nous pouvons écrire la commande pour exécuter la classe Task dans le package zoo.animal.feeding. Dans l'exemple suivant, le nom du package et le nom du module sont identiques. Il est courant que le nom du module corresponde au nom complet du package ou au début de celui-ci.   
+Maintenant que nous avons vu la syntaxe, nous pouvons écrire la commande pour exécuter la classe Task dans le package zoo.animal.feeding. Dans l'exemple suivant, le nom du package et le nom du module sont identiques. Il est courant que le nom du module corresponde au nom complet du package ou au début de celui-ci.  
+ 
+	java --module-path feeding
+		--module zoo.animal.feeding/zoo.animal.feeding.Task
+Puisque vous avez déjà vu que --module-path utilise la forme courte de -p, nous parions que vous ne serez pas surpris d'apprendre qu'il existe également une forme courte de -module. L'option courte est -m. Cela signifie que la commande suivante est équivalente:   
+
+	java -p feeding
+		-m zoo.animal.feeding/zoo.animal.feeding.Task
+Dans mon exemple de ce cours: pour la compilation et l'éxcution j'ai ça:   
+
+	> javac -d mods feeding/module-info.java feeding/zoo/animal/feeding/Task.java  
+	> java --module-path mods -m zoo.animal.feeding/ocp.chapiter11.feeding.zoo.animal.feeding.Task
+le  resultat est : **All fed!**    
+
+
 ### Packaging Our First Module:
 # Updating Our example for Multiple Modules:
 ### Updating the Feeding Module:
