@@ -21,10 +21,40 @@ Un *module* est un groupe d'un ou plusieurs packages plus un fichier spécial ap
 ![Alt text](https://github.com/zyedtu/OCP_1Z0_815/blob/master/src/ocp/chapiter11/figure%2011.png?raw=true "Title")        
 Passons maintenant à l’un de ces modules. La figure ci-dessous montre ce qu'il y a à l'intérieur du module zoo.animals.talks. Il existe trois packages avec deux classes chacun. (C'est un petit zoo.) Il existe également un fichier étrange appelé module-info.java. Ce fichier doit être à l'intérieur de tous les modules. Nous expliquerons cela plus en détail plus loin dans le chapitre.    
 ![Alt text](https://github.com/zyedtu/OCP_1Z0_815/blob/master/src/ocp/chapiter11/figure%2012.png?raw=true "Title")     
-### Benefits of Modules:
-# Creating and Running a Modular Program:
-### Creating the Files:
-### Compiling Our First Module:
+### Benefits of Modules:   
+Les modules ressemblent à une autre couche de choses que vous devez savoir pour programmer. Bien que l'utilisation des modules soit facultative, il est important de comprendre les problèmes qu'ils sont censés résoudre. De plus, il faut savoir pourquoi les modules sont utiles pour l'examen !   
+##### Better Access Control : (Meilleur contrôle d'accès)    
+Dans le chapitre 7, «Méthodes et encapsulation», vous avez vu les quatre niveaux traditionnels de contrôle d'accès disponibles dans Java 8: accès privé, privé, protégé et public. Ces niveaux de contrôle d'accès vous permettaient de restreindre l'accès à une certaine classe ou package. Vous pouvez même autoriser l'accès aux sous-classes sans les exposer au monde.   
+
+Cependant, que se passerait-il si nous écrivions une logique complexe que nous voulions restreindre à quelques paquets seulement? Par exemple, nous aimerions que les packages du module zoo.animal.talks soient uniquement disponibles pour les packages du module zoo.staff sans les rendre disponibles pour aucun autre code. Nos modificateurs d'accès traditionnels ne peuvent pas gérer ce scénario.    
+
+Les développeurs auraient recours à des hacks comme nommer un paquet zoo.animal.internal. Cela n'a cependant pas fonctionné, car d'autres développeurs pouvaient toujours appeler le code "interne". Il y avait une classe nommée sun.misc.Unsafe, et elle a été utilisée par endroits. Et cette classe avait Unsafe dans le nom. De toute évidence, s'appuyer sur les conventions de dénomination était insuffisant pour empêcher les développeurs de l'appeler dans le passé.    
+
+Les modules résolvent ce problème en agissant comme un cinquième niveau de contrôle d'accès. Ils peuvent exposer des packages du JAR modulaire à d'autres packages spécifiques. Cette forme d'encapsulation plus forte crée vraiment des packages internes. Vous verrez comment le coder lorsque nous parlerons du fichier module-info.java plus loin dans ce chapitre.  
+##### Clearer Dependency Management: (Gestion plus claire des dépendances)     
+Il est courant que les bibliothèques dépendent d'autres bibliothèques. Par exemple, la bibliothèque de test JUnit 4 dépend de la bibliothèque Hamcrest pour la logique de correspondance. Les développeurs devraient le découvrir en lisant la documentation ou les fichiers du projet lui-même.   
+Si vous avez oublié d'inclure Hamcrest dans votre chemin de classe, votre code fonctionnera correctement jusqu'à ce que vous utilisiez une classe Hamcrest. Ensuite, il exploserait au moment de l'exécution avec un message indiquant que vous ne trouviez pas une classe requise. (Nous avons mentionné l'enfer de JAR, non ?)     
+Dans un environnement entièrement modulaire, chacun des projets open source spécifierait ses dépendances dans le fichier module-info.java. Lors du lancement du programme, Java se plaindrait que Hamcrest ne se trouve pas dans le chemin du module et que vous le saviez tout de suite.    
+##### Custom Java Builds: (Constructions Java personnalisées)   
+Le kit de développement Java (JDK) fait plus de 150 Mo. Même l'environnement d'exécution Java (JRE) était assez volumineux lorsqu'il était disponible en téléchargement séparé. Dans le passé, Java a tenté de résoudre ce problème avec un profil compact. Les trois profils compacts fournissaient un sous-ensemble des classes Java intégrées, de sorte qu'il y aurait un package plus petit pour les appareils mobiles et embarqués.   
+
+Cependant, les profils compacts manquaient de flexibilité. De nombreux packages ont été inclus que les développeurs étaient peu susceptibles d'utiliser, tels que Java Native Interface (JNI), qui permet de travailler avec des programmes spécifiques au système d'exploitation. Dans le même temps, l'utilisation d'autres packages comme Image I/O nécessitait le JRE complet.      
+
+Le Java Platform Module System permet aux développeurs de spécifier les modules dont ils ont réellement besoin. Cela permet de créer une image d'exécution plus petite qui est personnalisée en fonction des besoins de l'application et rien de plus. Les utilisateurs peuvent exécuter cette image sans avoir installé Java du tout.   
+
+Un outil appelé jlink est utilisé pour créer cette image d'exécution. Heureusement, il vous suffit de savoir que des temps d'exécution plus petits personnalisés sont possibles. La façon de les créer est hors de portée de l'examen.
+En plus du package à plus petite échelle, cette approche améliore la sécurité. Si vous n'utilisez pas AWT et qu'une faille de sécurité est signalée pour AWT, les applications qui ont empaqueté une image d'exécution sans AWT ne sont pas affectées.   
+##### Improved Performance: (Performance améliorée)    
+Puisque Java sait maintenant quels modules sont requis, il lui suffit de les regarder au moment du chargement de la classe. Cela améliore le temps de démarrage des gros programmes et nécessite moins de mémoire pour s'exécuter.    
+Bien que ces avantages ne semblent pas significatifs pour les petits programmes que nous écrivons, ils sont bien plus importants pour les grandes applications. Une application Web peut facilement prendre une minute pour démarrer. De plus, pour certaines applications financières, chaque milliseconde de performance est importante.     
+##### Unique Package Enforcement: (Application de paquet unique)    
+Une autre manifestation de l'enfer JAR est lorsque le même package est dans deux JAR. Il existe un certain nombre de causes à ce problème, notamment le changement de nom des JAR, les développeurs intelligents utilisant un nom de package déjà pris et le fait d'avoir deux versions du même JAR sur le chemin de classe.    
+Le système de module de plate-forme Java empêche ce scénario. Un package ne peut être fourni que par un seul module. Fini les mauvaises surprises sur un package au moment de l'exécution.       
+# Creating and Running a Modular Program:   
+Dans cette section, nous allons créer, construire et exécuter le module zoo.animal.feeding. Nous avons choisi celui-ci pour commencer car tous les autres modules en dépendent. La figure ci-dessous montre la conception de ce module. En plus du fichier module-info.java, il contient un package avec une classe à l'intérieur.    
+![Alt text](https://github.com/zyedtu/OCP_1Z0_815/blob/master/src/ocp/chapiter11/figure%2013.png?raw=true "Title")  
+### Creating the Files:    
+### Compiling Our First Module:   
 ### Running Our First Module:
 ### Packaging Our First Module:
 # Updating Our example for Multiple Modules:
