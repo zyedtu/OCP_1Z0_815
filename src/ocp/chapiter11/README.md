@@ -128,6 +128,13 @@ Dans mon exemple de ce cours: pour la compilation et l'éxcution j'ai ça:
 	> java --module-path mods -m zoo.animal.feeding/ocp.chapiter11.feeding.zoo.animal.feeding.Task
 le  resultat est : **All fed!**    
 
+Dans ces exemples, nous avons utilisé l'alimentation comme chemin du module, car c'est là que nous avons compilé le code. Cela changera une fois que nous emballerons le module et l'exécuterons.   
+Le tableau ci-dessous répertorie les options que vous devez connaître pour la commande java.   
+  
+|        Utiliser pour |      Abréviation      |  Forme longue        |
+|----------------------|:---------------------:|---------------------:|
+| Nom du module        |  -m <name>            | --module <name>      |
+| Chemin du module     |  -p <path>            | --module-path <path> |  
 
 ### Packaging Our First Module:
 # Updating Our example for Multiple Modules:
