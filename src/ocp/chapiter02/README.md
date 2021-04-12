@@ -397,4 +397,4 @@ Avec l'instruction one = two (ligne 6), l'objet "a" est eligible pour la premier
 Ensuite avec l'instruction String three = one, on obtient 3 references qui pointent sur le'objet "b".  
 ![Alt text](https://github.com/zyedtu/OCP_1Z0_815/blob/master/src/ocp/chapiter02/figure%202.3.png?raw=true "Title")
 
-avec l'instruction one = null, aucune référence qui pointe vers "b", donc à son tour l'objet est eligible pur GC.    
+avec l'instruction one = null, aucune référence qui pointe vers "b", donc à son tour l'objet est eligible pour GC.    
