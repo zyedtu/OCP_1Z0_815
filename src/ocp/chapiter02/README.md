@@ -53,6 +53,8 @@ Tous les type numéric sont **signés** peuvent avoir une valuer négative, int 
 
 Pour l'**examen**, sachez que short et char sont étroitement liés, les deux type sont sur 16-bit, la difference entre les deux que short est signé mais char non signé. 
 
+* Is String a Primitive ? (La chaîne est-elle une primitive): Non, ce n’est pas le cas. Cela dit, String est souvent confondu avec une neuvième primitive car Java inclut la prise en charge intégrée des littéraux et des opérateurs String. Vous en apprendrez plus sur String au chapitre 5, mais pour l’instant, rappelez-vous que ce sont des objets et non des primitives.    
+
 ### Ecrire les Literals:
 
 il y a une choses que vous devez savoir sur les primitives numériques. Lorsqu'un nombre est présent dans le code, il est appelé un *literal*.
