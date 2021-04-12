@@ -18,7 +18,8 @@ Le système de module de plate-forme Java comprend les éléments suivants:
 ### Exploring a Module:     
 Dans le chapitre 1, «Bienvenue dans Java», nous avions une petite application Zoo. Il n'y avait qu'une seule classe et affiche qu'une seule chose. Imaginez maintenant que nous avions toute une équipe de programmeurs et que nous automatisions les opérations du zoo. De nombreux éléments doivent être codés, notamment les interactions avec les animaux, les visiteurs, le site Web public et la sensibilisation.     
 Un *module* est un groupe d'un ou plusieurs packages plus un fichier spécial appelé *module-info .java*. La Figure ci-dessous ne répertorie que quelques-uns des modules dont un zoo peut avoir besoin. Nous avons décidé de nous concentrer sur les interactions animales dans notre exemple. Le zoo complet pourrait facilement avoir une douzaine de modules. Dans la figure ci-dessous, notez qu'il y a des flèches entre de nombreux modules. Ceux-ci représentent des dépendances où un module s'appuie sur du code dans un autre. Le personnel doit nourrir les animaux pour conserver leur emploi. La ligne allant de zoo.staff à zoo.animal.feeding montre que le premier dépend du second.    
-![Alt text](figure 11.png?raw=true "Title")       
+![Alt text](figure 11.png?raw=true "Title")  
+![Alt text](https://github.com/zyedtu/OCP_1Z0_815/blob/master/src/ocp/chapiter11/figure%2011.png?raw=true "Title")      
 Passons maintenant à l’un de ces modules. La figure ci-dessous montre ce qu'il y a à l'intérieur du module zoo.animals.talks. Il existe trois packages avec deux classes chacun. (C'est un petit zoo.) Il existe également un fichier étrange appelé module-info.java. Ce fichier doit être à l'intérieur de tous les modules. Nous expliquerons cela plus en détail plus loin dans le chapitre.    
 ![Alt text](figure 12.png?raw=true "Title")   
 ### Benefits of Modules:
