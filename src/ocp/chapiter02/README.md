@@ -104,7 +104,7 @@ Par exemple, les instructions suivantes affectent ces références à de nouveau
 	today = new java.util.Date();
 	greeting = new String("How are you?");
 La référence d'aujourd'hui pointe maintenant vers un nouvel objet Date en mémoire, et peut aujourd'hui être utilisée pour accéder aux différents champs et méthodes de cet objet Date. De même, la référence du message d'accueil pointe vers un nouvel objet String, "Comment allez-vous?". Les objets String et Date n'ont pas de nom et sont accessibles uniquement via leur référence correspondante. La figure ci-dessous montre comment les types de référence apparaissent en mémoire.  
-![Alt text](https://github.com/zyedtu/OCP_1Z0_815/blob/master/src/ocp/chapiter11/figure%202.1.png?raw=true "Title")
+![Alt text](https://github.com/zyedtu/OCP_1Z0_815/blob/master/src/ocp/chapiter02/figure%202.1.png?raw=true "Title")
 
 # Declaring variable:  
 
