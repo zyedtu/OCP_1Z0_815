@@ -757,7 +757,7 @@ Il est temps de pratiquer. Voyez si vous pouvez déterminer quelles lignes suive
 		public boolean isPlaying() { return playing; }	// OK
 		public String name() { return name; }	// KO
 		public void updateName(String n) { name = n; }	// KO
-	   public void setname(String n) { name = n; }	// KO
+		public void setname(String n) { name = n; }	// KO
 getPlaying(): ne suit pas les conventions de dénomination JavaBeans (isPlaying()).     
 name(): ne suit pas les conventions de dénomination JavaBeans (getName()).  
 updateName(String n):  ne suit pas les conventions de dénomination JavaBeans (setName(String n)).   
