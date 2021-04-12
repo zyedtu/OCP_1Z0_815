@@ -92,7 +92,25 @@ Avant de pouvoir exécuter du code modulaire, nous devons le compiler. Autre que
 		 feeding/zoo/animal/feeding/*.java 
 		 feeding/module-info.java
 En guise de révision, l'option -d spécifie le répertoire dans lequel placer les fichiers de classe. La fin de la commande est une liste des fichiers .java à compiler. Vous pouvez répertorier les fichiers individuellement ou utiliser un caractère générique pour tous les fichiers .java d'un sous-répertoire.   
-La nouvelle partie est le chemin du module. Cette option indique l'emplacement de tous les fichiers de module personnalisé. Dans cet exemple, module-path pourrait avoir été omis car il n'y a pas de dépendances. Vous pouvez penser que module-path remplace l'option classpath lorsque vous travaillez sur un programme modulaire.     
+La nouvelle partie est le chemin du module. Cette option indique l'emplacement de tous les fichiers de module personnalisé. Dans cet exemple, module-path pourrait avoir été omis car il n'y a pas de dépendances. Vous pouvez penser que module-path remplace l'option classpath lorsque vous travaillez sur un programme modulaire.  
+* What Happened to the Classpath ? (Qu'est-il arrivé au Classpath): Dans le passé, vous référençiez les fichiers JAR à l'aide de l'option classpath. Il avait trois formes possibles: -cp, -class-path et -classpath. Vous pouvez toujours utiliser ces options dans Java 11. En fait, il est courant de le faire lors de l'écriture de programmes non modulaires.     
+
+Tout comme classpath, vous pouvez utiliser une abréviation dans la commande. La syntaxe --module-path et -p sont équivalentes. Cela signifie que nous aurions pu écrire de nombreuses autres commandes à la place de la commande précédente. Les quatre commandes suivantes affichent l'option -p:   
+
+	javac -p mods -d feeding feeding/zoo/animal/feeding/*.java feeding/*.java
+	
+	javac -p mods -d feeding feeding/zoo/animal/feeding/*.java feeding/module-info.java
+	
+	javac -p mods -d feeding feeding/zoo/animal/feeding/Task.java feeding/module-info.java
+	
+	javac -p mods -d feeding feeding/zoo/animal/feeding/Task.java feeding/*.java
+Bien que vous puissiez utiliser celui que vous préférez, assurez-vous de pouvoir reconnaître tous les formulaires valides pour l'examen. Le tableau ci-dessous répertorie les options que vous devez bien connaître lors de la compilation de modules. Il existe de nombreuses autres options que vous pouvez passer à la commande javac, mais ce sont celles sur lesquelles vous pouvez vous attendre à être testées.       
+
+|        Utiliser pour              |      Abréviation      |  Forme longue        |
+|-----------------------------------|:---------------------:|---------------------:|
+| Répertoire des fichiers de classe |  -d <dir>             | n/a                  |
+| Chemin du module                  |  -p <path>            | --module-path <path> |
+
 ### Running Our First Module:
 ### Packaging Our First Module:
 # Updating Our example for Multiple Modules:
