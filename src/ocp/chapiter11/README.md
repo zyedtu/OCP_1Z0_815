@@ -136,7 +136,21 @@ Le tableau ci-dessous répertorie les options que vous devez connaître pour la 
 | Nom du module        |  -m <name>            | --module <name>      |
 | Chemin du module     |  -p <path>            | --module-path <path> |  
 
-### Packaging Our First Module:
+### Packaging Our First Module: (Emballage de notre premier module)    
+Un module n'est pas très utile si nous ne pouvons l'exécuter que dans le dossier dans lequel il a été créé. Notre prochaine étape consiste à le conditionner. Assurez-vous de créer un répertoire mods avant d'exécuter cette commande:   
+
+	jar -cvf mods/zoo.animal.feeding.jar -C feeding/ .
+Il n’y a rien de spécifique au module ici. En fait, vous vous souvenez peut-être d'avoir vu cette commande au chapitre 1. Nous empaquetons tout sous le répertoire feeding et le stockons dans un fichier JAR nommé zoo.animal.feeding.jar sous le dossier mods. Cela représente comment le module JAR ressemblera à un autre code qui souhaite l'utiliser.    
+
+Maintenant, exécutons à nouveau le programme, mais cette fois en utilisant le répertoire mods au lieu des classes libres:   
+
+	java -p mods
+	-m zoo.animal.feeding/zoo.animal.feeding.Task
+Vous remarquerez peut-être que cette commande est identique à celle de la section précédente, à l'exception du répertoire. Dans l'exemple précédent, il se nourrissait. Dans celui-ci, c'est le chemin du module des mods. Étant donné que le chemin du module est utilisé, un module JAR est en cours d'exécution.    
+
+La figure ci-desssous montre à quoi ressemble la structure du répertoire maintenant que nous avons compilé et empaqueté le code:  
+![Alt text](https://github.com/zyedtu/OCP_1Z0_815/blob/master/src/ocp/chapiter11/figure%2016.png?raw=true "Title")
+
 # Updating Our example for Multiple Modules:
 ### Updating the Feeding Module:
 ### Creating a Care Module:

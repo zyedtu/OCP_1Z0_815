@@ -183,9 +183,11 @@ cette commande copie *Account.class* **sous**  *ocp/chapiter1*, pour exécute le
 
 	java -cp "c:\tmp\maJarFile.jar" MyPackage.MyClass    
 ### Creating Jar File:   
-On peut créer une jar par nous meme, en utilisant la commande jar avec deux façon:
+On peut créer une jar par nous même, en utilisant la commande jar avec deux façon:
   
-	jar -cvf myNewFile.jar <=> jar --create --verbose --file myNewFile.jar  
+	> jar -cvf myNewFile.jar   
+	OU   
+	> jar --create --verbose --file myNewFile.jar  
 
 ### How run a Jar file: 
 
