@@ -1,4 +1,4 @@
-package ocp.chapiter11.zoo.animal.feeding;
+package ocp.chapiter11.feeding.zoo.animal.feeding;
 
 public class Task {
 	public static void main(String[] args) {

@@ -157,6 +157,7 @@ Résultat: *Hello 1 2 3 testing...*
 Par défaut la commande javac place les classes compilées dans leurs repertoires sources, en revanche il existe une option pour placer le fichiers class complilent dans un repertoire différent, -d demande au compilateur de créer la structure de repertoires selon le nom du package de la classe et de placer  le fichier dans repertoir cible (targer directory) c'est pour ça -d (directory).   
 
 	javac -d classes packagea/ClassA packageb/ClassB   
+![Alt text](https://github.com/zyedtu/OCP_1Z0_815/blob/master/src/ocp/chapiter01/figure%2014.png?raw=true "Title")
 
 Là on a comme résultat:  
 *C:\temp\classes\packagea\ClassA.class* **et** *C:\temp\classes\packageb\ClassB.class*   

@@ -58,7 +58,7 @@ Dans la section suivante, nous allons créer, compiler, exécuter et empaqueter 
 ### Creating the Files:    
 Tout d'abord, nous avons une classe très simple qui affiche une ligne dans une méthode main(). Nous savons que ce n’est pas vraiment une mise en œuvre. Tous ces programmeurs que nous avons embauchés peuvent le remplir avec une logique métier. Dans ce livre, nous nous concentrerons sur ce que vous devez savoir pour l'examen. Alors, créons une classe simple.    
 
-	package ocp.chapiter11.zoo.animal.feeding;
+	package ocp.chapiter11.feeding.zoo.animal.feeding;
 	
 	public class Task {
 		public static void main(String[] args) {
@@ -82,8 +82,17 @@ C'est beaucoup de règles pour le fichier le plus simple possible. Il y aura bea
 L'étape suivante consiste à vous assurer que les fichiers sont dans la bonne structure de répertoires. La figure ci-dessous montre la structure de répertoires attendue.  
 ![Alt text](https://github.com/zyedtu/OCP_1Z0_815/blob/master/src/ocp/chapiter11/figure%2014.png?raw=true "Title")
 
+En particulier, alimentation est le répertoire du module, et le fichier info-module se trouve directement en dessous. Tout comme avec un fichier JAR normal, nous avons aussi le paquet zoo.animal.feeding avec un sous-dossier par portion du nom. La classe Task se trouve dans le sous-dossier approprié pour son package.    
+Notez également que nous avons créé un répertoire appelé mods au même niveau que le module. Nous l'utiliserons pour stocker les artefacts du module un peu plus loin dans le chapitre. Ce répertoire peut être nommé n'importe quoi, mais mods est un nom courant. Si vous suivez l'exemple de code en ligne, notez que le répertoire mods n'est pas inclus, car il est vide.   
+### Compiling Our First Module:    
+Avant de pouvoir exécuter du code modulaire, nous devons le compiler. Autre que l'option module-path, ce code devrait vous sembler familier à partir du chapitre 1:   
 
-### Compiling Our First Module:   
+	javac --module-path mods 
+		 -d feeding 
+		 feeding/zoo/animal/feeding/*.java 
+		 feeding/module-info.java
+En guise de révision, l'option -d spécifie le répertoire dans lequel placer les fichiers de classe. La fin de la commande est une liste des fichiers .java à compiler. Vous pouvez répertorier les fichiers individuellement ou utiliser un caractère générique pour tous les fichiers .java d'un sous-répertoire.   
+La nouvelle partie est le chemin du module. Cette option indique l'emplacement de tous les fichiers de module personnalisé. Dans cet exemple, module-path pourrait avoir été omis car il n'y a pas de dépendances. Vous pouvez penser que module-path remplace l'option classpath lorsque vous travaillez sur un programme modulaire.     
 ### Running Our First Module:
 ### Packaging Our First Module:
 # Updating Our example for Multiple Modules:
