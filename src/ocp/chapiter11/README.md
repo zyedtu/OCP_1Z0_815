@@ -151,6 +151,9 @@ Vous remarquerez peut-être que cette commande est identique à celle de la sect
 La figure ci-desssous montre à quoi ressemble la structure du répertoire maintenant que nous avons compilé et empaqueté le code:  
 ![Alt text](https://github.com/zyedtu/OCP_1Z0_815/blob/master/src/ocp/chapiter11/figure%2016.png?raw=true "Title")
 
+Dans mon cours, j'ai ça:   
+
+	> java -p mods -m zoo.animal.feeding/ocp.chapiter11.feeding.zoo.animal.feeding.Task
 # Updating Our example for Multiple Modules:
 ### Updating the Feeding Module:
 ### Creating a Care Module:
