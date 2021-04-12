@@ -390,10 +390,11 @@ Comment la JVM sait-elle quand un objet est éligible pour le garbage collection
 			}
 		}
 
-Dans le mémoire on a deux objets de types String "a" et "b". jusqu'à la ligne 5     
+Dans la mémoire on a deux objets de types String "a" et "b". jusqu'à la ligne 5     
 ![Alt text](https://github.com/zyedtu/OCP_1Z0_815/blob/master/src/ocp/chapiter02/figure%202.2.png?raw=true "Title")
   
-Avec l'instruction one = two (ligne 6), l'objet "a" est eligible pour la premier fois en GC, et après on a les 3 references pointent sur le'objet "b".  
+Avec l'instruction one = two (ligne 6), l'objet "a" est eligible pour la premier fois en GC.  
+Ensuite avec l'instruction String three = one, on obtient 3 references qui pointent sur le'objet "b".  
 ![Alt text](https://github.com/zyedtu/OCP_1Z0_815/blob/master/src/ocp/chapiter02/figure%202.3.png?raw=true "Title")
 
 avec l'instruction one = null, aucune référence qui pointe vers "b", donc à son tour l'objet est eligible pur GC.    
