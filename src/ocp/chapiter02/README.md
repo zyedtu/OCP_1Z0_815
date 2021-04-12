@@ -89,6 +89,22 @@ La dernière chose qu'il faut savoir sur les literal numérique, on peut ajouter
 		double notByDicimal = 1000_.00; // DOES NOT COMPILE
 		double notAtStart = 1________2; // COMPILE
 		double notAtStart = 10_0_0.0_0; //  COMPILE
+### Using Reference Types: (Utilisation des types de référence)   
+Un type référence fait référence à un objet (une instance d'une classe). Contrairement aux types primitifs qui conservent leurs valeurs dans la mémoire où la variable est allouée, les références ne contiennent pas la valeur de l'objet auquel elles font référence. Au lieu de cela, une référence «pointe» vers un objet en stockant l'adresse mémoire où se trouve l'objet, un concept appelé pointeur. Contrairement à d'autres langages, Java ne vous permet pas d'apprendre quelle est l'adresse mémoire physique. Vous ne pouvez utiliser la référence que pour faire référence à l'objet.   
+Jetons un coup d'œil à quelques exemples qui déclarent et initialisent des types de référence. Supposons que nous déclarions une référence de type java.util.Date et une référence de type String:   
+
+	java.util.Date today;
+	String greeting;
+La variable today est une référence de type Date et ne peut pointer que sur un objet Date. La variable greeting est une référence qui ne peut pointer que vers un objet String. Une valeur est affectée à une référence de l'une des deux manières suivantes:   
+* Une référence peut être affectée à un autre objet de même type ou de type compatible.   
+* Une référence peut être affectée à un nouvel objet à l'aide du mot-clé new.    
+
+Par exemple, les instructions suivantes affectent ces références à de nouveaux objets:   
+
+	today = new java.util.Date();
+	greeting = new String("How are you?");
+La référence d'aujourd'hui pointe maintenant vers un nouvel objet Date en mémoire, et peut aujourd'hui être utilisée pour accéder aux différents champs et méthodes de cet objet Date. De même, la référence du message d'accueil pointe vers un nouvel objet String, "Comment allez-vous?". Les objets String et Date n'ont pas de nom et sont accessibles uniquement via leur référence correspondante. La figure ci-dessous montre comment les types de référence apparaissent en mémoire.  
+![Alt text](https://github.com/zyedtu/OCP_1Z0_815/blob/master/src/ocp/chapiter11/figure%202.1.png?raw=true "Title")
 
 # Declaring variable:  
 
