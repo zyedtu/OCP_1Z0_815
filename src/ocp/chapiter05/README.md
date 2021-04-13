@@ -330,11 +330,15 @@ Un tableau est une zone de mémoire sur le tas (Heap) avec de l'espace pour un n
 La façon la plus courante de créer un tableau ressemble à ceci:  
 
 		int[] numbers = new int[3];	// [] les brackets sont obligatoires pour un tableau
-numbers est un tableau de type int et de taille 3.  
+numbers est un tableau de type int et de taille 3. 
+![Alt text](https://github.com/zyedtu/OCP_1Z0_815/blob/master/src/ocp/chapiter05/figure%205.3.png?raw=true "Title")
+ 
 Une autre façon de créer un tableau est de spécifier tous les éléments avec lesquels il doit commencer:  
 
 		int[] numbers2 = new int[] {4, 52, 89};
 Dans cet exemple, nous créons également un tableau int de taille 3. Cette fois, nous spécifions les valeurs initiales de ces trois éléments au lieu d'utiliser les valeurs par défaut.  
+![Alt text](https://github.com/zyedtu/OCP_1Z0_815/blob/master/src/ocp/chapiter05/figure%205.5.png?raw=true "Title")
+
 Java reconnaît que cette expression est redondante. Puisque vous spécifiez le type du tableau sur le côté gauche du signe égal, Java connaît déjà le type. Et puisque vous spécifiez les valeurs initiales, il connaît déjà la taille. En tant que raccourci, Java vous permet d'écrire ceci:  
 
 		int[] numbers2 = {4, 52, 89};
@@ -357,6 +361,8 @@ Vous pouvez choisir n'importe quel type Java comme type de tableau. Cela inclut 
 		System.out.println(bugs.equals(alias));	// true
 		System.out.println(bugs.toString());	// [Ljava.lang.String;@39ed3c8d
 Nous pouvons appeler equals() car **un tableau est un objet**. Il renvoie true en raison de l'égalité de référence. La méthode equals () sur les tableaux ne regarde pas les éléments du tableau. Rappelez-vous que cela fonctionnerait même sur un int [] aussi. int est un primitif, int[] est un objet.
+![Alt text](https://github.com/zyedtu/OCP_1Z0_815/blob/master/src/ocp/chapiter05/figure%205.6.png?raw=true "Title")
+
 ### Utilisation d'un tableau: (Using an Array)  
 Maintenant que nous savons comment créer un tableau, essayons d’y accéder:  
 
@@ -462,7 +468,8 @@ Une autre façon de créer un tableau 2D consiste à initialiser uniquement la p
 		int [][] args = new int[4][];
 		args[0] = new int[5];
 		args[1] = new int[3];
-Cette technique révèle ce que vous obtenez réellement avec Java: des tableaux de tableaux qui, correctement gérés, offrent un effet multidimensionnel. 
+Cette technique révèle ce que vous obtenez réellement avec Java: des tableaux de tableaux qui, correctement gérés, offrent un effet multidimensionnel.
+![Alt text](https://github.com/zyedtu/OCP_1Z0_815/blob/master/src/ocp/chapiter05/figure%207.6.png?raw=true "Title") 
    
 Bien que ce tableau soit de forme rectangulaire, un tableau n’a pas besoin de l’être. Considérez celui-ci:     
 
