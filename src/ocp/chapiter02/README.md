@@ -106,8 +106,53 @@ Par exemple, les instructions suivantes affectent ces références à de nouveau
 La référence d'aujourd'hui pointe maintenant vers un nouvel objet Date en mémoire, et peut aujourd'hui être utilisée pour accéder aux différents champs et méthodes de cet objet Date. De même, la référence du message d'accueil pointe vers un nouvel objet String, "Comment allez-vous?". Les objets String et Date n'ont pas de nom et sont accessibles uniquement via leur référence correspondante. La figure ci-dessous montre comment les types de référence apparaissent en mémoire.  
 ![Alt text](https://github.com/zyedtu/OCP_1Z0_815/blob/master/src/ocp/chapiter02/figure%202.1.png?raw=true "Title")
 
-# Declaring variable:  
+### Stack and Heap: (Pile et tas)  
+Pour la plupart des gens, comprendre les bases de la pile et du tas facilite beaucoup la compréhension de sujets tels que le passage d'arguments, le polymorphisme, les threads, les exceptions et le garbage collection. Dans cette section, nous nous en tiendrons à une vue d'ensemble, mais nous développerons ces sujets plusieurs fois tout au long du livre.   
+Pour la plupart, les différents éléments (méthodes, variables et objets) des programmes Java résident dans l'un des deux endroits de la mémoire: la pile ou le tas. Pour l'instant, nous allons nous préoccuper de seulement trois types de choses: les variables d'instance, les variables locales et les objets:   
+* Les variables d'instance et les objets vivent sur le tas.   
+* Les variables locales vivent sur la pile.   
 
+Jetons un coup d'œil à un programme Java, et comment ses différents éléments sont créés et mappés dans la pile (Stack) et le tas(Heap):    
+
+	public class Collar { }
+
+	class Dog {
+		Collar c; // instance variable
+		String name; // instance variable
+		
+		public static void main(String[] args) {	// LINE 7
+		
+			Dog d; // local variable: d	// LINE 9
+			d = new Dog();	// LINE 10
+			d.go(d);
+		}
+		
+		void go(Dog dog) { // local variable: dog	// LINE 13
+			c = new Collar();	// LINE 14
+			dog.setName("Aiko");
+		}
+		
+		void setName(String dogName) { // local var: dogName // LINE 17
+			name = dogName;	// LINE 18
+			// do more stuff LINE 19
+		}
+	}
+La figure ci-dessous, montre l'état de la pile et du tas une fois que le programme atteint la ligne 19. Voici quelques points clés:   
+![Alt text](https://github.com/zyedtu/OCP_1Z0_815/blob/master/src/ocp/chapiter02/figure%202.4.png?raw=true "Title")
+
+* Ligne 7 - main() est placée sur la pile.   
+* Ligne 9 - la variable de référence d est créée sur la pile, mais il n'y a pas encore d'objet Dog.   
+* Ligne 10: un nouvel objet Dog est créé et affecté à la variable de référence d.    
+* Ligne 11 - une copie de la variable de référence d est transmise à la méthode go().   
+* Ligne 13 - la méthode go() est placée sur la pile, avec le paramètre dog comme variable locale.  
+* Ligne 14: un nouvel objet Collar est créé sur le tas et affecté à la variable d'instance Dog.   
+* Ligne 17 - setName() est ajouté à la pile, avec le paramètre dogName comme variable locale.   
+* Ligne 18 - la variable d'instance de nom fait désormais également référence à l'objet String.    
+* Notez que deux variables locales différentes font référence au même objet Dog.   
+* Notez qu'une variable locale et une variable d'instance font toutes deux référence à la même chaîne "Aiko".              
+* Une fois la ligne 19 terminée, setName() se termine et est supprimé de la pile. À ce stade, la variable locale dogName disparaît également, bien que l'objet String auquel elle se réfère soit toujours sur le tas. 
+   
+# Declaring variable:  
 Une variable est un nom pour un morceau de mémoire qui stocke des données.   
 
 	int numberAnimals; // numberAnimals une variable de type int
@@ -115,7 +160,6 @@ Une fois qu'on a déclaré une variable on lui donne une valuer, et là on parle
 
 	 int numberAnimals = 100; 
 ### Identifier les identifiants (Identifying identifiers):  (OcpTest3)  
-
 Java a mit des régles précises sur le nom de l'identifiant, Un **identifiant** est le nom d'une variable, méthode, classe, interface ou package. Heureusement, les régles relatives aux identificateurs de variables s'appliquent à tous les autres types que vous êtes libre de nommer.  
 * Les identificatiant doivent commencer par une lettre, un symbole $ ou un symbole _  
 * Les identifiants peuvent inclure des chiffres mais ne doivent pas commencer des chiffres  
