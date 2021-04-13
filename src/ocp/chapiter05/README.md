@@ -469,7 +469,7 @@ Une autre façon de créer un tableau 2D consiste à initialiser uniquement la p
 		args[0] = new int[5];
 		args[1] = new int[3];
 Cette technique révèle ce que vous obtenez réellement avec Java: des tableaux de tableaux qui, correctement gérés, offrent un effet multidimensionnel.
-![Alt text](https://github.com/zyedtu/OCP_1Z0_815/blob/master/src/ocp/chapiter05/figure%207.6.png?raw=true "Title") 
+![Alt text](https://github.com/zyedtu/OCP_1Z0_815/blob/master/src/ocp/chapiter05/figure%205.7.png?raw=true "Title") 
    
 Bien que ce tableau soit de forme rectangulaire, un tableau n’a pas besoin de l’être. Considérez celui-ci:     
 
