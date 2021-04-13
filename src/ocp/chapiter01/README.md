@@ -1,11 +1,36 @@
 										WELCOME TO JAVA
-# JRE n'existe plus:
-Dans java 11, le JRE n'est plus disponible en tant que sous-répertoire du JDK. Les gens peuvent utiliser le JDK complet lors de l'exécution d'un programme java. JRE permet d'excuter un programme java mais pas de le compliler.   
-le JRE est un subset du JDK.
 
-# TLS: (Long Time Support)
-Oracle a annoncé un changement radical dans le cycle de release de Java. Il y aura dorénavant une release majeure tous les 6 mois, une mineure tous les 2 mois et une LTS (Long Time Support, Support à long terme) tous les 3 ans
+# Learning About the Java Environment: (En savoir plus sur l'environnement Java)   
+L'environnement Java consiste à comprendre un certain nombre de technologies. Dans les sections suivantes, nous passerons en revue les principaux termes et acronymes que vous devez connaître pour l'examen, puis nous discuterons du logiciel que vous devez étudier pour l'examen.    
+### Major Components of Java: (Principaux composants de Java)   
+Le kit de développement Java (JDK) contient le logiciel minimum dont vous avez besoin pour faire du développement Java. Les éléments clés incluent le compilateur (javac), qui convertit les fichiers .java en fichiers .class, et le lanceur java, qui crée la machine virtuelle et exécute le programme. Nous utiliserons les deux plus loin dans ce chapitre lors de l'exécution de programmes en ligne de commande. Le JDK contient également d'autres outils, notamment la commande archiver (jar), qui peut regrouper des fichiers, et la commande de documentation API (javadoc) pour générer la documentation.    
 
+Le programme javac génère des instructions dans un format spécial que la commande java peut exécuter, appelé bytecode. Ensuite, java lance la machine virtuelle Java (JVM) avant d'exécuter le code. La JVM sait comment exécuter le bytecode sur la machine réelle sur laquelle elle se trouve. Vous pouvez considérer la JVM comme une boîte magique spéciale sur votre machine qui sait comment exécuter votre fichier .class.    
+### JRE n'existe plus:
+Dans les versions précédentes de Java, vous pouviez télécharger un environnement d'exécution Java (JRE) au lieu du JDK complet. Le JRE était un sous-ensemble du JDK qui était utilisé pour exécuter un programme mais qui ne pouvait pas en compiler un. C'était littéralement un sous-ensemble. En fait, si vous regardiez à l'intérieur de la structure de répertoires d'un JDK dans les anciennes versions de Java, vous verriez un dossier nommé jre.    
+Dans Java 11, le JRE n'est plus disponible en tant que téléchargement autonome ou sous-répertoire du JDK. Les utilisateurs peuvent utiliser le JDK complet lors de l'exécution d'un programme Java. Les développeurs peuvent également fournir un exécutable contenant les éléments requis qui auraient été dans le JRE. La commande jlink crée cet exécutable.   
+Bien que le JRE ne fasse pas partie de l'examen, le fait de savoir ce qui a changé peut vous aider à éliminer les mauvaises réponses.       
+### LTS: (Long Time Support)
+Oracle a annoncé un changement radical dans le cycle de release de Java. Il y aura dorénavant une release majeure tous les 6 mois, une mineure tous les 2 mois et une LTS (Long Time Support, Support à long terme) tous les 3 ans.     
+# Understanding the Java Class Structure: (Comprendre la structure des classes Java)    
+Dans les programmes Java, les classes sont les blocs de construction de base. Lors de la définition d'une classe, vous décrivez toutes les parties et caractéristiques de l'un de ces blocs de construction. Pour utiliser la plupart des classes, vous devez créer des objets. Un objet est une instance d'exécution d'une classe en mémoire. Un objet est souvent appelé une instance car il représente une représentation unique de la classe. Tous les différents objets de toutes les différentes classes représentent l'état de votre programme. Une référence est une variable qui pointe vers un objet.    
+### Fields and Methods : (Champs et méthodes)    
+Les classes Java ont deux éléments principaux: *les méthodes*, souvent appelées fonctions ou procédures dans d'autres langages, et *les champs*, plus généralement appelés variables. Ensemble, ils sont appelés *les membres de la classe*. Les variables contiennent l'état du programme et les méthodes fonctionnent sur cet état. S'il est important de se souvenir du changement, une variable stocke ce changement. C’est vraiment tout ce que font les classes. C’est le programmeur qui crée et organise ces éléments de manière à ce que le code résultant soit utile et, idéalement, facile à comprendre pour les autres programmeurs.        
+### Classes vs. Files: (Classes vs fichiers)    
+La plupart du temps, chaque classe Java est définie dans son propre fichier .java. Il est généralement public, ce qui signifie que n'importe quel code peut l'appeler. Fait intéressant, Java n'exige pas que la classe soit publique. Par exemple, cette classe est très bien:    
+
+	class Animal {
+		String name;
+	}
+Vous pouvez même mettre deux classes dans le même fichier. Lorsque vous procédez ainsi, au plus une des classes du fichier est autorisée à être publique. Cela signifie qu'un fichier contenant les éléments suivants convient également:   
+
+	public class Animal {
+		private String name;
+	}
+	
+	class Animal2 {
+	}
+Si vous avez une classe publique, elle doit correspondre au nom de fichier. La déclaration publique class Animal2 ne se compilerait pas dans un fichier nommé Animal.java.    
 # Ecrire le méthode main():
 - Pour vérifier le version du java, on lance cette commande: **java -version**   
 -  On écrit cette méthode dans un fichier Zoo.java:   
@@ -23,8 +48,7 @@ le mot clé 'static' lie une méthode à sa classe afin qu'elle puisse etre appe
 La méthode main() permet à la JVM d'appeler notre code.
 
 La méthode main(), recoit une liste de param, representée sous forme d'un tableau de string (String[]).  
-
-# Passing param to a java Program:  
+### Passing param to a java Program:  
 
 		public class Zoo {    
 			public static void main(String[] args) {    
@@ -38,8 +62,7 @@ java Zoo "San Diego" Zoo
 => Cela affiche :   
  "San Diego"    
  Zoo    
- 
-# Lancer un programme sur une seule ligne:  
+### Lancer un programme sur une seule ligne:  
 A partir de java 11, vous pouvez exécuter un programme sans compiler, c-a-d sans taper la commande javac.  
  
 	public class Zoo {    
