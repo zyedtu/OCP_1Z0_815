@@ -90,7 +90,7 @@ On a ces imports:
 	import java.nio.file.Files;   
 	import java.nio.file.Paths;   
 
-* Certaines importations qui ne **fonctionnent** pas:  
+Certaines importations qui ne **fonctionnent** pas:  
 
 	 import java.nio.*; // le Wildcard correspond q'avec le nom de la classe.  
 	 import java.nio.*.*; // on peut avoir qu'un seul Wildcard et doit etre à la fin de l'import.  
