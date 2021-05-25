@@ -102,7 +102,7 @@ java.lang est un package spécial il est automatiqument importé, donc c'est red
 	import java.util.Random;  
 	import java.util.*; // ici c'est redondant parce que la class Random est importé avec le premier import.  
 
-** Naming Conflicts:**   
+**Naming Conflicts**:     
 
 Parmis les raison d'utiliser les packages est le nom de la classe ne soit pas unique dans un projet Java. Par exemple:  
 
